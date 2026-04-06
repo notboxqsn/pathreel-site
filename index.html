@@ -338,9 +338,9 @@
     <div class="hero-buttons">
       <a href="#download" class="btn-primary">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        App Store
+        <span data-i18n="btnAppStore">App Store</span>
       </a>
-      <a href="#features" class="btn-secondary">Explore Features</a>
+      <a href="#features" class="btn-secondary" data-i18n="btnExplore">Explore Features</a>
     </div>
   </section>
 
@@ -486,7 +486,7 @@
       <p class="section-desc fade-in" style="margin: 0 auto 40px;" data-i18n="dlDesc">Available on iOS. Android coming soon.</p>
       <a href="#" class="btn-primary fade-in" style="font-size:18px; padding:16px 40px;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download on the App Store
+        <span data-i18n="btnDLStore">Download on the App Store</span>
       </a>
     </div>
   </section>
@@ -601,6 +601,7 @@
         s1t:'Record', s1d:'Tap start and go. PathReel tracks your route in the background with GPS precision — even when your phone is locked.',
         s2t:'Replay', s2d:'Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.',
         s3t:'Share', s3d:'Export as a video and share to any social platform — or keep it as your personal travel diary.',
+        btnAppStore:'App Store', btnExplore:'Explore Features', btnDLStore:'Download on the App Store',
         lblDL:'Get PathReel', dlTitle:'Start Recording Your Story', dlDesc:'Available on iOS. Android coming soon.',
         lblDocs:'Documentation', docsTitle:'Getting Started',
         docsBody:'<h3>Permissions</h3><p>PathReel requires two permissions:</p><ul><li><strong>Location (Always Allow)</strong> — Required for background GPS recording.</li><li><strong>Photo Library (Full Access)</strong> — Required to match photos to routes and save videos.</li></ul><h3>Recording a Trip</h3><p>Select activity type and tap "Start Recording". PathReel tracks in the background.</p><h3>Replaying a Route</h3><p>Go to Trips > select a trip > "Replay Route". Control speed, camera height, and map style.</p><h3>Adding Notes</h3><p>Long-press any timeline item to add a note. Notes appear in replay and exported videos.</p><h3>Exporting Video</h3><p>Tap export during replay. Encodes as HEVC video with all photos and stops.</p><h3>Insights</h3><p>View stats, records, and heatmap. Filter by 7 days, 30 days, or all time.</p><h3>Settings</h3><p>Customize appearance, language (16), and replay timing.</p>',
@@ -629,6 +630,7 @@
         s1t:'记录', s1d:'点击开始，出发。PathReel 在后台用 GPS 精确追踪你的路线 — 即使手机锁屏也不影响。',
         s2t:'回放', s2d:'在 3D 地图上看你的旅程活起来，配有电影级镜头运动、你的照片和停留标注。',
         s3t:'分享', s3d:'导出为视频分享到任何社交平台 — 或作为你的私人旅行日记。',
+        btnExplore:'探索功能', btnDLStore:'在 App Store 下载',
         lblDL:'获取 PathReel', dlTitle:'开始记录你的故事', dlDesc:'iOS 版现已可用，Android 版即将推出。',
         lblDocs:'文档', docsTitle:'快速入门',
         docsBody:'<h3>权限</h3><p>PathReel 需要两个权限：</p><ul><li><strong>定位（始终允许）</strong> — 后台 GPS 记录必需。</li><li><strong>照片库（完全访问）</strong> — 匹配照片到路线和保存视频必需。</li></ul><h3>录制行程</h3><p>选择活动类型，点击"开始录制"。PathReel 在后台追踪路线。</p><h3>回放路线</h3><p>进入行程 > 选择行程 > "回放路线"。控制速度、镜头高度和地图样式。</p><h3>添加备注</h3><p>长按时间线中的任意项添加备注。备注会在回放和导出视频中显示。</p><h3>导出视频</h3><p>回放时点击导出按钮，编码为 HEVC 视频，包含照片和停留。</p><h3>数据洞察</h3><p>查看统计数据、记录和热力图。按 7 天、30 天或全部时间筛选。</p><h3>设置</h3><p>自定义外观、语言（16种）和回放时间。</p>',
@@ -643,6 +645,7 @@
         f1t:'電影級路線回放', f1d:'3D衛星俯瞰，自適應鏡頭高度，流暢過渡。', f2t:'自動照片匹配', f2d:'行程中拍攝的照片自動出現在地圖上。', f3t:'智慧停留偵測', f3d:'自動偵測停留，識別商戶名稱和時長。', f4t:'HEVC影片匯出', f4d:'匯出高品質HEVC影片，包含照片和停留。', f5t:'行程時間線與備註', f5d:'每段行程都有時間線，長按添加備註。', f6t:'數據洞察與熱力圖', f6d:'追蹤統計數據，在熱力圖上查看去過的地方。',
         lblUC:'使用場景', ucTitle:'為所有移動的人而建', uc1t:'自駕旅行者', uc1d:'記錄公路旅行，生成精彩回放。', uc2t:'運動愛好者', uc2d:'回放跑步、健行和騎行路線。', uc3t:'旅行博主', uc3d:'自動生成路線影片，一鍵匯出。', uc4t:'商務出行', uc4d:'記錄每次出行，完美的費用依據。',
         lblHow:'如何使用', howTitle:'三個簡單步驟', s1t:'記錄', s1d:'點擊開始，PathReel在背景追蹤路線。', s2t:'回放', s2d:'在3D地圖上看旅程活起來。', s3t:'分享', s3d:'匯出影片分享到任何平台。',
+        btnExplore:'探索功能', btnDLStore:'在 App Store 下載',
         lblDL:'取得PathReel', dlTitle:'開始記錄你的故事', dlDesc:'iOS版現已可用，Android版即將推出。',
         lblDocs:'文件', docsTitle:'快速入門',
         docsBody:'<h3>權限</h3><p>PathReel 需要兩個權限：</p><ul><li><strong>定位（始終允許）</strong> — 背景GPS記錄必需。</li><li><strong>照片庫（完全存取）</strong> — 匹配照片和儲存影片必需。</li></ul><h3>錄製行程</h3><p>選擇活動類型，點擊「開始錄製」。</p><h3>回放路線</h3><p>行程 > 選擇 > 「回放路線」。控制速度和鏡頭高度。</p><h3>添加備註</h3><p>長按時間線任意項添加備註。</p><h3>匯出影片</h3><p>回放時點擊匯出，編碼為HEVC影片。</p><h3>洞察</h3><p>查看統計和熱力圖。</p><h3>設定</h3><p>自訂外觀、語言和回放時間。</p>',
@@ -657,6 +660,7 @@
         f1t:'Replay cinématique', f1d:'Survol satellite 3D avec hauteur adaptative et contrôle de vitesse.', f2t:'Photos automatiques', f2d:'Les photos apparaissent sur la carte à leur position GPS exacte.', f3t:'Détection d\'arrêts', f3d:'Détecte les arrêts, identifie les lieux et affiche la durée.', f4t:'Export vidéo HEVC', f4d:'Exportez en vidéo HEVC haute qualité avec photos et arrêts.', f5t:'Chronologie & notes', f5d:'Chaque trajet a une chronologie. Appuyez longuement pour ajouter des notes.', f6t:'Analyses & carte thermique', f6d:'Suivez vos statistiques et voyez où vous êtes allé.',
         lblUC:'Cas d\'usage', ucTitle:'Pour tous ceux qui bougent', uc1t:'Road trippers', uc1d:'Enregistrez vos road trips épiques.', uc2t:'Athlètes', uc2d:'Rejouez vos courses et randonnées.', uc3t:'Créateurs voyage', uc3d:'Générez automatiquement des vidéos de parcours.', uc4t:'Voyageurs d\'affaires', uc4d:'Gardez un registre de chaque déplacement.',
         lblHow:'Comment ça marche', howTitle:'Trois étapes simples', s1t:'Enregistrer', s1d:'Appuyez et partez. PathReel suit votre parcours en arrière-plan.', s2t:'Rejouer', s2d:'Regardez votre trajet prendre vie sur une carte 3D.', s3t:'Partager', s3d:'Exportez en vidéo et partagez sur les réseaux sociaux.',
+        btnExplore:'Explorer les fonctionnalités', btnDLStore:'Télécharger sur l\'App Store',
         lblDL:'Obtenir PathReel', dlTitle:'Commencez à enregistrer', dlDesc:'Disponible sur iOS. Android bientôt.',
         lblDocs:'Documentation', docsTitle:'Premiers pas',
         docsBody:'<h3>Permissions</h3><p>PathReel nécessite deux permissions :</p><ul><li><strong>Localisation (Toujours)</strong> — Enregistrement GPS en arrière-plan.</li><li><strong>Photothèque (Accès complet)</strong> — Afficher les photos et sauvegarder les vidéos.</li></ul><h3>Enregistrer un trajet</h3><p>Sélectionnez le type d\'activité et appuyez sur « Démarrer ».</p><h3>Rejouer</h3><p>Trajets > sélectionner > « Rejouer ». Contrôlez la vitesse et la hauteur.</p><h3>Ajouter des notes</h3><p>Appuyez longuement sur un élément de la chronologie.</p><h3>Exporter la vidéo</h3><p>Appuyez sur exporter pendant la lecture. Encodage HEVC.</p><h3>Analyses</h3><p>Statistiques, records et carte thermique.</p><h3>Réglages</h3><p>Apparence, langue (16) et durées de lecture.</p>',
@@ -671,6 +675,7 @@
         f1t:'Replay cinematográfico', f1d:'Sobrevuelo satelital 3D con control de velocidad.', f2t:'Fotos automáticas', f2d:'Las fotos aparecen en el mapa en su ubicación GPS.', f3t:'Detección de paradas', f3d:'Detecta paradas, identifica lugares y muestra duración.', f4t:'Exportación HEVC', f4d:'Exporta video HEVC de alta calidad con fotos y paradas.', f5t:'Línea de tiempo y notas', f5d:'Cada viaje tiene una línea de tiempo. Mantén presionado para añadir notas.', f6t:'Estadísticas y mapa de calor', f6d:'Rastrea tus estadísticas y ve dónde has estado.',
         lblUC:'Casos de uso', ucTitle:'Para todos los que se mueven', uc1t:'Viajeros por carretera', uc1d:'Graba épicos viajes por carretera.', uc2t:'Atletas', uc2d:'Repite tus carreras y caminatas.', uc3t:'Creadores de viaje', uc3d:'Genera videos de rutas automáticamente.', uc4t:'Viajeros de negocios', uc4d:'Registra cada viaje con tiempos y distancias.',
         lblHow:'Cómo funciona', howTitle:'Tres pasos simples', s1t:'Grabar', s1d:'Toca iniciar. PathReel rastrea tu ruta en segundo plano.', s2t:'Reproducir', s2d:'Mira tu viaje cobrar vida en un mapa 3D.', s3t:'Compartir', s3d:'Exporta como video y comparte en redes sociales.',
+        btnExplore:'Explorar funciones', btnDLStore:'Descargar en App Store',
         lblDL:'Obtener PathReel', dlTitle:'Empieza a grabar tu historia', dlDesc:'Disponible en iOS. Android próximamente.',
         lblDocs:'Documentación', docsTitle:'Primeros pasos',
         docsBody:'<h3>Permisos</h3><p>PathReel necesita dos permisos:</p><ul><li><strong>Ubicación (Siempre)</strong> — Grabación GPS en segundo plano.</li><li><strong>Fotos (Acceso completo)</strong> — Mostrar fotos y guardar videos.</li></ul><h3>Grabar un viaje</h3><p>Selecciona tipo de actividad y toca "Iniciar".</p><h3>Reproducir</h3><p>Viajes > seleccionar > "Reproducir". Controla velocidad y altura.</p><h3>Añadir notas</h3><p>Mantén presionado cualquier elemento de la línea de tiempo.</p><h3>Exportar video</h3><p>Toca exportar durante la reproducción. Codificación HEVC.</p><h3>Estadísticas</h3><p>Datos, récords y mapa de calor.</p><h3>Ajustes</h3><p>Apariencia, idioma (16) y tiempos.</p>',
@@ -685,6 +690,7 @@
         f1t:'シネマティックルートリプレイ', f1d:'3D衛星ビューで適応型カメラ高度とスピードコントロール。', f2t:'自動写真マッチング', f2d:'旅行中の写真がGPS位置に自動表示。', f3t:'スマート滞在検出', f3d:'滞在を自動検出し、施設名と時間を表示。', f4t:'HEVC動画エクスポート', f4d:'高品質HEVC動画で写真と滞在を含めてエクスポート。', f5t:'タイムライン＆メモ', f5d:'各旅行にタイムライン。長押しでメモ追加。', f6t:'分析＆ヒートマップ', f6d:'統計データを追跡し、行った場所をヒートマップで確認。',
         lblUC:'活用例', ucTitle:'動くすべての人のために', uc1t:'ロードトリッパー', uc1d:'壮大なドライブを記録。', uc2t:'アスリート', uc2d:'ランニングやハイキングをリプレイ。', uc3t:'旅行クリエイター', uc3d:'ルート動画を自動生成。', uc4t:'ビジネス旅行者', uc4d:'すべての出張を記録。',
         lblHow:'使い方', howTitle:'3つのシンプルなステップ', s1t:'記録', s1d:'タップして出発。バックグラウンドでGPS追跡。', s2t:'リプレイ', s2d:'3Dマップで旅が蘇る。', s3t:'シェア', s3d:'動画をエクスポートしてSNSに共有。',
+        btnExplore:'機能を見る', btnDLStore:'App Storeでダウンロード',
         lblDL:'PathReelを入手', dlTitle:'あなたの物語を記録しよう', dlDesc:'iOS版公開中。Android版近日公開。',
         lblDocs:'ドキュメント', docsTitle:'はじめに',
         docsBody:'<h3>権限</h3><p>PathReelには2つの権限が必要です：</p><ul><li><strong>位置情報（常に許可）</strong> — バックグラウンドGPS記録に必要。</li><li><strong>写真ライブラリ（フルアクセス）</strong> — 写真のルート表示と動画保存に必要。</li></ul><h3>旅行を記録</h3><p>アクティビティタイプを選択して「記録開始」をタップ。バックグラウンドでルートを追跡します。</p><h3>ルートをリプレイ</h3><p>旅行 > 旅行を選択 > 「ルートリプレイ」。速度、カメラ高度、地図スタイルを制御。</p><h3>メモを追加</h3><p>タイムラインの項目を長押ししてメモを追加。リプレイとエクスポート動画に表示されます。</p><h3>動画エクスポート</h3><p>リプレイ中にエクスポートボタンをタップ。HEVC動画にエンコードされます。</p><h3>分析</h3><p>統計データ、記録、ヒートマップを表示。7日、30日、全期間でフィルタ。</p><h3>設定</h3><p>外観、言語（16言語）、リプレイタイミングをカスタマイズ。</p>',
@@ -699,6 +705,7 @@
         f1t:'시네마틱 경로 리플레이', f1d:'3D 위성 뷰와 속도 제어.', f2t:'자동 사진 매칭', f2d:'사진이 GPS 위치에 자동 표시.', f3t:'스마트 정차 감지', f3d:'정차를 감지하고 장소명과 시간 표시.', f4t:'HEVC 영상 내보내기', f4d:'고품질 HEVC 영상으로 내보내기.', f5t:'타임라인 & 메모', f5d:'각 여행에 타임라인. 길게 눌러 메모 추가.', f6t:'분석 & 히트맵', f6d:'통계 추적과 히트맵으로 방문 장소 확인.',
         lblUC:'활용 사례', ucTitle:'움직이는 모든 사람을 위해', uc1t:'로드 트리퍼', uc1d:'장거리 드라이브를 기록.', uc2t:'운동선수', uc2d:'달리기와 하이킹을 리플레이.', uc3t:'여행 크리에이터', uc3d:'경로 영상을 자동 생성.', uc4t:'비즈니스 여행자', uc4d:'모든 출장을 기록.',
         lblHow:'사용법', howTitle:'간단한 3단계', s1t:'기록', s1d:'탭하고 출발. 백그라운드에서 GPS 추적.', s2t:'리플레이', s2d:'3D 지도에서 여행이 살아납니다.', s3t:'공유', s3d:'영상으로 내보내고 SNS에 공유.',
+        btnExplore:'기능 살펴보기', btnDLStore:'App Store에서 다운로드',
         lblDL:'PathReel 다운로드', dlTitle:'당신의 이야기를 기록하세요', dlDesc:'iOS 출시. Android 곧 출시.',
         lblDocs:'문서', docsTitle:'시작하기',
         docsBody:'<h3>권한</h3><p>PathReel에는 두 가지 권한이 필요합니다:</p><ul><li><strong>위치 (항상 허용)</strong> — 백그라운드 GPS 기록.</li><li><strong>사진 라이브러리 (전체 접근)</strong> — 사진 표시 및 영상 저장.</li></ul><h3>여행 기록</h3><p>활동 유형을 선택하고 "기록 시작"을 탭합니다.</p><h3>리플레이</h3><p>여행 > 선택 > "경로 리플레이". 속도와 카메라 높이를 제어.</p><h3>메모 추가</h3><p>타임라인 항목을 길게 눌러 메모 추가.</p><h3>영상 내보내기</h3><p>리플레이 중 내보내기 버튼 탭. HEVC로 인코딩.</p><h3>분석</h3><p>통계, 기록, 히트맵 확인.</p><h3>설정</h3><p>외관, 언어(16개), 재생 타이밍 커스터마이즈.</p>',
@@ -713,6 +720,7 @@
         f1t:'Kinoreifes Route-Replay', f1d:'3D-Satelliten-Überflug mit adaptiver Kamerahöhe.', f2t:'Auto-Foto-Zuordnung', f2d:'Fotos erscheinen an ihrer GPS-Position auf der Karte.', f3t:'Smarte Halt-Erkennung', f3d:'Erkennt Halte, identifiziert Orte und zeigt Dauer.', f4t:'HEVC-Video-Export', f4d:'Export als hochwertige HEVC-Video mit Fotos und Halten.', f5t:'Zeitstrahl & Notizen', f5d:'Jede Fahrt hat einen Zeitstrahl. Lang drücken für Notizen.', f6t:'Analysen & Heatmap', f6d:'Statistiken verfolgen und besuchte Orte auf der Heatmap sehen.',
         lblUC:'Anwendungen', ucTitle:'Für alle, die sich bewegen', uc1t:'Road Tripper', uc1d:'Epische Fahrten aufzeichnen.', uc2t:'Sportler', uc2d:'Läufe und Wanderungen abspielen.', uc3t:'Reise-Creator', uc3d:'Automatisch Routenvideos erstellen.', uc4t:'Geschäftsreisende', uc4d:'Jede Reise dokumentieren.',
         lblHow:'So funktioniert\'s', howTitle:'Drei einfache Schritte', s1t:'Aufnehmen', s1d:'Tippen und los. GPS-Tracking im Hintergrund.', s2t:'Abspielen', s2d:'Reise auf 3D-Karte erleben.', s3t:'Teilen', s3d:'Als Video exportieren und in sozialen Medien teilen.',
+        btnExplore:'Funktionen entdecken', btnDLStore:'Im App Store laden',
         lblDL:'PathReel holen', dlTitle:'Beginne deine Geschichte', dlDesc:'Verfügbar auf iOS. Android kommt bald.',
         lblDocs:'Dokumentation', docsTitle:'Erste Schritte',
         docsBody:'<h3>Berechtigungen</h3><p>PathReel benötigt zwei Berechtigungen:</p><ul><li><strong>Standort (Immer)</strong> — GPS-Aufzeichnung im Hintergrund.</li><li><strong>Fotobibliothek (Vollzugriff)</strong> — Fotos anzeigen und Videos speichern.</li></ul><h3>Fahrt aufnehmen</h3><p>Aktivitätstyp wählen und „Start" tippen.</p><h3>Abspielen</h3><p>Fahrten > auswählen > „Route abspielen". Geschwindigkeit und Höhe steuern.</p><h3>Notizen</h3><p>Zeitstrahl-Element lang drücken für Notizen.</p><h3>Video exportieren</h3><p>Export-Button während der Wiedergabe tippen. HEVC-Kodierung.</p><h3>Analysen</h3><p>Statistiken, Rekorde und Heatmap.</p><h3>Einstellungen</h3><p>Darstellung, Sprache (16) und Wiedergabe-Timing.</p>',
@@ -729,7 +737,7 @@
       vi: { heroTitle:'Biến hành trình<br>thành phim', heroDesc:'PathReel ghi lại tuyến đường GPS và chuyển đổi thành video.', lblWhy:'Tại sao PathReel', whyTitle:'Không chỉ là GPS Tracker', f1t:'Phát lại điện ảnh', f2t:'Ảnh tự động', f3t:'Phát hiện điểm dừng', f4t:'Xuất HEVC', f5t:'Dòng thời gian & ghi chú', f6t:'Phân tích & bản đồ nhiệt', s1t:'Ghi', s2t:'Phát lại', s3t:'Chia sẻ', dlTitle:'Bắt đầu ghi lại', dlDesc:'Có sẵn trên iOS. Android sắp ra mắt.', lblDocs:'Tài liệu', lblPriv:'Pháp lý', privTitle:'Chính sách quyền riêng tư' },
     };
 
-    const langNames = { en:'English', zh:'简体中文', 'zh-TW':'繁體中文', fr:'Français', es:'Español', ja:'日本語', ko:'한국어', de:'Deutsch', pt:'Português', ru:'Русский', ar:'العربية', hi:'हिन्दी', it:'Italiano', tr:'Türkçe', th:'ไทย', vi:'Tiếng Việt' };
+    const langNames = { en:'🇺🇸 English', zh:'🇨🇳 简体中文', 'zh-TW':'🇹🇼 繁體中文', fr:'🇫🇷 Français', es:'🇪🇸 Español', ja:'🇯🇵 日本語', ko:'🇰🇷 한국어', de:'🇩🇪 Deutsch', pt:'🇧🇷 Português', ru:'🇷🇺 Русский', ar:'🇸🇦 العربية', hi:'🇮🇳 हिन्दी', it:'🇮🇹 Italiano', tr:'🇹🇷 Türkçe', th:'🇹🇭 ไทย', vi:'🇻🇳 Tiếng Việt' };
 
     function detectLang() {
       const saved = localStorage.getItem('pathreel-lang');
