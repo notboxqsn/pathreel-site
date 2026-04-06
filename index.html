@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PathReel — Turn Your Journey Into a Film</title>
+  <meta name="description" content="PathReel transforms your GPS routes into cinematic replay videos with photos, stops, and memories. Record, replay, share.">
+  <link rel="canonical" href="https://pathreel.app">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0D1B2A;
+      --bg-mid: #1B2D45;
+      --accent: #00D4FF;
+      --blue: #007AFF;
+      --green: #34C759;
+      --silver: #B8C4D0;
+      --text: #E8EDF2;
+      --text-muted: #7A8BA0;
+      --glass: rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ========== NAV ========== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(13,27,42,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+    .nav-logo span { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; font-size: 14px;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      color: #fff !important; padding: 8px 20px; border-radius: 20px;
+      font-weight: 600 !important;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      background: radial-gradient(ellipse at 50% 30%, rgba(0,122,255,0.12) 0%, transparent 60%),
+                  linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+    }
+    .hero-particles {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .hero-particles span {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particle 4s infinite;
+    }
+    @keyframes particle {
+      0% { opacity: 0; transform: translateY(0) scale(1); }
+      50% { opacity: 0.6; }
+      100% { opacity: 0; transform: translateY(-100px) scale(0); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 13px; color: var(--accent);
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      color: #fff; padding: 14px 32px; border-radius: 28px;
+      text-decoration: none; font-weight: 600; font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(0,122,255,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,122,255,0.4); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text); padding: 14px 32px; border-radius: 28px;
+      text-decoration: none; font-weight: 600; font-size: 16px;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .hero-phone {
+      margin-top: 60px;
+      width: clamp(260px, 30vw, 320px);
+      border-radius: 24px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 40px rgba(0,122,255,0.15);
+    }
+
+    /* ========== SECTIONS ========== */
+    section { padding: 100px 24px; }
+    .section-label {
+      display: inline-block;
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 3px; color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 17px; color: var(--text-muted);
+      max-width: 600px;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    /* ========== WHY ========== */
+    .why { background: linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%); }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .why-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 32px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .why-card:hover { transform: translateY(-4px); border-color: rgba(0,212,255,0.3); }
+    .why-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      display: flex; justify-content: center; align-items: center;
+      font-size: 22px; margin-bottom: 20px;
+    }
+    .why-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .why-card p { color: var(--text-muted); font-size: 15px; }
+
+    /* ========== FEATURES ========== */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex; gap: 16px; align-items: flex-start;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-3px); border-color: rgba(0,212,255,0.2); }
+    .feature-num {
+      font-size: 32px; font-weight: 900; color: var(--accent); opacity: 0.3;
+      line-height: 1; min-width: 36px;
+    }
+    .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .feature-card p { color: var(--text-muted); font-size: 14px; }
+
+    /* ========== USE CASES ========== */
+    .usecases { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%); }
+    .usecase-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .usecase-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 32px; text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s;
+    }
+    .usecase-card:hover { transform: scale(1.03); }
+    .usecase-emoji { font-size: 48px; margin-bottom: 16px; }
+    .usecase-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .usecase-card p { font-size: 14px; color: var(--text-muted); }
+
+    /* ========== HOW IT WORKS ========== */
+    .steps {
+      display: flex; gap: 32px; margin-top: 48px;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .step {
+      flex: 1; min-width: 240px; max-width: 320px;
+      text-align: center;
+    }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      display: flex; justify-content: center; align-items: center;
+      font-size: 22px; font-weight: 800; color: #fff;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 20px rgba(0,122,255,0.3);
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--text-muted); }
+
+    /* ========== DOWNLOAD ========== */
+    .download {
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 50%, rgba(0,122,255,0.1) 0%, transparent 60%);
+    }
+    .download .btn-primary { font-size: 18px; padding: 16px 40px; }
+
+    /* ========== DOCS ========== */
+    .docs-content {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 32px;
+      backdrop-filter: blur(10px);
+    }
+    .docs-content h3 {
+      font-size: 18px; font-weight: 700; margin-top: 24px; margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .docs-content h3:first-child { margin-top: 0; }
+    .docs-content p, .docs-content li {
+      font-size: 15px; color: var(--text-muted); margin-bottom: 8px;
+    }
+    .docs-content ul { padding-left: 20px; }
+
+    /* ========== PRIVACY ========== */
+    .privacy { background: var(--bg-mid); }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 48px 24px;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+    }
+    footer p { color: var(--text-muted); font-size: 14px; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .docs-content { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="icon.png" alt="PathReel">
+      <span>PathReel</span>
+    </a>
+    <div class="nav-links">
+      <a href="#why">Why</a>
+      <a href="#features">Features</a>
+      <a href="#usecases">Use Cases</a>
+      <a href="#how">How It Works</a>
+      <a href="#docs">Docs</a>
+      <a href="#download" class="nav-cta">Download</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-badge">Now Available on iOS</div>
+    <h1>Turn Your Journey<br>Into a Film</h1>
+    <p>PathReel records your GPS routes and transforms them into cinematic replay videos — with photos, stops, and memories, all in one tap.</p>
+    <div class="hero-buttons">
+      <a href="#download" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="#features" class="btn-secondary">Explore Features</a>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why" id="why">
+    <div class="container">
+      <span class="section-label">Why PathReel</span>
+      <h2 class="section-title fade-in">Not Just Another GPS Tracker</h2>
+      <p class="section-desc fade-in">Other apps record data. PathReel creates memories. Every route becomes a shareable cinematic experience.</p>
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="why-icon">🎬</div>
+          <h3>Routes Become Films</h3>
+          <p>One tap turns any trip into a professional replay video with 3D map animation, smooth camera movements, and your photos woven in.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">📍</div>
+          <h3>Every Stop Tells a Story</h3>
+          <p>PathReel auto-detects where you stopped, finds the venue name, and lets you add notes — building a rich timeline of your journey.</p>
+        </div>
+        <div class="why-card fade-in">
+          <div class="why-icon">📤</div>
+          <h3>Share Instantly</h3>
+          <p>Export to video and share directly to Instagram, TikTok, WeChat, or any platform. Your adventures deserve an audience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <span class="section-label">Features</span>
+      <h2 class="section-title fade-in">Everything You Need</h2>
+      <p class="section-desc fade-in">Powerful features wrapped in a beautiful, intuitive interface.</p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-num">01</span>
+          <div>
+            <h3>Cinematic Route Replay</h3>
+            <p>3D satellite flyover with adaptive camera height, smooth transitions, and speed control (0.5x to 3x).</p>
+          </div>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">02</span>
+          <div>
+            <h3>Auto Photo Matching</h3>
+            <p>Photos taken during your trip appear on the map at their exact GPS location. Zoom in to relive the moment.</p>
+          </div>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">03</span>
+          <div>
+            <h3>Smart Stop Detection</h3>
+            <p>Automatically detects stops over 10 minutes, identifies venues via Apple Maps, and shows duration.</p>
+          </div>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">04</span>
+          <div>
+            <h3>HEVC Video Export</h3>
+            <p>Export your replay as a high-quality HEVC video. Photos, stops, and notes all included. Share anywhere.</p>
+          </div>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">05</span>
+          <div>
+            <h3>Trip Timeline & Notes</h3>
+            <p>Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.</p>
+          </div>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">06</span>
+          <div>
+            <h3>Insights & Heatmap</h3>
+            <p>Track your stats over time. See where you've been on a heatmap. Weekly and monthly distance reports.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="usecases" id="usecases">
+    <div class="container">
+      <span class="section-label">Use Cases</span>
+      <h2 class="section-title fade-in">Built for Everyone Who Moves</h2>
+      <div class="usecase-grid">
+        <div class="usecase-card fade-in">
+          <div class="usecase-emoji">🚗</div>
+          <h3>Road Trippers</h3>
+          <p>Record epic cross-country drives. Generate a highlight reel with scenic stops and roadside photos.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <div class="usecase-emoji">🏃</div>
+          <h3>Athletes & Runners</h3>
+          <p>Replay your runs, hikes, and bike rides with speed data and route animation. Track your progress.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <div class="usecase-emoji">📸</div>
+          <h3>Travel Creators</h3>
+          <p>Auto-generate route videos with geotagged photos. One-tap export to TikTok, Reels, or YouTube Shorts.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <div class="usecase-emoji">🏢</div>
+          <h3>Business Travelers</h3>
+          <p>Keep a record of every trip with timestamps, distances, and stops. Perfect for expense reports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container" style="text-align:center;">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title fade-in">Three Simple Steps</h2>
+      <div class="steps">
+        <div class="step fade-in">
+          <div class="step-num">1</div>
+          <h3>Record</h3>
+          <p>Tap start and go. PathReel tracks your route in the background with GPS precision — even when your phone is locked.</p>
+        </div>
+        <div class="step fade-in">
+          <div class="step-num">2</div>
+          <h3>Replay</h3>
+          <p>Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.</p>
+        </div>
+        <div class="step fade-in">
+          <div class="step-num">3</div>
+          <h3>Share</h3>
+          <p>Export as a video and share to any social platform — or keep it as your personal travel diary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="download" id="download">
+    <div class="container" style="text-align:center;">
+      <span class="section-label">Get PathReel</span>
+      <h2 class="section-title fade-in">Start Recording Your Story</h2>
+      <p class="section-desc fade-in" style="margin: 0 auto 40px;">Available on iOS. Android coming soon.</p>
+      <a href="#" class="btn-primary fade-in" style="font-size:18px; padding:16px 40px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+    </div>
+  </section>
+
+  <!-- DOCS -->
+  <section id="docs">
+    <div class="container">
+      <span class="section-label">Documentation</span>
+      <h2 class="section-title fade-in">Getting Started</h2>
+      <div class="docs-content fade-in">
+        <h3>Permissions</h3>
+        <p>PathReel requires two permissions to work properly:</p>
+        <ul>
+          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording. Go to Settings > PathReel > Location > Always.</li>
+          <li><strong>Photo Library (Full Access)</strong> — Required to match your photos to routes and save exported videos.</li>
+        </ul>
+
+        <h3>Recording a Trip</h3>
+        <p>Select your activity type (Hybrid, Walk, Run, Bike, etc.) and tap "Start Recording". PathReel tracks your route in the background. You can lock your phone and use other apps normally. When you're done, open PathReel and tap "Stop Recording".</p>
+
+        <h3>Replaying a Route</h3>
+        <p>Go to Trips > select a trip > tap "Replay Route". Control playback with speed (0.5x–3x), camera height, and satellite/map toggle. Photos and stops appear automatically during playback.</p>
+
+        <h3>Adding Notes</h3>
+        <p>In the trip detail view, long-press any item in the timeline (start, photo, stop, end) to add a personal note. Notes are saved permanently and appear during replay and in exported videos.</p>
+
+        <h3>Exporting Video</h3>
+        <p>During replay, tap the export button (box with arrow). PathReel captures every frame including photos, stops, and zoom-ins, then encodes it as HEVC video. After saving, you can share directly to any social platform.</p>
+
+        <h3>Insights</h3>
+        <p>The Insights tab shows your driving statistics (distance, trips, speed), records (longest trip, top speed), and a heatmap of everywhere you've been. Filter by 7 days, 30 days, or all time.</p>
+
+        <h3>Settings</h3>
+        <p>Customize appearance (Day/Night mode), language (16 languages supported), and replay timing (photo display duration, stop display duration).</p>
+
+        <h3>Supported Languages</h3>
+        <p>English, 简体中文, 繁體中文, Español, Français, العربية, Português, Русский, 日本語, 한국어, Deutsch, हिन्दी, Italiano, Türkçe, ไทย, Tiếng Việt</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="privacy" id="privacy">
+    <div class="container">
+      <span class="section-label">Legal</span>
+      <h2 class="section-title fade-in">Privacy Policy</h2>
+      <div class="docs-content fade-in">
+        <p><strong>Last updated:</strong> April 6, 2026</p>
+
+        <h3>Overview</h3>
+        <p>PathReel is designed with privacy at its core. All your data stays on your device. We do not collect, store, or transmit any personal data to external servers.</p>
+
+        <h3>Data Collection</h3>
+        <p>PathReel does <strong>not</strong> collect:</p>
+        <ul>
+          <li>Personal information (name, email, phone number)</li>
+          <li>Location data to any server</li>
+          <li>Photos or media files</li>
+          <li>Usage analytics or tracking data</li>
+        </ul>
+
+        <h3>On-Device Storage</h3>
+        <p>All data is stored locally on your device using SQLite:</p>
+        <ul>
+          <li>GPS track points (latitude, longitude, altitude, speed, timestamp)</li>
+          <li>Trip metadata (start time, end time, distance, activity type)</li>
+          <li>Notes and descriptions you add to trips</li>
+          <li>App settings (language, theme, replay preferences)</li>
+        </ul>
+
+        <h3>Permissions</h3>
+        <ul>
+          <li><strong>Location (Always)</strong> — Used solely to record GPS routes. Location data never leaves your device.</li>
+          <li><strong>Photo Library</strong> — Used to read geotagged photos for display on routes, and to save exported videos. PathReel does not modify or delete your photos.</li>
+        </ul>
+
+        <h3>Third-Party Services</h3>
+        <ul>
+          <li><strong>Apple Maps / MapKit</strong> — Used for map display, reverse geocoding, and POI lookup. These requests go through Apple's servers per Apple's privacy policy.</li>
+          <li><strong>App Store Update Check</strong> — PathReel checks Apple's iTunes API to notify you of updates. No personal data is sent.</li>
+        </ul>
+
+        <h3>Data Sharing</h3>
+        <p>When you export a video or share content via the iOS share sheet, PathReel provides the file to the platform you choose. PathReel itself does not upload anything.</p>
+
+        <h3>Children's Privacy</h3>
+        <p>PathReel does not knowingly collect information from children under 13.</p>
+
+        <h3>Changes</h3>
+        <p>We may update this privacy policy from time to time. Changes will be reflected on this page with an updated date.</p>
+
+        <h3>Contact</h3>
+        <p>If you have questions about this privacy policy, contact us at <a href="mailto:privacy@pathreel.app" style="color:var(--accent);">privacy@pathreel.app</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a></p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      const span = document.createElement('span');
+      span.style.left = Math.random() * 100 + '%';
+      span.style.top = Math.random() * 100 + '%';
+      span.style.animationDelay = Math.random() * 4 + 's';
+      span.style.animationDuration = (3 + Math.random() * 3) + 's';
+      container.appendChild(span);
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
