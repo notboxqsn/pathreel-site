@@ -494,34 +494,27 @@
   <!-- DOCS -->
   <section id="docs">
     <div class="container">
-      <span class="section-label">Documentation</span>
-      <h2 class="section-title fade-in">Getting Started</h2>
-      <div class="docs-content fade-in">
+      <span class="section-label" data-i18n="lblDocs">Documentation</span>
+      <h2 class="section-title fade-in" data-i18n="docsTitle">Getting Started</h2>
+      <div class="docs-content fade-in" id="docsBody" data-i18n="docsBody" data-i18n-html="1">
         <h3>Permissions</h3>
         <p>PathReel requires two permissions to work properly:</p>
         <ul>
-          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording. Go to Settings > PathReel > Location > Always.</li>
+          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording.</li>
           <li><strong>Photo Library (Full Access)</strong> — Required to match your photos to routes and save exported videos.</li>
         </ul>
-
         <h3>Recording a Trip</h3>
-        <p>Select your activity type (Hybrid, Walk, Run, Bike, etc.) and tap "Start Recording". PathReel tracks your route in the background. You can lock your phone and use other apps normally. When you're done, open PathReel and tap "Stop Recording".</p>
-
+        <p>Select your activity type and tap "Start Recording". PathReel tracks your route in the background. Lock your phone and use other apps normally.</p>
         <h3>Replaying a Route</h3>
-        <p>Go to Trips > select a trip > tap "Replay Route". Control playback with speed (0.5x–3x), camera height, and satellite/map toggle. Photos and stops appear automatically during playback.</p>
-
+        <p>Go to Trips > select a trip > tap "Replay Route". Control playback speed, camera height, and map style.</p>
         <h3>Adding Notes</h3>
-        <p>In the trip detail view, long-press any item in the timeline (start, photo, stop, end) to add a personal note. Notes are saved permanently and appear during replay and in exported videos.</p>
-
+        <p>Long-press any item in the timeline to add a personal note. Notes appear during replay and in exported videos.</p>
         <h3>Exporting Video</h3>
-        <p>During replay, tap the export button (box with arrow). PathReel captures every frame including photos, stops, and zoom-ins, then encodes it as HEVC video. After saving, you can share directly to any social platform.</p>
-
+        <p>Tap the export button during replay. PathReel captures every frame and encodes it as HEVC video.</p>
         <h3>Insights</h3>
-        <p>The Insights tab shows your driving statistics (distance, trips, speed), records (longest trip, top speed), and a heatmap of everywhere you've been. Filter by 7 days, 30 days, or all time.</p>
-
+        <p>View driving statistics, records, and a heatmap. Filter by 7 days, 30 days, or all time.</p>
         <h3>Settings</h3>
-        <p>Customize appearance (Day/Night mode), language (16 languages supported), and replay timing (photo display duration, stop display duration).</p>
-
+        <p>Customize appearance (Day/Night), language (16 languages), and replay timing.</p>
         <h3>Supported Languages</h3>
         <p>English, 简体中文, 繁體中文, Español, Français, العربية, Português, Русский, 日本語, 한국어, Deutsch, हिन्दी, Italiano, Türkçe, ไทย, Tiếng Việt</p>
       </div>
@@ -531,62 +524,33 @@
   <!-- PRIVACY -->
   <section class="privacy" id="privacy">
     <div class="container">
-      <span class="section-label">Legal</span>
-      <h2 class="section-title fade-in">Privacy Policy</h2>
-      <div class="docs-content fade-in">
+      <span class="section-label" data-i18n="lblPriv">Legal</span>
+      <h2 class="section-title fade-in" data-i18n="privTitle">Privacy Policy</h2>
+      <div class="docs-content fade-in" id="privBody" data-i18n="privBody" data-i18n-html="1">
         <p><strong>Last updated:</strong> April 6, 2026</p>
-
         <h3>Overview</h3>
         <p>PathReel is designed with privacy at its core. All your data stays on your device. We do not collect, store, or transmit any personal data to external servers.</p>
-
         <h3>Data Collection</h3>
-        <p>PathReel does <strong>not</strong> collect:</p>
-        <ul>
-          <li>Personal information (name, email, phone number)</li>
-          <li>Location data to any server</li>
-          <li>Photos or media files</li>
-          <li>Usage analytics or tracking data</li>
-        </ul>
-
+        <p>PathReel does <strong>not</strong> collect: personal information, location data to any server, photos, or usage analytics.</p>
         <h3>On-Device Storage</h3>
-        <p>All data is stored locally on your device using SQLite:</p>
-        <ul>
-          <li>GPS track points (latitude, longitude, altitude, speed, timestamp)</li>
-          <li>Trip metadata (start time, end time, distance, activity type)</li>
-          <li>Notes and descriptions you add to trips</li>
-          <li>App settings (language, theme, replay preferences)</li>
-        </ul>
-
+        <p>All data is stored locally on your device: GPS track points, trip metadata, notes, and app settings.</p>
         <h3>Permissions</h3>
-        <ul>
-          <li><strong>Location (Always)</strong> — Used solely to record GPS routes. Location data never leaves your device.</li>
-          <li><strong>Photo Library</strong> — Used to read geotagged photos for display on routes, and to save exported videos. PathReel does not modify or delete your photos.</li>
-        </ul>
-
+        <p><strong>Location (Always)</strong> — Used solely to record GPS routes. Never leaves your device.<br><strong>Photo Library</strong> — Used to display trip photos and save exported videos.</p>
         <h3>Third-Party Services</h3>
-        <ul>
-          <li><strong>Apple Maps / MapKit</strong> — Used for map display, reverse geocoding, and POI lookup. These requests go through Apple's servers per Apple's privacy policy.</li>
-          <li><strong>App Store Update Check</strong> — PathReel checks Apple's iTunes API to notify you of updates. No personal data is sent.</li>
-        </ul>
-
+        <p><strong>Apple Maps/MapKit</strong> — Map display and POI lookup via Apple's servers.<br><strong>App Store</strong> — Update check via iTunes API. No personal data sent.</p>
         <h3>Data Sharing</h3>
-        <p>When you export a video or share content via the iOS share sheet, PathReel provides the file to the platform you choose. PathReel itself does not upload anything.</p>
-
+        <p>When you share via the iOS share sheet, PathReel provides the file to your chosen platform. PathReel itself does not upload anything.</p>
         <h3>Children's Privacy</h3>
         <p>PathReel does not knowingly collect information from children under 13.</p>
-
-        <h3>Changes</h3>
-        <p>We may update this privacy policy from time to time. Changes will be reflected on this page with an updated date.</p>
-
         <h3>Contact</h3>
-        <p>If you have questions about this privacy policy, contact us at <a href="mailto:privacy@pathreel.app" style="color:var(--accent);">privacy@pathreel.app</a></p>
+        <p>Questions? Contact <a href="mailto:privacy@pathreel.app" style="color:var(--accent);">privacy@pathreel.app</a></p>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a></p>
+    <p data-i18n="footer" data-i18n-html="1">&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a></p>
   </footer>
 
   <!-- SCRIPTS -->
@@ -637,7 +601,12 @@
         s1t:'Record', s1d:'Tap start and go. PathReel tracks your route in the background with GPS precision — even when your phone is locked.',
         s2t:'Replay', s2d:'Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.',
         s3t:'Share', s3d:'Export as a video and share to any social platform — or keep it as your personal travel diary.',
-        lblDL:'Get PathReel', dlTitle:'Start Recording Your Story', dlDesc:'Available on iOS. Android coming soon.' },
+        lblDL:'Get PathReel', dlTitle:'Start Recording Your Story', dlDesc:'Available on iOS. Android coming soon.',
+        lblDocs:'Documentation', docsTitle:'Getting Started',
+        docsBody:'<h3>Permissions</h3><p>PathReel requires two permissions:</p><ul><li><strong>Location (Always Allow)</strong> — Required for background GPS recording.</li><li><strong>Photo Library (Full Access)</strong> — Required to match photos to routes and save videos.</li></ul><h3>Recording a Trip</h3><p>Select activity type and tap "Start Recording". PathReel tracks in the background.</p><h3>Replaying a Route</h3><p>Go to Trips > select a trip > "Replay Route". Control speed, camera height, and map style.</p><h3>Adding Notes</h3><p>Long-press any timeline item to add a note. Notes appear in replay and exported videos.</p><h3>Exporting Video</h3><p>Tap export during replay. Encodes as HEVC video with all photos and stops.</p><h3>Insights</h3><p>View stats, records, and heatmap. Filter by 7 days, 30 days, or all time.</p><h3>Settings</h3><p>Customize appearance, language (16), and replay timing.</p>',
+        lblPriv:'Legal', privTitle:'Privacy Policy',
+        privBody:'<p><strong>Last updated:</strong> April 6, 2026</p><h3>Overview</h3><p>All data stays on your device. We do not collect or transmit personal data.</p><h3>Data Collection</h3><p>PathReel does <strong>not</strong> collect personal info, location data to servers, photos, or analytics.</p><h3>On-Device Storage</h3><p>All data stored locally: GPS points, trip metadata, notes, settings.</p><h3>Permissions</h3><p><strong>Location (Always)</strong> — GPS recording only. Never leaves device.<br><strong>Photo Library</strong> — Display trip photos and save videos.</p><h3>Third-Party</h3><p>Apple Maps for display/POI. iTunes API for update check. No personal data sent.</p><h3>Data Sharing</h3><p>You choose what to share via iOS share sheet. PathReel does not upload anything.</p><h3>Children</h3><p>Not designed for children under 13.</p><h3>Contact</h3><p><a href="mailto:privacy@pathreel.app" style="color:#00D4FF;">privacy@pathreel.app</a></p>',
+        footer:'&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a>' },
       zh: { navWhy:'为什么', navFeatures:'功能', navUseCases:'使用场景', navHow:'如何使用', navDocs:'文档', navDownload:'下载',
         heroBadge:'现已登陆 iOS', heroTitle:'把你的旅程<br>变成电影', heroDesc:'PathReel 记录你的 GPS 路线，将它们转化为电影级的回放视频 — 照片、停留点和回忆，一键生成。',
         whyTitle:'不只是又一个 GPS 追踪器', whyDesc:'别的应用只记录数据，PathReel 创造回忆。每条路线都变成可分享的电影级体验。',
@@ -660,7 +629,12 @@
         s1t:'记录', s1d:'点击开始，出发。PathReel 在后台用 GPS 精确追踪你的路线 — 即使手机锁屏也不影响。',
         s2t:'回放', s2d:'在 3D 地图上看你的旅程活起来，配有电影级镜头运动、你的照片和停留标注。',
         s3t:'分享', s3d:'导出为视频分享到任何社交平台 — 或作为你的私人旅行日记。',
-        lblDL:'获取 PathReel', dlTitle:'开始记录你的故事', dlDesc:'iOS 版现已可用，Android 版即将推出。' },
+        lblDL:'获取 PathReel', dlTitle:'开始记录你的故事', dlDesc:'iOS 版现已可用，Android 版即将推出。',
+        lblDocs:'文档', docsTitle:'快速入门',
+        docsBody:'<h3>权限</h3><p>PathReel 需要两个权限：</p><ul><li><strong>定位（始终允许）</strong> — 后台 GPS 记录必需。</li><li><strong>照片库（完全访问）</strong> — 匹配照片到路线和保存视频必需。</li></ul><h3>录制行程</h3><p>选择活动类型，点击"开始录制"。PathReel 在后台追踪路线。</p><h3>回放路线</h3><p>进入行程 > 选择行程 > "回放路线"。控制速度、镜头高度和地图样式。</p><h3>添加备注</h3><p>长按时间线中的任意项添加备注。备注会在回放和导出视频中显示。</p><h3>导出视频</h3><p>回放时点击导出按钮，编码为 HEVC 视频，包含照片和停留。</p><h3>数据洞察</h3><p>查看统计数据、记录和热力图。按 7 天、30 天或全部时间筛选。</p><h3>设置</h3><p>自定义外观、语言（16种）和回放时间。</p>',
+        lblPriv:'法律', privTitle:'隐私政策',
+        privBody:'<p><strong>更新日期：</strong>2026年4月6日</p><h3>概述</h3><p>所有数据保存在你的设备上。我们不收集或传输任何个人数据。</p><h3>数据收集</h3><p>PathReel <strong>不</strong>收集个人信息、位置数据、照片或使用分析。</p><h3>本地存储</h3><p>所有数据本地存储：GPS 轨迹点、行程元数据、备注、设置。</p><h3>权限</h3><p><strong>定位（始终）</strong> — 仅用于 GPS 记录，数据不离开设备。<br><strong>照片库</strong> — 显示行程照片和保存视频。</p><h3>第三方服务</h3><p>Apple 地图用于显示和 POI 查询。iTunes API 用于更新检查。不发送个人数据。</p><h3>数据共享</h3><p>通过 iOS 分享功能由你选择分享平台。PathReel 本身不上传任何内容。</p><h3>儿童隐私</h3><p>不面向 13 岁以下儿童。</p><h3>联系</h3><p><a href="mailto:privacy@pathreel.app" style="color:#00D4FF;">privacy@pathreel.app</a></p>',
+        footer:'&copy; 2026 PathReel. 保留所有权利。 | <a href="#privacy">隐私政策</a> | <a href="#docs">文档</a>' },
       'zh-TW': { navWhy:'為什麼', navFeatures:'功能', navUseCases:'使用場景', navHow:'如何使用', navDocs:'文件', navDownload:'下載',
         heroBadge:'現已登陸 iOS', heroTitle:'把你的旅程<br>變成電影', heroDesc:'PathReel 記錄你的 GPS 路線，將它們轉化為電影級的回放影片 — 照片、停留點和回憶，一鍵生成。',
         whyTitle:'不只是又一個 GPS 追蹤器', whyDesc:'別的應用只記錄數據，PathReel 創造回憶。',
@@ -741,4 +715,3 @@
   </script>
 </body>
 </html>
-<!-- v1775510751 -->
