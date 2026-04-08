@@ -429,15 +429,15 @@
         <div class="feature-card fade-in">
           <span class="feature-num">07</span>
           <div>
-            <h3 data-i18n="f7t">Smart Activity Detection</h3>
-            <p data-i18n="f7d">Automatically detects driving, walking, running, or cycling. No manual selection needed. Shows real-time activity icons.</p>
+            <h3 data-i18n="f7t">Social Media Share Templates</h3>
+            <p data-i18n="f7d">Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. Multiple video aspect ratios.</p>
           </div>
         </div>
         <div class="feature-card fade-in">
           <span class="feature-num">08</span>
           <div>
-            <h3 data-i18n="f8t">Smart Power Management</h3>
-            <p data-i18n="f8d">Automatically reduces GPS frequency when stationary. Ultra-low power mode when battery drops below 15%. Saves 30-40% battery on long trips.</p>
+            <h3 data-i18n="f8t">Custom Trip Groups</h3>
+            <p data-i18n="f8d">Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.</p>
           </div>
         </div>
       </div>
@@ -521,28 +521,104 @@
         <h3>Permissions</h3>
         <p>PathReel requires two permissions to work properly:</p>
         <ul>
-          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording.</li>
-          <li><strong>Photo Library (Full Access)</strong> — Required to match your photos to routes and save exported videos.</li>
+          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording. PathReel uses high-accuracy GPS to track your route even when the screen is locked or you switch to other apps. Go to Settings > PathReel > Location > Always.</li>
+          <li><strong>Photo Library (Full Access)</strong> — Required to match your photos to routes and save exported videos. PathReel scans photos taken during a trip's time range and places them on the route.</li>
         </ul>
+
         <h3>Recording a Trip</h3>
-        <p>Select your activity type and tap "Start Recording". PathReel tracks your route in the background. Lock your phone and use other apps normally.</p>
-        <h3>Replaying a Route</h3>
-        <p>Go to Trips > select a trip > tap "Replay Route". Control playback speed, camera height, and map style.</p>
-        <h3>Adding Notes</h3>
-        <p>Long-press any item in the timeline to add a personal note. Notes appear during replay and in exported videos.</p>
-        <h3>Exporting Video</h3>
-        <p>Tap the export button during replay. PathReel captures every frame and encodes it as HEVC video.</p>
-        <h3>Insights</h3>
-        <p>View driving statistics, records, and a heatmap. Filter by 7 days, 30 days, or all time.</p>
-        <h3>Settings</h3>
-        <p>Customize your PathReel experience:</p>
+        <p>On the Record tab, tap <strong>"Start Recording"</strong>. PathReel begins tracking your route immediately using high-accuracy GPS (updated every 3 meters of movement).</p>
         <ul>
-          <li><strong>Appearance</strong> — Switch between Day (light) and Night (dark) mode. Affects all screens.</li>
+          <li>You can lock your phone, switch apps, or put it in your pocket — recording continues in the background.</li>
+          <li>The blue status bar indicator shows that location is being tracked.</li>
+          <li>The map follows your direction of travel with the forward direction always pointing up, like a navigation app.</li>
+          <li>Distance, duration, and point count update in real time on screen.</li>
+          <li>Take photos along the way — they will automatically appear on your route during replay.</li>
+          <li>To stop, tap <strong>"Stop Recording"</strong> and confirm.</li>
+        </ul>
+
+        <h3>Viewing Trip Details</h3>
+        <p>Go to the <strong>Trips</strong> tab to see all recorded trips. Tap a trip to view its details:</p>
+        <ul>
+          <li>Full route displayed on a satellite or standard map.</li>
+          <li>Timeline showing start, end, photos taken along the way, and detected stops.</li>
+          <li>Tap any photo in the timeline to view it full screen.</li>
+          <li>Long-press any timeline item to add a personal note. Notes appear during replay and in exported videos.</li>
+          <li>Long-press the trip card in the list to edit the trip name, description, or delete it (requires biometric authentication).</li>
+        </ul>
+
+        <h3>Replaying a Route</h3>
+        <p>From the trip detail page, tap <strong>"Replay Route"</strong>. The cinematic 3D flyover begins:</p>
+        <ul>
+          <li>The camera follows the route in real time with pitch and heading matching the direction of travel.</li>
+          <li>Photos zoom in automatically when the route passes nearby, showing the photo, address, and POI name.</li>
+          <li>Stops are highlighted with a card showing place name, address, and duration.</li>
+          <li>A compass in the top-right corner shows orientation. Real-time clock, distance, and speed show in the top-left panel.</li>
+          <li><strong>Speed control</strong> — Tap the speed button (1x/2x/3x) to change playback speed. All route points are rendered at every speed; only the interval between frames changes.</li>
+          <li><strong>Camera height</strong> — Tap the altitude button to adjust camera height (0.5x to 3x). Higher shows more area, lower gives more detail.</li>
+          <li><strong>Map style</strong> — Toggle between satellite and standard map view.</li>
+          <li>After the route finishes, a 5-second overview zooms out to show the complete route.</li>
+        </ul>
+
+        <h3>Exporting Video</h3>
+        <p>During replay, tap the <strong>export button</strong>. A bottom sheet appears with aspect ratio options:</p>
+        <ul>
+          <li><strong>Original</strong> — Native aspect ratio, no cropping.</li>
+          <li><strong>9:16</strong> — TikTok, Instagram Reels, YouTube Shorts, Xiaohongshu (vertical).</li>
+          <li><strong>3:4</strong> — Xiaohongshu (alternative portrait).</li>
+          <li><strong>1:1</strong> — Instagram feed, WeChat Moments (square).</li>
+          <li><strong>4:5</strong> — Instagram feed (portrait).</li>
+          <li><strong>16:9</strong> — YouTube, X/Twitter (landscape).</li>
+        </ul>
+        <p>After selecting a ratio, PathReel replays the route and captures every frame. The map view resizes to match your chosen ratio so no content is lost. Progress is shown on screen.</p>
+        <p>Once saved, you can choose to <strong>share</strong>:</p>
+        <ul>
+          <li><strong>Copy & Share</strong> — An auto-generated caption is copied to your clipboard (includes city name, weather, temperature, places visited, season, and time of day), then the system share sheet opens for the video.</li>
+          <li><strong>Share Video Only</strong> — Opens the share sheet directly without the caption.</li>
+        </ul>
+        <p>The share caption is generated based on the actual trip data — start/end city (via reverse geocoding), weather and temperature at the time of the trip (via Open-Meteo API), notable stops, and more. A different template is randomly selected each time.</p>
+
+        <h3>Trip Groups</h3>
+        <p>Organize multiple trips into groups — perfect for multi-day vacations or themed collections.</p>
+        <ul>
+          <li>Go to <strong>Trips</strong> tab > tap <strong>"Trip Groups"</strong> at the top.</li>
+          <li>Tap <strong>"+ New Group"</strong> to create a group. Enter a name (required) and optional note.</li>
+          <li>Tap a group to open it. Use <strong>"Add Trips"</strong> to select trips to include (multi-select with checkboxes).</li>
+          <li>A trip can belong to multiple groups. Deleting a group does not delete the trips.</li>
+          <li>Long-press a trip inside a group to remove it. Long-press the group card to edit or delete the group.</li>
+          <li><strong>Group Playback Duration</strong> — Each group has its own duration setting (default: 60 seconds total). Tap the duration display to change it (1–300 seconds).</li>
+          <li>Tap <strong>"Replay Route"</strong> to play all trips in sequence. Between trips, the camera zooms out to show both endpoints, then zooms into the next trip's starting point for a smooth transition.</li>
+          <li>All photos and stops from every trip in the group are included during playback.</li>
+        </ul>
+
+        <h3>Insights</h3>
+        <p>The <strong>Insights</strong> tab shows your travel statistics:</p>
+        <ul>
+          <li>Total distance, driving time, average speed.</li>
+          <li>Records: longest trip, top speed.</li>
+          <li>Heatmap showing everywhere you've been — tap to explore.</li>
+          <li>Filter by 7 days, 30 days, or all time.</li>
+        </ul>
+
+        <h3>Settings</h3>
+        <p>Customize your PathReel experience on the <strong>Settings</strong> tab:</p>
+        <ul>
+          <li><strong>Appearance</strong> — Switch between Day (light) and Night (dark) mode. All screens, modals, and export options follow the theme.</li>
           <li><strong>Language</strong> — Choose from 16 languages. Automatically detects your device language on first launch.</li>
           <li><strong>Photo Display</strong> — How long (in seconds) a photo stays on screen during replay and video export. Default: 1.5s.</li>
           <li><strong>Stop Display</strong> — How long (in seconds) a stop location stays on screen during replay and video export. Default: 2s.</li>
-          <li><strong>Stop Min Time</strong> — Minimum duration (in minutes) for a stop to be detected. Shorter stays are filtered out. Default: 10 min.</li>
+          <li><strong>Stop Min Time</strong> — Minimum duration (in minutes) for a location to be detected as a stop. Shorter stays are filtered out. Default: 10 min.</li>
+          <li><strong>Trip Duration</strong> — Playback duration per trip in seconds. Applies to single trip replay. Group playback uses the group's own duration setting. Default: 30s.</li>
         </ul>
+
+        <h3>Tips</h3>
+        <ul>
+          <li>For best GPS accuracy, keep "Always Allow" location permission. "While Using" mode may stop recording when the app goes to the background.</li>
+          <li>Take photos during your trip — they automatically appear at the right location during replay.</li>
+          <li>Use satellite map mode for the most cinematic replays.</li>
+          <li>Export in 9:16 for vertical social media platforms, 16:9 for YouTube.</li>
+          <li>All data is stored locally on your device. No accounts, no cloud, no tracking.</li>
+        </ul>
+
         <h3>Supported Languages</h3>
         <p>English, 简体中文, 繁體中文, Español, Français, العربية, Português, Русский, 日本語, 한국어, Deutsch, हिन्दी, Italiano, Türkçe, ไทย, Tiếng Việt</p>
       </div>
@@ -630,7 +706,7 @@
         f4t:'HEVC Video Export', f4d:'Export your replay as a high-quality HEVC video. Photos, stops, and notes all included. Share anywhere.',
         f5t:'Trip Timeline & Notes', f5d:'Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.',
         f6t:'Insights & Heatmap', f6d:'Track your stats over time. See where you\'ve been on a heatmap. Weekly and monthly distance reports.',
-        f7t:'Smart Activity Detection', f7d:'Automatically detects driving, walking, running, or cycling. No manual selection needed. Shows real-time activity icons.', f8t:'Smart Power Management', f8d:'Automatically reduces GPS frequency when stationary. Ultra-low power mode when battery drops below 15%. Saves 30-40% battery on long trips.', lblUC:'Use Cases', ucTitle:'Built for Everyone Who Moves',
+        f7t:'Social Media Share Templates', f7d:'Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. Multiple video aspect ratios.', f8t:'Custom Trip Groups', f8d:'Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.', lblUC:'Use Cases', ucTitle:'Built for Everyone Who Moves',
         uc1t:'Road Trippers', uc1d:'Record epic cross-country drives. Generate a highlight reel with scenic stops and roadside photos.',
         uc2t:'Athletes & Runners', uc2d:'Replay your runs, hikes, and bike rides with speed data and route animation. Track your progress.',
         uc3t:'Travel Creators', uc3d:'Auto-generate route videos with geotagged photos. One-tap export to TikTok, Reels, or YouTube Shorts.',
@@ -660,7 +736,7 @@
         f4t:'HEVC 视频导出', f4d:'将回放导出为高质量 HEVC 视频，包含照片、停留和备注。随处分享。',
         f5t:'行程时间线与备注', f5d:'每段行程都有时间线：起点、照片、停留、终点。长按任意事件添加个人备注。',
         f6t:'数据洞察与热力图', f6d:'追踪你的统计数据，在热力图上查看去过的地方。支持周报和月报。',
-        f7t:'智能活动检测', f7d:'自动检测开车、步行、跑步或骑行。无需手动选择，实时显示活动图标。', f8t:'智能省电管理', f8d:'静止时自动降低 GPS 频率。电量低于 15% 时进入超低功耗模式。长途行程可节省 30-40% 电量。', lblUC:'使用场景', ucTitle:'为所有移动的人而建',
+        f7t:'社交媒体分享模版', f7d:'导出视频时自动生成分享文案，融合城市、天气、温度、途经地点等旅行信息。支持一键复制文案并分享到 TikTok、Instagram、YouTube、小红书、微信等平台，多种视频比例可选。', f8t:'自定义行程组', f8d:'将多个行程归入一个旅行组，支持整体播放和导出。行程间自动缩放过渡，自然衔接。每个组可单独设置播放时长，轻松回顾多日旅行。', lblUC:'使用场景', ucTitle:'为所有移动的人而建',
         uc1t:'自驾旅行者', uc1d:'记录史诗级公路旅行，生成包含风景停靠点和路边照片的精彩回放。',
         uc2t:'运动爱好者', uc2d:'回放你的跑步、徒步和骑行路线，带有速度数据和路线动画。追踪你的进步。',
         uc3t:'旅行博主', uc3d:'自动生成带地理标记照片的路线视频。一键导出到 TikTok、Reels 或 YouTube Shorts。',
@@ -673,7 +749,7 @@
         lblWhy:'为什么选 PathReel', lblDL:'获取 PathReel', dlTitle:'开始记录你的故事', dlDesc:'iOS 版现已可用，Android 版即将推出。',
         navContact:'联系', lblContact:'联系我们', contactTitle:'联系我们', contactDesc:'问题、反馈或合作 — 我们很乐意听到你的声音。',
         lblDocs:'文档', docsTitle:'快速入门',
-        docsBody:'<h3>权限</h3><p>PathReel 需要两个权限：</p><ul><li><strong>定位（始终允许）</strong> — 后台 GPS 记录必需。</li><li><strong>照片库（完全访问）</strong> — 匹配照片到路线和保存视频必需。</li></ul><h3>录制行程</h3><p>选择活动类型，点击"开始录制"。PathReel 在后台追踪路线。</p><h3>回放路线</h3><p>进入行程 > 选择行程 > "回放路线"。控制速度、镜头高度和地图样式。</p><h3>添加备注</h3><p>长按时间线中的任意项添加备注。备注会在回放和导出视频中显示。</p><h3>导出视频</h3><p>回放时点击导出按钮，编码为 HEVC 视频，包含照片和停留。</p><h3>数据洞察</h3><p>查看统计数据、记录和热力图。按 7 天、30 天或全部时间筛选。</p><h3>设置</h3><p>自定义你的 PathReel 体验：</p><ul><li><strong>外观</strong> — 日间（浅色）或夜间（深色）模式。</li><li><strong>语言</strong> — 16 种语言，首次启动自动检测设备语言。</li><li><strong>照片展示</strong> — 回放/导出时照片在屏幕上停留的秒数。默认：1.5秒。</li><li><strong>停留展示</strong> — 回放/导出时停留点在屏幕上停留的秒数。默认：2秒。</li><li><strong>停留最短时间</strong> — 检测为停留的最短分钟数。默认：10分钟。</li></ul>',
+        docsBody:'<h3>权限</h3><p>PathReel 需要两项权限才能正常工作：</p><ul><li><strong>位置（始终允许）</strong>— 用于后台 GPS 记录。即使锁屏或切换应用也能持续追踪路线。请前往 设置 > PathReel > 位置 > 始终。</li><li><strong>照片图库（完全访问）</strong>— 用于将照片匹配到路线上，以及保存导出的视频。</li></ul><h3>录制行程</h3><p>在"记录"页面，点击<strong>"开始记录"</strong>。PathReel 立即使用高精度 GPS 追踪（每移动 3 米更新一次）。</p><ul><li>可以锁屏、切换应用或放进口袋——录制在后台持续进行。</li><li>状态栏蓝色指示条表示正在追踪位置。</li><li>地图按行进方向朝上显示，类似导航应用。</li><li>距离、时长和点数实时更新。</li><li>途中拍照——照片会自动出现在回放中。</li><li>点击<strong>"停止记录"</strong>并确认即可结束。</li></ul><h3>查看行程详情</h3><p>前往<strong>"行程"</strong>页面查看所有录制的行程。点击某个行程查看详情：</p><ul><li>完整路线显示在卫星或标准地图上。</li><li>时间轴显示起点、终点、途中拍摄的照片和检测到的停留。</li><li>点击时间轴中的照片可全屏查看。</li><li>长按时间轴中的任何项目可添加个人笔记。笔记会出现在回放和导出视频中。</li><li>在列表中长按行程卡片可编辑名称、描述或删除（需要生物识别验证）。</li></ul><h3>路线回放</h3><p>在行程详情页，点击<strong>"回放路线"</strong>。电影级 3D 飞行回放开始：</p><ul><li>相机沿路线实时跟随，俯仰角和朝向匹配行进方向。</li><li>路线经过照片附近时自动放大显示照片、地址和 POI 名称。</li><li>停留点以卡片形式展示地名、地址和停留时长。</li><li>右上角指南针显示方向，左上角面板显示实时时间、距离和速度。</li><li><strong>速度控制</strong>— 点击速度按钮（1x/2x/3x）更改播放速度。所有路径点都会被渲染，只改变帧间隔。</li><li><strong>相机高度</strong>— 点击高度按钮调整（0.5x 到 3x）。越高看到越多区域，越低越详细。</li><li><strong>地图样式</strong>— 在卫星图和标准地图间切换。</li><li>路线播放结束后，5 秒的概览会缩小显示完整路线。</li></ul><h3>导出视频</h3><p>回放时点击<strong>导出按钮</strong>。底部弹出比例选项：</p><ul><li><strong>Original</strong>— 原始比例，无裁剪。</li><li><strong>9:16</strong>— TikTok、Instagram Reels、YouTube Shorts、小红书（竖屏）。</li><li><strong>3:4</strong>— 小红书（竖屏替代）。</li><li><strong>1:1</strong>— Instagram、微信朋友圈（正方形）。</li><li><strong>4:5</strong>— Instagram（竖屏）。</li><li><strong>16:9</strong>— YouTube、X/Twitter（横屏）。</li></ul><p>选择比例后，PathReel 重新播放路线并截取每一帧。地图视图会调整为选择的比例，确保内容不丢失。</p><p>保存后可选择<strong>分享</strong>：</p><ul><li><strong>复制文案并分享</strong>— 自动生成的文案复制到剪贴板（包含城市名、天气、温度、途经地点、季节和时段），然后打开系统分享。</li><li><strong>直接分享视频</strong>— 直接打开分享，不带文案。</li></ul><p>分享文案基于实际行程数据生成——起点/终点城市（反向地理编码）、行程时的天气和温度（Open-Meteo API）、显著停留点等。每次随机选择不同模板。</p><h3>行程组</h3><p>将多个行程归入分组——非常适合多日旅行或主题收藏。</p><ul><li>前往<strong>"行程"</strong>页面 > 点击顶部<strong>"行程组"</strong>。</li><li>点击<strong>"+ 新建分组"</strong>创建分组，输入名称（必填）和备注（选填）。</li><li>点击分组打开它，使用<strong>"添加行程"</strong>选择要包含的行程（多选）。</li><li>一个行程可以属于多个分组。删除分组不会删除行程。</li><li>长按分组内的行程可将其移除。长按分组卡片可编辑或删除分组。</li><li><strong>分组播放时长</strong>— 每个分组有独立的时长设置（默认 60 秒）。点击时长显示可更改（1-300 秒）。</li><li>点击<strong>"回放路线"</strong>按顺序播放所有行程。行程之间，相机会缩小显示两个端点，然后飞入下一个行程的起点，平滑过渡。</li><li>分组内每个行程的照片和停留点都会包含在播放中。</li></ul><h3>数据分析</h3><p><strong>"洞察"</strong>页面显示你的旅行统计：</p><ul><li>总距离、驾驶时间、平均速度。</li><li>记录：最长行程、最高速度。</li><li>热力图显示你去过的所有地方——点击可探索。</li><li>按 7 天、30 天或全部时间筛选。</li></ul><h3>设置</h3><p>在<strong>"设置"</strong>页面自定义：</p><ul><li><strong>外观</strong>— 切换日间（浅色）和夜间（深色）模式。所有界面、弹窗和导出选项都跟随主题。</li><li><strong>语言</strong>— 支持 16 种语言。首次启动自动检测设备语言。</li><li><strong>照片显示</strong>— 回放和视频导出时照片在屏幕上停留的秒数。默认：1.5 秒。</li><li><strong>停留显示</strong>— 回放和视频导出时停留点在屏幕上停留的秒数。默认：2 秒。</li><li><strong>最短停留时间</strong>— 被检测为停留的最短时长（分钟）。更短的会被过滤。默认：10 分钟。</li><li><strong>行程时长</strong>— 每个行程的播放秒数。适用于单独行程回放。分组播放使用分组自己的时长设置。默认：30 秒。</li></ul><h3>小贴士</h3><ul><li>为获得最佳 GPS 精度，请保持"始终允许"位置权限。"使用时"模式可能在应用进入后台时停止录制。</li><li>旅途中多拍照——它们会自动出现在回放的正确位置。</li><li>使用卫星地图模式获得最具电影感的回放。</li><li>竖屏社交媒体导出 9:16，YouTube 导出 16:9。</li><li>所有数据存储在设备本地。无账号、无云端、无追踪。</li></ul><h3>支持的语言</h3><p>English、简体中文、繁體中文、Español、Français、العربية、Português、Русский、日本語、한국어、Deutsch、हिन्दी、Italiano、Türkçe、ไทย、Tiếng Việt</p>',
         lblPriv:'法律', privTitle:'隐私政策',
         privBody:'<p><strong>更新日期：</strong>2026年4月6日</p><h3>概述</h3><p>所有数据保存在你的设备上。我们不收集或传输任何个人数据。</p><h3>数据收集</h3><p>PathReel <strong>不</strong>收集个人信息、位置数据、照片或使用分析。</p><h3>本地存储</h3><p>所有数据本地存储：GPS 轨迹点、行程元数据、备注、设置。</p><h3>权限</h3><p><strong>定位（始终）</strong> — 仅用于 GPS 记录，数据不离开设备。<br><strong>照片库</strong> — 显示行程照片和保存视频。</p><h3>第三方服务</h3><p>Apple 地图用于显示和 POI 查询。iTunes API 用于更新检查。不发送个人数据。</p><h3>数据共享</h3><p>通过 iOS 分享功能由你选择分享平台。PathReel 本身不上传任何内容。</p><h3>儿童隐私</h3><p>不面向 13 岁以下儿童。</p><h3>联系</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
         footer:'&copy; 2026 PathReel. 保留所有权利。 | <a href="#privacy">隐私政策</a> | <a href="#docs">文档</a>' },
@@ -683,7 +759,7 @@
         why1Title:'路線變電影', why1Desc:'一鍵把任何行程變成專業級回放影片。', why2Title:'每個停留都有故事', why2Desc:'自動偵測停留地點，查找商戶名稱。', why3Title:'即刻分享', why3Desc:'匯出影片直接分享到任何平台。',
         lblFeat:'功能', featTitle:'你需要的一切', featDesc:'強大的功能，美觀的介面。',
         f1t:'電影級路線回放', f1d:'3D衛星俯瞰，自適應鏡頭高度，流暢過渡。', f2t:'自動照片匹配', f2d:'行程中拍攝的照片自動出現在地圖上。', f3t:'智慧停留偵測', f3d:'自動偵測停留，識別商戶名稱和時長。', f4t:'HEVC影片匯出', f4d:'匯出高品質HEVC影片，包含照片和停留。', f5t:'行程時間線與備註', f5d:'每段行程都有時間線，長按添加備註。', f6t:'數據洞察與熱力圖', f6d:'追蹤統計數據，在熱力圖上查看去過的地方。',
-        f7t:'智慧活動偵測', f7d:'自動偵測開車、步行、跑步或騎行。無需手動選擇，即時顯示活動圖標。', f8t:'智慧省電管理', f8d:'靜止時自動降低GPS頻率。電量低於15%時進入超低功耗模式。', lblUC:'使用場景', ucTitle:'為所有移動的人而建', uc1t:'自駕旅行者', uc1d:'記錄公路旅行，生成精彩回放。', uc2t:'運動愛好者', uc2d:'回放跑步、健行和騎行路線。', uc3t:'旅行博主', uc3d:'自動生成路線影片，一鍵匯出。', uc4t:'商務出行', uc4d:'記錄每次出行，完美的費用依據。',
+        f7t:'社交媒體分享模版', f7d:'導出視頻時自動生成分享文案，融合城市、天氣、溫度、途經地點等旅行資訊。支持一鍵複製文案並分享到 TikTok、Instagram、YouTube、小紅書、微信等平台，多種視頻比例可選。', f8t:'自定義行程組', f8d:'將多個行程歸入一個旅行組，支持整體播放和導出。行程間自動縮放過渡，自然銜接。每個組可單獨設置播放時長，輕鬆回顧多日旅行。', lblUC:'使用場景', ucTitle:'為所有移動的人而建', uc1t:'自駕旅行者', uc1d:'記錄公路旅行，生成精彩回放。', uc2t:'運動愛好者', uc2d:'回放跑步、健行和騎行路線。', uc3t:'旅行博主', uc3d:'自動生成路線影片，一鍵匯出。', uc4t:'商務出行', uc4d:'記錄每次出行，完美的費用依據。',
         lblHow:'如何使用', howTitle:'三個簡單步驟', s1t:'記錄', s1d:'點擊開始，PathReel在背景追蹤路線。', s2t:'回放', s2d:'在3D地圖上看旅程活起來。', s3t:'分享', s3d:'匯出影片分享到任何平台。',
         btnExplore:'探索功能', btnDLStore:'在 App Store 下載',
         lblDL:'取得PathReel', dlTitle:'開始記錄你的故事', dlDesc:'iOS版現已可用，Android版即將推出。',
@@ -699,7 +775,7 @@
         why1Title:'Les trajets deviennent des films', why1Desc:'Un tap transforme n\'importe quel trajet en vidéo pro.', why2Title:'Chaque arrêt raconte une histoire', why2Desc:'Détection automatique des arrêts avec noms des lieux.', why3Title:'Partagez instantanément', why3Desc:'Exportez en vidéo et partagez sur n\'importe quelle plateforme.',
         lblFeat:'Fonctionnalités', featTitle:'Tout ce qu\'il vous faut', featDesc:'Des fonctionnalités puissantes dans une interface intuitive.',
         f1t:'Replay cinématique', f1d:'Survol satellite 3D avec hauteur adaptative et contrôle de vitesse.', f2t:'Photos automatiques', f2d:'Les photos apparaissent sur la carte à leur position GPS exacte.', f3t:'Détection d\'arrêts', f3d:'Détecte les arrêts, identifie les lieux et affiche la durée.', f4t:'Export vidéo HEVC', f4d:'Exportez en vidéo HEVC haute qualité avec photos et arrêts.', f5t:'Chronologie & notes', f5d:'Chaque trajet a une chronologie. Appuyez longuement pour ajouter des notes.', f6t:'Analyses & carte thermique', f6d:'Suivez vos statistiques et voyez où vous êtes allé.',
-        f7t:'Détection d\'activité', f7d:'Détecte automatiquement conduite, marche, course ou vélo. Aucune sélection manuelle.', f8t:'Gestion intelligente de batterie', f8d:'Réduit la fréquence GPS à l\'arrêt. Mode ultra basse consommation sous 15%. Économise 30-40%.', lblUC:'Cas d\'usage', ucTitle:'Pour tous ceux qui bougent', uc1t:'Road trippers', uc1d:'Enregistrez vos road trips épiques.', uc2t:'Athlètes', uc2d:'Rejouez vos courses et randonnées.', uc3t:'Créateurs voyage', uc3d:'Générez automatiquement des vidéos de parcours.', uc4t:'Voyageurs d\'affaires', uc4d:'Gardez un registre de chaque déplacement.',
+        f7t:'Modèles de Partage Social', f7d:'Légendes générées automatiquement avec ville, météo, température et lieux visités. Copiez et partagez sur TikTok, Instagram, YouTube, Xiaohongshu, WeChat et plus. Plusieurs formats vidéo.', f8t:'Groupes de Trajets Personnalisés', f8d:'Organisez plusieurs trajets dans un groupe de voyage. Transitions fluides entre les trajets. Durée personnalisable par groupe. Idéal pour revivre des voyages de plusieurs jours.', lblUC:'Cas d\'usage', ucTitle:'Pour tous ceux qui bougent', uc1t:'Road trippers', uc1d:'Enregistrez vos road trips épiques.', uc2t:'Athlètes', uc2d:'Rejouez vos courses et randonnées.', uc3t:'Créateurs voyage', uc3d:'Générez automatiquement des vidéos de parcours.', uc4t:'Voyageurs d\'affaires', uc4d:'Gardez un registre de chaque déplacement.',
         lblHow:'Comment ça marche', howTitle:'Trois étapes simples', s1t:'Enregistrer', s1d:'Appuyez et partez. PathReel suit votre parcours en arrière-plan.', s2t:'Rejouer', s2d:'Regardez votre trajet prendre vie sur une carte 3D.', s3t:'Partager', s3d:'Exportez en vidéo et partagez sur les réseaux sociaux.',
         btnExplore:'Explorer les fonctionnalités', btnDLStore:'Télécharger sur l\'App Store',
         lblDL:'Obtenir PathReel', dlTitle:'Commencez à enregistrer', dlDesc:'Disponible sur iOS. Android bientôt.',
@@ -715,7 +791,7 @@
         why1Title:'Las rutas se convierten en películas', why1Desc:'Un toque convierte cualquier viaje en un video profesional.', why2Title:'Cada parada cuenta una historia', why2Desc:'Detecta paradas y encuentra nombres de lugares.', why3Title:'Comparte al instante', why3Desc:'Exporta a video y comparte en cualquier plataforma.',
         lblFeat:'Funciones', featTitle:'Todo lo que necesitas', featDesc:'Funciones potentes en una interfaz intuitiva.',
         f1t:'Replay cinematográfico', f1d:'Sobrevuelo satelital 3D con control de velocidad.', f2t:'Fotos automáticas', f2d:'Las fotos aparecen en el mapa en su ubicación GPS.', f3t:'Detección de paradas', f3d:'Detecta paradas, identifica lugares y muestra duración.', f4t:'Exportación HEVC', f4d:'Exporta video HEVC de alta calidad con fotos y paradas.', f5t:'Línea de tiempo y notas', f5d:'Cada viaje tiene una línea de tiempo. Mantén presionado para añadir notas.', f6t:'Estadísticas y mapa de calor', f6d:'Rastrea tus estadísticas y ve dónde has estado.',
-        f7t:'Detección de actividad', f7d:'Detecta automáticamente conducción, caminata, carrera o ciclismo. Sin selección manual.', f8t:'Gestión inteligente de batería', f8d:'Reduce frecuencia GPS al detenerse. Modo ultra bajo consumo bajo 15%. Ahorra 30-40%.', lblUC:'Casos de uso', ucTitle:'Para todos los que se mueven', uc1t:'Viajeros por carretera', uc1d:'Graba épicos viajes por carretera.', uc2t:'Atletas', uc2d:'Repite tus carreras y caminatas.', uc3t:'Creadores de viaje', uc3d:'Genera videos de rutas automáticamente.', uc4t:'Viajeros de negocios', uc4d:'Registra cada viaje con tiempos y distancias.',
+        f7t:'Plantillas para Redes Sociales', f7d:'Genera automáticamente textos con ciudad, clima, temperatura y lugares visitados. Copia y comparte en TikTok, Instagram, YouTube, Xiaohongshu, WeChat y más. Múltiples relaciones de aspecto.', f8t:'Grupos de Viajes Personalizados', f8d:'Organiza varios viajes en un grupo. Transiciones suaves entre viajes durante la reproducción. Duración personalizable por grupo. Perfecto para revivir viajes de varios días.', lblUC:'Casos de uso', ucTitle:'Para todos los que se mueven', uc1t:'Viajeros por carretera', uc1d:'Graba épicos viajes por carretera.', uc2t:'Atletas', uc2d:'Repite tus carreras y caminatas.', uc3t:'Creadores de viaje', uc3d:'Genera videos de rutas automáticamente.', uc4t:'Viajeros de negocios', uc4d:'Registra cada viaje con tiempos y distancias.',
         lblHow:'Cómo funciona', howTitle:'Tres pasos simples', s1t:'Grabar', s1d:'Toca iniciar. PathReel rastrea tu ruta en segundo plano.', s2t:'Reproducir', s2d:'Mira tu viaje cobrar vida en un mapa 3D.', s3t:'Compartir', s3d:'Exporta como video y comparte en redes sociales.',
         btnExplore:'Explorar funciones', btnDLStore:'Descargar en App Store',
         lblDL:'Obtener PathReel', dlTitle:'Empieza a grabar tu historia', dlDesc:'Disponible en iOS. Android próximamente.',
@@ -731,7 +807,7 @@
         why1Title:'ルートが映画になる', why1Desc:'ワンタップでプロ級動画に。', why2Title:'すべての滞在に物語がある', why2Desc:'滞在場所を自動検出し、施設名を特定。', why3Title:'すぐにシェア', why3Desc:'動画にエクスポートしてSNSに直接共有。',
         lblFeat:'機能', featTitle:'必要なすべて', featDesc:'美しいインターフェースに強力な機能。',
         f1t:'シネマティックルートリプレイ', f1d:'3D衛星ビューで適応型カメラ高度とスピードコントロール。', f2t:'自動写真マッチング', f2d:'旅行中の写真がGPS位置に自動表示。', f3t:'スマート滞在検出', f3d:'滞在を自動検出し、施設名と時間を表示。', f4t:'HEVC動画エクスポート', f4d:'高品質HEVC動画で写真と滞在を含めてエクスポート。', f5t:'タイムライン＆メモ', f5d:'各旅行にタイムライン。長押しでメモ追加。', f6t:'分析＆ヒートマップ', f6d:'統計データを追跡し、行った場所をヒートマップで確認。',
-        f7t:'スマート活動検出', f7d:'運転、歩行、ランニング、サイクリングを自動検出。手動選択不要。', f8t:'スマート省電力', f8d:'静止時にGPS頻度を自動低下。バッテリー15%以下で超省電力モード。30-40%節約。', lblUC:'活用例', ucTitle:'動くすべての人のために', uc1t:'ロードトリッパー', uc1d:'壮大なドライブを記録。', uc2t:'アスリート', uc2d:'ランニングやハイキングをリプレイ。', uc3t:'旅行クリエイター', uc3d:'ルート動画を自動生成。', uc4t:'ビジネス旅行者', uc4d:'すべての出張を記録。',
+        f7t:'SNSシェアテンプレート', f7d:'都市、天気、気温、訪問先を含むキャプションを自動生成。TikTok、Instagram、YouTube、小紅書、WeChatなどにワンタップで共有。複数の動画比率に対応。', f8t:'カスタム旅行グループ', f8d:'複数の旅行をグループにまとめて一括再生・書き出し。旅行間のスムーズなズーム遷移。グループごとに再生時間を設定可能。', lblUC:'活用例', ucTitle:'動くすべての人のために', uc1t:'ロードトリッパー', uc1d:'壮大なドライブを記録。', uc2t:'アスリート', uc2d:'ランニングやハイキングをリプレイ。', uc3t:'旅行クリエイター', uc3d:'ルート動画を自動生成。', uc4t:'ビジネス旅行者', uc4d:'すべての出張を記録。',
         lblHow:'使い方', howTitle:'3つのシンプルなステップ', s1t:'記録', s1d:'タップして出発。バックグラウンドでGPS追跡。', s2t:'リプレイ', s2d:'3Dマップで旅が蘇る。', s3t:'シェア', s3d:'動画をエクスポートしてSNSに共有。',
         btnExplore:'機能を見る', btnDLStore:'App Storeでダウンロード',
         lblDL:'PathReelを入手', dlTitle:'あなたの物語を記録しよう', dlDesc:'iOS版公開中。Android版近日公開。',
@@ -747,7 +823,7 @@
         why1Title:'경로가 영화가 됩니다', why1Desc:'한 번의 탭으로 프로급 영상을.', why2Title:'모든 정류장에 이야기가', why2Desc:'정류장을 자동 감지하고 장소명을 찾습니다.', why3Title:'즉시 공유', why3Desc:'영상으로 내보내고 SNS에 공유.',
         lblFeat:'기능', featTitle:'필요한 모든 것', featDesc:'아름다운 인터페이스의 강력한 기능.',
         f1t:'시네마틱 경로 리플레이', f1d:'3D 위성 뷰와 속도 제어.', f2t:'자동 사진 매칭', f2d:'사진이 GPS 위치에 자동 표시.', f3t:'스마트 정차 감지', f3d:'정차를 감지하고 장소명과 시간 표시.', f4t:'HEVC 영상 내보내기', f4d:'고품질 HEVC 영상으로 내보내기.', f5t:'타임라인 & 메모', f5d:'각 여행에 타임라인. 길게 눌러 메모 추가.', f6t:'분석 & 히트맵', f6d:'통계 추적과 히트맵으로 방문 장소 확인.',
-        f7t:'스마트 활동 감지', f7d:'운전, 보행, 달리기, 자전거를 자동 감지. 수동 선택 불필요.', f8t:'스마트 전력 관리', f8d:'정지 시 GPS 빈도 자동 감소. 배터리 15% 이하 시 초절전 모드. 30-40% 절약.', lblUC:'활용 사례', ucTitle:'움직이는 모든 사람을 위해', uc1t:'로드 트리퍼', uc1d:'장거리 드라이브를 기록.', uc2t:'운동선수', uc2d:'달리기와 하이킹을 리플레이.', uc3t:'여행 크리에이터', uc3d:'경로 영상을 자동 생성.', uc4t:'비즈니스 여행자', uc4d:'모든 출장을 기록.',
+        f7t:'소셜 미디어 공유 템플릿', f7d:'도시, 날씨, 온도, 방문지 정보가 포함된 캡션 자동 생성. TikTok, Instagram, YouTube, 샤오홍슈, WeChat 등에 원탭 공유. 다양한 영상 비율 지원.', f8t:'맞춤 여행 그룹', f8d:'여러 여행을 그룹으로 묶어 통합 재생 및 내보내기. 여행 간 부드러운 줌 전환. 그룹별 재생 시간 설정 가능. 다일 여행 회상에 완벽.', lblUC:'활용 사례', ucTitle:'움직이는 모든 사람을 위해', uc1t:'로드 트리퍼', uc1d:'장거리 드라이브를 기록.', uc2t:'운동선수', uc2d:'달리기와 하이킹을 리플레이.', uc3t:'여행 크리에이터', uc3d:'경로 영상을 자동 생성.', uc4t:'비즈니스 여행자', uc4d:'모든 출장을 기록.',
         lblHow:'사용법', howTitle:'간단한 3단계', s1t:'기록', s1d:'탭하고 출발. 백그라운드에서 GPS 추적.', s2t:'리플레이', s2d:'3D 지도에서 여행이 살아납니다.', s3t:'공유', s3d:'영상으로 내보내고 SNS에 공유.',
         btnExplore:'기능 살펴보기', btnDLStore:'App Store에서 다운로드',
         lblDL:'PathReel 다운로드', dlTitle:'당신의 이야기를 기록하세요', dlDesc:'iOS 출시. Android 곧 출시.',
@@ -763,7 +839,7 @@
         why1Title:'Routen werden zu Filmen', why1Desc:'Ein Tipp verwandelt jede Fahrt in ein professionelles Video.', why2Title:'Jeder Halt erzählt eine Geschichte', why2Desc:'Automatische Erkennung von Haltepunkten.', why3Title:'Sofort teilen', why3Desc:'Als Video exportieren und teilen.',
         lblFeat:'Funktionen', featTitle:'Alles was du brauchst', featDesc:'Leistungsstarke Funktionen in intuitiver Oberfläche.',
         f1t:'Kinoreifes Route-Replay', f1d:'3D-Satelliten-Überflug mit adaptiver Kamerahöhe.', f2t:'Auto-Foto-Zuordnung', f2d:'Fotos erscheinen an ihrer GPS-Position auf der Karte.', f3t:'Smarte Halt-Erkennung', f3d:'Erkennt Halte, identifiziert Orte und zeigt Dauer.', f4t:'HEVC-Video-Export', f4d:'Export als hochwertige HEVC-Video mit Fotos und Halten.', f5t:'Zeitstrahl & Notizen', f5d:'Jede Fahrt hat einen Zeitstrahl. Lang drücken für Notizen.', f6t:'Analysen & Heatmap', f6d:'Statistiken verfolgen und besuchte Orte auf der Heatmap sehen.',
-        f7t:'Smarte Aktivitätserkennung', f7d:'Erkennt automatisch Fahren, Gehen, Laufen oder Radfahren. Keine manuelle Auswahl nötig.', f8t:'Smartes Energiemanagement', f8d:'Reduziert GPS-Frequenz bei Stillstand. Ultra-Sparmodus unter 15%. Spart 30-40%.', lblUC:'Anwendungen', ucTitle:'Für alle, die sich bewegen', uc1t:'Road Tripper', uc1d:'Epische Fahrten aufzeichnen.', uc2t:'Sportler', uc2d:'Läufe und Wanderungen abspielen.', uc3t:'Reise-Creator', uc3d:'Automatisch Routenvideos erstellen.', uc4t:'Geschäftsreisende', uc4d:'Jede Reise dokumentieren.',
+        f7t:'Social-Media-Vorlagen', f7d:'Automatisch generierte Beschreibungen mit Stadt, Wetter, Temperatur und besuchten Orten. Kopieren und teilen auf TikTok, Instagram, YouTube, Xiaohongshu, WeChat und mehr. Mehrere Videoformate.', f8t:'Benutzerdefinierte Fahrtgruppen', f8d:'Organisieren Sie mehrere Fahrten in einer Gruppe. Nahtlose Zoom-Übergänge zwischen Fahrten. Individuelle Dauer pro Gruppe. Perfekt für mehrtägige Reiserückblicke.', lblUC:'Anwendungen', ucTitle:'Für alle, die sich bewegen', uc1t:'Road Tripper', uc1d:'Epische Fahrten aufzeichnen.', uc2t:'Sportler', uc2d:'Läufe und Wanderungen abspielen.', uc3t:'Reise-Creator', uc3d:'Automatisch Routenvideos erstellen.', uc4t:'Geschäftsreisende', uc4d:'Jede Reise dokumentieren.',
         lblHow:'So funktioniert\'s', howTitle:'Drei einfache Schritte', s1t:'Aufnehmen', s1d:'Tippen und los. GPS-Tracking im Hintergrund.', s2t:'Abspielen', s2d:'Reise auf 3D-Karte erleben.', s3t:'Teilen', s3d:'Als Video exportieren und in sozialen Medien teilen.',
         btnExplore:'Funktionen entdecken', btnDLStore:'Im App Store laden',
         lblDL:'PathReel holen', dlTitle:'Beginne deine Geschichte', dlDesc:'Verfügbar auf iOS. Android kommt bald.',
@@ -778,7 +854,7 @@
         lblWhy:'Por que PathReel', whyTitle:'Não é apenas outro rastreador GPS', whyDesc:'Outros apps gravam dados. PathReel cria memórias.',
         why1Title:'Rotas viram filmes', why1Desc:'Um toque transforma qualquer viagem em vídeo profissional.', why2Title:'Cada parada conta uma história', why2Desc:'Detecta paradas automaticamente e identifica locais.', why3Title:'Compartilhe instantaneamente', why3Desc:'Exporte vídeo e compartilhe em qualquer plataforma.',
         lblFeat:'Recursos', featTitle:'Tudo que você precisa', featDesc:'Recursos poderosos em uma interface intuitiva.',
-        f1t:'Replay cinematográfico', f1d:'Sobrevoo 3D com câmera adaptativa e controle de velocidade.', f2t:'Fotos automáticas', f2d:'Fotos aparecem no mapa na posição GPS exata.', f3t:'Detecção de paradas', f3d:'Detecta paradas, identifica locais e mostra duração.', f4t:'Exportação HEVC', f4d:'Exporte vídeo HEVC de alta qualidade com fotos e paradas.', f5t:'Linha do tempo e notas', f5d:'Cada viagem tem linha do tempo. Pressione longo para notas.', f6t:'Análises e mapa de calor', f6d:'Acompanhe estatísticas e veja onde esteve no mapa de calor.', f7t:'Detecção de atividade', f7d:'Detecta automaticamente direção, caminhada, corrida ou ciclismo. Sem seleção manual.', f8t:'Gestão inteligente de energia', f8d:'Reduz frequência GPS quando parado. Modo ultra economia abaixo de 15%. Economiza 30-40%.',
+        f1t:'Replay cinematográfico', f1d:'Sobrevoo 3D com câmera adaptativa e controle de velocidade.', f2t:'Fotos automáticas', f2d:'Fotos aparecem no mapa na posição GPS exata.', f3t:'Detecção de paradas', f3d:'Detecta paradas, identifica locais e mostra duração.', f4t:'Exportação HEVC', f4d:'Exporte vídeo HEVC de alta qualidade com fotos e paradas.', f5t:'Linha do tempo e notas', f5d:'Cada viagem tem linha do tempo. Pressione longo para notas.', f6t:'Análises e mapa de calor', f6d:'Acompanhe estatísticas e veja onde esteve no mapa de calor.', f7t:'Modelos de Compartilhamento Social', f7d:'Legendas geradas automaticamente com cidade, clima, temperatura e locais visitados. Copie e compartilhe no TikTok, Instagram, YouTube, Xiaohongshu, WeChat e mais. Vários formatos de vídeo.', f8t:'Grupos de Viagens Personalizados', f8d:'Organize várias viagens em um grupo. Transições suaves entre viagens na reprodução. Duração personalizável por grupo. Perfeito para reviver viagens de vários dias.',
         lblUC:'Casos de uso', ucTitle:'Para todos que se movem', uc1t:'Viajantes', uc1d:'Grave viagens épicas de carro.', uc2t:'Atletas', uc2d:'Reveja corridas e caminhadas.', uc3t:'Criadores', uc3d:'Gere vídeos de rotas automaticamente.', uc4t:'Viajantes de negócios', uc4d:'Registre cada viagem com tempos e distâncias.',
         lblHow:'Como funciona', howTitle:'Três passos simples', s1t:'Gravar', s1d:'Toque e vá. GPS rastreia em segundo plano.', s2t:'Reproduzir', s2d:'Veja sua viagem ganhar vida no mapa 3D.', s3t:'Compartilhar', s3d:'Exporte como vídeo e compartilhe nas redes.',
         btnExplore:'Explorar recursos', btnDLStore:'Baixar na App Store', lblDL:'Obter PathReel', dlTitle:'Comece a gravar', dlDesc:'iOS disponível. Android em breve.',
@@ -794,7 +870,7 @@
         why1Title:'Маршруты становятся фильмами', why1Desc:'Одним нажатием любая поездка превращается в профессиональное видео.', why2Title:'Каждая остановка — история', why2Desc:'Автоматическое обнаружение остановок с названиями мест.', why3Title:'Делитесь мгновенно', why3Desc:'Экспортируйте видео и делитесь на любой платформе.',
         lblFeat:'Функции', featTitle:'Всё что нужно', featDesc:'Мощные функции в красивом интерфейсе.',
         f1t:'Кинематографичный повтор', f1d:'3D-пролёт с адаптивной камерой и контролем скорости.', f2t:'Авто-фото', f2d:'Фото появляются на карте в точном GPS-месте.', f3t:'Обнаружение остановок', f3d:'Определяет остановки, находит названия мест и показывает время.', f4t:'Экспорт HEVC', f4d:'Экспорт в HEVC-видео высокого качества.', f5t:'Хронология и заметки', f5d:'У каждой поездки есть хронология. Долгое нажатие для заметок.', f6t:'Аналитика и тепловая карта', f6d:'Отслеживайте статистику и смотрите где вы были.',
-        f7t:'Умное определение активности', f7d:'Автоматически определяет вождение, ходьбу, бег или велосипед. Без ручного выбора.', f8t:'Умное энергосбережение', f8d:'Снижает частоту GPS при остановке. Ультра-экономия при заряде ниже 15%. Экономия 30-40%.', lblUC:'Примеры', ucTitle:'Для всех кто в движении', uc1t:'Путешественники', uc1d:'Записывайте эпичные поездки.', uc2t:'Спортсмены', uc2d:'Пересматривайте пробежки и походы.', uc3t:'Тревел-блогеры', uc3d:'Автоматически создавайте видео маршрутов.', uc4t:'Деловые поездки', uc4d:'Фиксируйте каждую командировку.',
+        f7t:'Шаблоны для Соцсетей', f7d:'Автоматические подписи с городом, погодой, температурой и местами. Копируйте и делитесь в TikTok, Instagram, YouTube, WeChat и др. Множество форматов видео.', f8t:'Группы Поездок', f8d:'Объединяйте несколько поездок в группу. Плавные переходы между поездками. Настраиваемая длительность. Идеально для многодневных путешествий.', lblUC:'Примеры', ucTitle:'Для всех кто в движении', uc1t:'Путешественники', uc1d:'Записывайте эпичные поездки.', uc2t:'Спортсмены', uc2d:'Пересматривайте пробежки и походы.', uc3t:'Тревел-блогеры', uc3d:'Автоматически создавайте видео маршрутов.', uc4t:'Деловые поездки', uc4d:'Фиксируйте каждую командировку.',
         lblHow:'Как это работает', howTitle:'Три простых шага', s1t:'Запись', s1d:'Нажмите и езжайте. GPS отслеживает в фоне.', s2t:'Воспроизведение', s2d:'Смотрите как путешествие оживает на 3D-карте.', s3t:'Поделиться', s3d:'Экспортируйте видео и делитесь в соцсетях.',
         btnExplore:'Изучить функции', btnDLStore:'Скачать в App Store', lblDL:'Получить PathReel', dlTitle:'Начните записывать', dlDesc:'Доступно на iOS. Android скоро.',
         navContact:'Контакт', lblContact:'Контакт', contactTitle:'Свяжитесь с нами', contactDesc:'Вопросы, отзывы или сотрудничество — напишите нам.',
@@ -809,7 +885,7 @@
         why1Title:'المسارات تصبح أفلاماً', why1Desc:'نقرة واحدة تحول أي رحلة إلى فيديو احترافي.', why2Title:'كل توقف يروي قصة', why2Desc:'اكتشاف تلقائي للتوقفات مع أسماء الأماكن.', why3Title:'شارك فوراً', why3Desc:'صدّر الفيديو وشاركه على أي منصة.',
         lblFeat:'الميزات', featTitle:'كل ما تحتاجه', featDesc:'ميزات قوية في واجهة بديهية.',
         f1t:'إعادة تشغيل سينمائية', f1d:'تحليق ثلاثي الأبعاد مع كاميرا متكيفة.', f2t:'صور تلقائية', f2d:'الصور تظهر على الخريطة في موقع GPS الدقيق.', f3t:'اكتشاف التوقفات', f3d:'يكتشف التوقفات ويحدد الأماكن ويعرض المدة.', f4t:'تصدير HEVC', f4d:'تصدير فيديو HEVC عالي الجودة.', f5t:'جدول زمني وملاحظات', f5d:'كل رحلة لها جدول زمني. اضغط مطولاً لإضافة ملاحظات.', f6t:'تحليلات وخريطة حرارية', f6d:'تتبع إحصائياتك وشاهد أين كنت.',
-        f7t:'اكتشاف النشاط الذكي', f7d:'يكتشف تلقائياً القيادة والمشي والجري وركوب الدراجة. بدون اختيار يدوي.', f8t:'إدارة ذكية للطاقة', f8d:'يقلل تردد GPS عند التوقف. وضع توفير فائق تحت 15%. يوفر 30-40%.', lblUC:'حالات الاستخدام', ucTitle:'لكل من يتحرك', uc1t:'مسافرون بالسيارة', uc1d:'سجل رحلاتك البرية الملحمية.', uc2t:'رياضيون', uc2d:'أعد تشغيل جولاتك ومشيك.', uc3t:'صنّاع المحتوى', uc3d:'أنشئ فيديوهات المسارات تلقائياً.', uc4t:'مسافرو الأعمال', uc4d:'سجل كل رحلة عمل.',
+        f7t:'قوالب مشاركة وسائل التواصل', f7d:'نصوص تلقائية مع المدينة والطقس والحرارة والأماكن. انسخ وشارك على تيك توك وإنستغرام ويوتيوب وويشات والمزيد. نسب فيديو متعددة.', f8t:'مجموعات رحلات مخصصة', f8d:'نظم عدة رحلات في مجموعة. انتقالات سلسة بين الرحلات. مدة مخصصة لكل مجموعة. مثالي لاستعادة رحلات متعددة الأيام.', lblUC:'حالات الاستخدام', ucTitle:'لكل من يتحرك', uc1t:'مسافرون بالسيارة', uc1d:'سجل رحلاتك البرية الملحمية.', uc2t:'رياضيون', uc2d:'أعد تشغيل جولاتك ومشيك.', uc3t:'صنّاع المحتوى', uc3d:'أنشئ فيديوهات المسارات تلقائياً.', uc4t:'مسافرو الأعمال', uc4d:'سجل كل رحلة عمل.',
         lblHow:'كيف يعمل', howTitle:'ثلاث خطوات بسيطة', s1t:'تسجيل', s1d:'انقر وانطلق. GPS يتتبع في الخلفية.', s2t:'إعادة تشغيل', s2d:'شاهد رحلتك تنبض بالحياة على خريطة ثلاثية الأبعاد.', s3t:'مشاركة', s3d:'صدّر كفيديو وشارك على وسائل التواصل.',
         btnExplore:'استكشف الميزات', btnDLStore:'حمّل من App Store', lblDL:'احصل على PathReel', dlTitle:'ابدأ بتسجيل قصتك', dlDesc:'متوفر على iOS. أندرويد قريباً.',
         navContact:'اتصل', lblContact:'اتصل بنا', contactTitle:'تواصل معنا', contactDesc:'أسئلة أو ملاحظات أو شراكات — يسعدنا سماع رأيك.',
@@ -824,7 +900,7 @@
         why1Title:'मार्ग फिल्म बन जाते हैं', why1Desc:'एक टैप से कोई भी यात्रा प्रोफेशनल वीडियो बन जाती है।', why2Title:'हर ठहराव एक कहानी', why2Desc:'ठहराव को स्वचालित रूप से पहचानता है।', why3Title:'तुरंत शेयर करें', why3Desc:'वीडियो एक्सपोर्ट करें और किसी भी प्लेटफॉर्म पर शेयर करें।',
         lblFeat:'सुविधाएं', featTitle:'आपको जो चाहिए वो सब', featDesc:'सुंदर इंटरफेस में शक्तिशाली सुविधाएं।',
         f1t:'सिनेमैटिक रिप्ले', f1d:'3D सैटेलाइट व्यू के साथ एडेप्टिव कैमरा।', f2t:'ऑटो फोटो', f2d:'फोटो मैप पर GPS स्थान पर दिखाई देते हैं।', f3t:'स्टॉप डिटेक्शन', f3d:'ठहराव पहचानता है, स्थान नाम दिखाता है।', f4t:'HEVC एक्सपोर्ट', f4d:'उच्च गुणवत्ता HEVC वीडियो में एक्सपोर्ट।', f5t:'टाइमलाइन और नोट्स', f5d:'हर यात्रा में टाइमलाइन। लॉन्ग प्रेस से नोट जोड़ें।', f6t:'एनालिटिक्स और हीटमैप', f6d:'आंकड़े ट्रैक करें और हीटमैप पर देखें।',
-        f7t:'स्मार्ट गतिविधि पहचान', f7d:'ड्राइविंग, वॉकिंग, रनिंग या साइक्लिंग ऑटो डिटेक्ट। मैनुअल सिलेक्शन नहीं चाहिए।', f8t:'स्मार्ट पावर मैनेजमेंट', f8d:'रुकने पर GPS फ्रीक्वेंसी कम। 15% से नीचे अल्ट्रा लो पावर। 30-40% बचत।', lblUC:'उपयोग', ucTitle:'हर चलने वाले के लिए', uc1t:'सड़क यात्री', uc1d:'महाकाव्य रोड ट्रिप रिकॉर्ड करें।', uc2t:'एथलीट', uc2d:'दौड़ और हाइक रिप्ले करें।', uc3t:'ट्रैवल क्रिएटर', uc3d:'रूट वीडियो स्वचालित बनाएं।', uc4t:'बिजनेस ट्रैवलर', uc4d:'हर यात्रा रिकॉर्ड करें।',
+        f7t:'सोशल मीडिया शेयर टेम्पलेट', f7d:'शहर, मौसम, तापमान और स्थानों के साथ स्वचालित कैप्शन। TikTok, Instagram, YouTube, WeChat और अन्य पर एक टैप से शेयर। कई वीडियो अनुपात।', f8t:'कस्टम यात्रा समूह', f8d:'कई यात्राओं को एक समूह में व्यवस्थित करें। यात्राओं के बीच सहज ज़ूम ट्रांज़िशन। प्रति समूह कस्टम अवधि। बहु-दिवसीय यात्रा के लिए उत्तम।', lblUC:'उपयोग', ucTitle:'हर चलने वाले के लिए', uc1t:'सड़क यात्री', uc1d:'महाकाव्य रोड ट्रिप रिकॉर्ड करें।', uc2t:'एथलीट', uc2d:'दौड़ और हाइक रिप्ले करें।', uc3t:'ट्रैवल क्रिएटर', uc3d:'रूट वीडियो स्वचालित बनाएं।', uc4t:'बिजनेस ट्रैवलर', uc4d:'हर यात्रा रिकॉर्ड करें।',
         lblHow:'कैसे काम करता है', howTitle:'तीन आसान कदम', s1t:'रिकॉर्ड', s1d:'टैप करें और जाएं। बैकग्राउंड में GPS ट्रैकिंग।', s2t:'रिप्ले', s2d:'3D मैप पर अपनी यात्रा जीवंत देखें।', s3t:'शेयर', s3d:'वीडियो एक्सपोर्ट करें और सोशल मीडिया पर शेयर करें।',
         btnExplore:'सुविधाएं देखें', btnDLStore:'App Store से डाउनलोड', lblDL:'PathReel पाएं', dlTitle:'अपनी कहानी रिकॉर्ड करें', dlDesc:'iOS पर उपलब्ध। Android जल्द।',
         navContact:'संपर्क', lblContact:'संपर्क', contactTitle:'संपर्क करें', contactDesc:'सवाल, फीडबैक या साझेदारी — हमें सुनकर खुशी होगी।',
@@ -839,7 +915,7 @@
         why1Title:'I percorsi diventano film', why1Desc:'Un tocco trasforma qualsiasi viaggio in un video professionale.', why2Title:'Ogni sosta racconta una storia', why2Desc:'Rileva automaticamente le soste con nomi dei luoghi.', why3Title:'Condividi subito', why3Desc:'Esporta video e condividi su qualsiasi piattaforma.',
         lblFeat:'Funzionalità', featTitle:'Tutto ciò che serve', featDesc:'Funzionalità potenti in un\'interfaccia intuitiva.',
         f1t:'Replay cinematografico', f1d:'Sorvolo 3D con fotocamera adattiva e controllo velocità.', f2t:'Foto automatiche', f2d:'Le foto appaiono sulla mappa nella posizione GPS esatta.', f3t:'Rilevamento soste', f3d:'Rileva soste, identifica luoghi e mostra durata.', f4t:'Esportazione HEVC', f4d:'Esporta video HEVC di alta qualità con foto e soste.', f5t:'Timeline e note', f5d:'Ogni viaggio ha una timeline. Premi a lungo per le note.', f6t:'Analisi e mappa di calore', f6d:'Monitora le statistiche e vedi dove sei stato.',
-        f7t:'Rilevamento attività smart', f7d:'Rileva automaticamente guida, camminata, corsa o ciclismo. Nessuna selezione manuale.', f8t:'Gestione smart energia', f8d:'Riduce frequenza GPS da fermo. Modalità ultra risparmio sotto 15%. Risparmia 30-40%.', lblUC:'Casi d\'uso', ucTitle:'Per tutti quelli che si muovono', uc1t:'Viaggiatori', uc1d:'Registra viaggi epici in auto.', uc2t:'Atleti', uc2d:'Rivedi corse e escursioni.', uc3t:'Creatori di viaggio', uc3d:'Genera automaticamente video dei percorsi.', uc4t:'Viaggiatori d\'affari', uc4d:'Registra ogni viaggio di lavoro.',
+        f7t:'Modelli di Condivisione Social', f7d:'Didascalie generate automaticamente con città, meteo, temperatura e luoghi visitati. Copia e condividi su TikTok, Instagram, YouTube, Xiaohongshu, WeChat e altro. Vari formati video.', f8t:'Gruppi di Viaggi Personalizzati', f8d:'Organizza più viaggi in un gruppo. Transizioni fluide tra i viaggi durante la riproduzione. Durata personalizzabile per gruppo. Perfetto per rivivere viaggi di più giorni.', lblUC:'Casi d\'uso', ucTitle:'Per tutti quelli che si muovono', uc1t:'Viaggiatori', uc1d:'Registra viaggi epici in auto.', uc2t:'Atleti', uc2d:'Rivedi corse e escursioni.', uc3t:'Creatori di viaggio', uc3d:'Genera automaticamente video dei percorsi.', uc4t:'Viaggiatori d\'affari', uc4d:'Registra ogni viaggio di lavoro.',
         lblHow:'Come funziona', howTitle:'Tre semplici passi', s1t:'Registra', s1d:'Tocca e parti. GPS traccia in background.', s2t:'Riproduci', s2d:'Guarda il viaggio prendere vita sulla mappa 3D.', s3t:'Condividi', s3d:'Esporta come video e condividi sui social.',
         btnExplore:'Esplora funzionalità', btnDLStore:'Scarica dall\'App Store', lblDL:'Ottieni PathReel', dlTitle:'Inizia a registrare', dlDesc:'Disponibile su iOS. Android in arrivo.',
         navContact:'Contatto', lblContact:'Contatto', contactTitle:'Contattaci', contactDesc:'Domande, feedback o collaborazioni — saremo felici di sentirti.',
@@ -854,7 +930,7 @@
         why1Title:'Rotalar filme dönüşür', why1Desc:'Tek dokunuşla profesyonel video.', why2Title:'Her durak bir hikaye', why2Desc:'Durakları otomatik algılar ve yer adlarını bulur.', why3Title:'Anında paylaş', why3Desc:'Video olarak dışa aktarın ve paylaşın.',
         lblFeat:'Özellikler', featTitle:'İhtiyacınız olan her şey', featDesc:'Sezgisel arayüzde güçlü özellikler.',
         f1t:'Sinematik tekrar', f1d:'3D uydu görünümü ve hız kontrolü.', f2t:'Otomatik fotoğraf', f2d:'Fotoğraflar GPS konumunda haritada görünür.', f3t:'Durak algılama', f3d:'Durakları algılar, yer adlarını ve süreyi gösterir.', f4t:'HEVC dışa aktarma', f4d:'Yüksek kaliteli HEVC video olarak dışa aktarın.', f5t:'Zaman çizelgesi ve notlar', f5d:'Her yolculuğun zaman çizelgesi var. Uzun basarak not ekleyin.', f6t:'Analizler ve ısı haritası', f6d:'İstatistikleri takip edin ve nerede olduğunuzu görün.',
-        f7t:'Akıllı aktivite algılama', f7d:'Sürüş, yürüyüş, koşu veya bisikleti otomatik algılar. Manuel seçim gerekmez.', f8t:'Akıllı güç yönetimi', f8d:'Durağanken GPS frekansını azaltır. %15 altında ultra tasarruf modu. %30-40 tasarruf.', lblUC:'Kullanım', ucTitle:'Hareket eden herkes için', uc1t:'Yol gezginleri', uc1d:'Epik yol yolculuklarını kaydedin.', uc2t:'Sporcular', uc2d:'Koşuları ve yürüyüşleri tekrarlayın.', uc3t:'Seyahat içerik üreticileri', uc3d:'Rota videoları otomatik oluşturun.', uc4t:'İş seyahati', uc4d:'Her seyahati kaydedin.',
+        f7t:'Sosyal Medya Paylaşım Şablonları', f7d:'Şehir, hava durumu, sıcaklık ve ziyaret edilen yerlerle otomatik açıklamalar. TikTok, Instagram, YouTube, Xiaohongshu, WeChat ve daha fazlasında tek dokunuşla paylaşın. Çoklu video oranları.', f8t:'Özel Gezi Grupları', f8d:'Birden fazla geziyi bir grupta düzenleyin. Geziler arasında akıcı geçişler. Grup başına özel süre. Çok günlük gezi tekrarları için ideal.', lblUC:'Kullanım', ucTitle:'Hareket eden herkes için', uc1t:'Yol gezginleri', uc1d:'Epik yol yolculuklarını kaydedin.', uc2t:'Sporcular', uc2d:'Koşuları ve yürüyüşleri tekrarlayın.', uc3t:'Seyahat içerik üreticileri', uc3d:'Rota videoları otomatik oluşturun.', uc4t:'İş seyahati', uc4d:'Her seyahati kaydedin.',
         lblHow:'Nasıl çalışır', howTitle:'Üç basit adım', s1t:'Kaydet', s1d:'Dokunun ve gidin. Arka planda GPS takibi.', s2t:'Oynat', s2d:'3D haritada yolculuğunuzun canlanmasını izleyin.', s3t:'Paylaş', s3d:'Video olarak dışa aktarın ve sosyal medyada paylaşın.',
         btnExplore:'Özellikleri keşfet', btnDLStore:'App Store\'dan indir', lblDL:'PathReel\'i edinin', dlTitle:'Hikayenizi kaydedin', dlDesc:'iOS\'ta mevcut. Android yakında.',
         navContact:'İletişim', lblContact:'İletişim', contactTitle:'Bize Ulaşın', contactDesc:'Sorular, geri bildirimler veya ortaklıklar — sizden duymak isteriz.',
@@ -869,7 +945,7 @@
         why1Title:'เส้นทางกลายเป็นหนัง', why1Desc:'แตะเดียวเปลี่ยนทุกทริปเป็นวิดีโอระดับโปร', why2Title:'ทุกจุดจอดมีเรื่องเล่า', why2Desc:'ตรวจจับจุดจอดอัตโนมัติพร้อมชื่อสถานที่', why3Title:'แชร์ทันที', why3Desc:'ส่งออกวิดีโอและแชร์บนทุกแพลตฟอร์ม',
         lblFeat:'ฟีเจอร์', featTitle:'ทุกสิ่งที่คุณต้องการ', featDesc:'ฟีเจอร์ทรงพลังในอินเตอร์เฟซที่สวยงาม',
         f1t:'รีเพลย์แบบภาพยนตร์', f1d:'มุมมองดาวเทียม 3D พร้อมควบคุมความเร็ว', f2t:'จับคู่ภาพอัตโนมัติ', f2d:'รูปภาพปรากฏบนแผนที่ตำแหน่ง GPS', f3t:'ตรวจจับจุดจอด', f3d:'ตรวจจับจุดจอดและแสดงชื่อสถานที่', f4t:'ส่งออก HEVC', f4d:'ส่งออกวิดีโอ HEVC คุณภาพสูง', f5t:'ไทม์ไลน์และโน้ต', f5d:'ทุกทริปมีไทม์ไลน์ กดค้างเพื่อเพิ่มโน้ต', f6t:'วิเคราะห์และฮีตแมป', f6d:'ติดตามสถิติและดูที่ที่คุณไปบนฮีตแมป',
-        f7t:'ตรวจจับกิจกรรมอัจฉริยะ', f7d:'ตรวจจับขับรถ เดิน วิ่ง หรือปั่นจักรยานอัตโนมัติ ไม่ต้องเลือกเอง', f8t:'จัดการพลังงานอัจฉริยะ', f8d:'ลดความถี่ GPS เมื่อหยุดนิ่ง โหมดประหยัดสุดเมื่อแบตต่ำกว่า 15% ประหยัด 30-40%', lblUC:'กรณีใช้งาน', ucTitle:'สำหรับทุกคนที่เคลื่อนที่', uc1t:'นักเดินทาง', uc1d:'บันทึกทริปขับรถสุดเอพิก', uc2t:'นักกีฬา', uc2d:'เล่นซ้ำการวิ่งและเดินป่า', uc3t:'ครีเอเตอร์', uc3d:'สร้างวิดีโอเส้นทางอัตโนมัติ', uc4t:'นักเดินทางธุรกิจ', uc4d:'บันทึกทุกการเดินทาง',
+        f7t:'เทมเพลตแชร์โซเชียลมีเดีย', f7d:'สร้างคำบรรยายอัตโนมัติพร้อมเมือง สภาพอากาศ อุณหภูมิ และสถานที่ แตะเดียวแชร์ไป TikTok, Instagram, YouTube, Xiaohongshu, WeChat อัตราส่วนวิดีโอหลายแบบ', f8t:'กลุ่มการเดินทางที่กำหนดเอง', f8d:'จัดหลายทริปเป็นกลุ่ม ซูมเปลี่ยนฉากอย่างราบรื่น กำหนดระยะเวลาต่อกลุ่ม เหมาะสำหรับทบทวนการเดินทางหลายวัน', lblUC:'กรณีใช้งาน', ucTitle:'สำหรับทุกคนที่เคลื่อนที่', uc1t:'นักเดินทาง', uc1d:'บันทึกทริปขับรถสุดเอพิก', uc2t:'นักกีฬา', uc2d:'เล่นซ้ำการวิ่งและเดินป่า', uc3t:'ครีเอเตอร์', uc3d:'สร้างวิดีโอเส้นทางอัตโนมัติ', uc4t:'นักเดินทางธุรกิจ', uc4d:'บันทึกทุกการเดินทาง',
         lblHow:'วิธีใช้', howTitle:'สามขั้นตอนง่ายๆ', s1t:'บันทึก', s1d:'แตะแล้วไป GPS ติดตามในพื้นหลัง', s2t:'เล่นซ้ำ', s2d:'ดูการเดินทางมีชีวิตบนแผนที่ 3D', s3t:'แชร์', s3d:'ส่งออกเป็นวิดีโอและแชร์บนโซเชียล',
         btnExplore:'สำรวจฟีเจอร์', btnDLStore:'ดาวน์โหลดบน App Store', lblDL:'รับ PathReel', dlTitle:'เริ่มบันทึกเรื่องราว', dlDesc:'พร้อมใช้บน iOS Android เร็วๆ นี้',
         navContact:'ติดต่อ', lblContact:'ติดต่อเรา', contactTitle:'ติดต่อเรา', contactDesc:'คำถาม ข้อเสนอแนะ หรือพาร์ทเนอร์ — เรายินดีรับฟัง',
@@ -884,7 +960,7 @@
         why1Title:'Tuyến đường thành phim', why1Desc:'Một chạm biến bất kỳ chuyến đi nào thành video chuyên nghiệp.', why2Title:'Mỗi điểm dừng kể một câu chuyện', why2Desc:'Tự động phát hiện điểm dừng và tìm tên địa điểm.', why3Title:'Chia sẻ ngay', why3Desc:'Xuất video và chia sẻ trên bất kỳ nền tảng nào.',
         lblFeat:'Tính năng', featTitle:'Tất cả những gì bạn cần', featDesc:'Tính năng mạnh mẽ trong giao diện trực quan.',
         f1t:'Phát lại điện ảnh', f1d:'Bay trên vệ tinh 3D với camera thích ứng.', f2t:'Ảnh tự động', f2d:'Ảnh hiện trên bản đồ tại vị trí GPS chính xác.', f3t:'Phát hiện điểm dừng', f3d:'Phát hiện điểm dừng, tìm tên và hiển thị thời gian.', f4t:'Xuất HEVC', f4d:'Xuất video HEVC chất lượng cao với ảnh và điểm dừng.', f5t:'Dòng thời gian & ghi chú', f5d:'Mỗi chuyến đi có dòng thời gian. Nhấn giữ để thêm ghi chú.', f6t:'Phân tích & bản đồ nhiệt', f6d:'Theo dõi thống kê và xem nơi bạn đã đến.',
-        f7t:'Nhận diện hoạt động thông minh', f7d:'Tự động nhận diện lái xe, đi bộ, chạy hoặc đạp xe. Không cần chọn thủ công.', f8t:'Quản lý năng lượng thông minh', f8d:'Giảm tần suất GPS khi đứng yên. Chế độ siêu tiết kiệm dưới 15%. Tiết kiệm 30-40%.', lblUC:'Ứng dụng', ucTitle:'Cho tất cả người di chuyển', uc1t:'Dân phượt', uc1d:'Ghi lại chuyến road trip hoành tráng.', uc2t:'Vận động viên', uc2d:'Xem lại chạy bộ và đi bộ đường dài.', uc3t:'Nhà sáng tạo', uc3d:'Tự động tạo video tuyến đường.', uc4t:'Dân công tác', uc4d:'Ghi lại mọi chuyến công tác.',
+        f7t:'Mẫu Chia Sẻ Mạng Xã Hội', f7d:'Tự động tạo chú thích với thành phố, thời tiết, nhiệt độ và địa điểm. Sao chép và chia sẻ lên TikTok, Instagram, YouTube, Xiaohongshu, WeChat và nhiều nền tảng khác. Nhiều tỷ lệ video.', f8t:'Nhóm Chuyến Đi Tùy Chỉnh', f8d:'Sắp xếp nhiều chuyến đi vào một nhóm. Chuyển cảnh thu phóng mượt mà giữa các chuyến. Thời lượng tùy chỉnh cho mỗi nhóm. Hoàn hảo để xem lại chuyến đi nhiều ngày.', lblUC:'Ứng dụng', ucTitle:'Cho tất cả người di chuyển', uc1t:'Dân phượt', uc1d:'Ghi lại chuyến road trip hoành tráng.', uc2t:'Vận động viên', uc2d:'Xem lại chạy bộ và đi bộ đường dài.', uc3t:'Nhà sáng tạo', uc3d:'Tự động tạo video tuyến đường.', uc4t:'Dân công tác', uc4d:'Ghi lại mọi chuyến công tác.',
         lblHow:'Cách hoạt động', howTitle:'Ba bước đơn giản', s1t:'Ghi', s1d:'Chạm và đi. GPS theo dõi ở nền.', s2t:'Phát lại', s2d:'Xem hành trình sống động trên bản đồ 3D.', s3t:'Chia sẻ', s3d:'Xuất video và chia sẻ trên mạng xã hội.',
         btnExplore:'Khám phá tính năng', btnDLStore:'Tải từ App Store', lblDL:'Tải PathReel', dlTitle:'Bắt đầu ghi lại', dlDesc:'Có sẵn trên iOS. Android sắp ra mắt.',
         navContact:'Liên hệ', lblContact:'Liên hệ', contactTitle:'Liên hệ với chúng tôi', contactDesc:'Câu hỏi, phản hồi hoặc hợp tác — chúng tôi rất muốn nghe từ bạn.',
