@@ -304,9 +304,11 @@
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ========== RESPONSIVE ========== */
+    .mobile-lang { display: none; position: absolute; right: 20px; top: 14px; }
     @media (max-width: 768px) {
       nav { padding: 12px 20px; }
       .nav-links { display: none; }
+      .mobile-lang { display: block; }
       section { padding: 60px 20px; }
       .docs-content { padding: 24px; }
     }
@@ -330,6 +332,7 @@
       <select id="langSelect" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:4px 8px;font-size:13px;cursor:pointer;"></select>
       <a href="#download" class="nav-cta" data-i18n="navDownload">Download</a>
     </div>
+    <select id="mobileLangSelect" class="mobile-lang" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:4px 8px;font-size:13px;"></select>
   </nav>
 
   <!-- HERO -->
@@ -1022,17 +1025,27 @@
       document.getElementById('langSelect').value = lang;
     }
 
-    // Build selector
-    const sel = document.getElementById('langSelect');
-    Object.entries(langNames).forEach(([id, name]) => {
-      const opt = document.createElement('option');
-      opt.value = id; opt.textContent = name;
-      sel.appendChild(opt);
+    // Build selectors (desktop + mobile)
+    ['langSelect', 'mobileLangSelect'].forEach((selId) => {
+      const sel = document.getElementById(selId);
+      if (!sel) return;
+      Object.entries(langNames).forEach(([id, name]) => {
+        const opt = document.createElement('option');
+        opt.value = id; opt.textContent = name;
+        sel.appendChild(opt);
+      });
+      sel.addEventListener('change', (e) => {
+        applyLang(e.target.value);
+        // Sync both selectors
+        document.getElementById('langSelect').value = e.target.value;
+        document.getElementById('mobileLangSelect').value = e.target.value;
+      });
     });
-    sel.addEventListener('change', (e) => applyLang(e.target.value));
 
     // Apply on load
-    applyLang(detectLang());
+    const initLang = detectLang();
+    applyLang(initLang);
+    if (document.getElementById('mobileLangSelect')) document.getElementById('mobileLangSelect').value = initLang;
   </script>
 </body>
 </html>
