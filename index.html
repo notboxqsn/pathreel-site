@@ -607,16 +607,7 @@
         </ul>
 
         <h3>Exporting Video</h3>
-        <p>During replay, tap the <strong>export button</strong>. A bottom sheet appears with aspect ratio options:</p>
-        <ul>
-          <li><strong>Original</strong> — Native aspect ratio, no cropping.</li>
-          <li><strong>9:16</strong> — TikTok, Instagram Reels, YouTube Shorts, Xiaohongshu (vertical).</li>
-          <li><strong>3:4</strong> — Xiaohongshu (alternative portrait).</li>
-          <li><strong>1:1</strong> — Instagram feed, WeChat Moments (square).</li>
-          <li><strong>4:5</strong> — Instagram feed (portrait).</li>
-          <li><strong>16:9</strong> — YouTube, X/Twitter (landscape).</li>
-        </ul>
-        <p>After selecting a ratio, PathReel replays the route and captures every frame. The map view resizes to match your chosen ratio so no content is lost. Progress is shown on screen.</p>
+        <p>During replay, tap the <strong>export button</strong>. PathReel replays the entire route and captures every frame as a high-quality HD video. Progress is shown on screen.</p>
         <p>Once saved, you can choose to <strong>share</strong>:</p>
         <ul>
           <li><strong>Copy & Share</strong> — An auto-generated caption is copied to your clipboard (includes city name, weather, temperature, places visited, season, and time of day), then the system share sheet opens for the video.</li>
@@ -652,19 +643,20 @@
           <li><strong>Data sources</strong> — UNESCO World Heritage Sites, Wikivoyage curated travel guides, US National Park Service (NPS), and Geoapify local points of interest. Results are deduplicated and merged automatically.</li>
           <li><strong>Search center</strong> — Three ways to set where to search: use your current GPS location, long-press the map to drop a pin, or tap the search icon to enter a city/address.</li>
           <li><strong>Search radius</strong> — Drag the slider to set the search radius from 1 km to 50 km.</li>
-          <li><strong>Read More</strong> — Tap any attraction to view details. PathReel first tries to find a Wikipedia article in your language (via Wikidata language links). If none exists, it uses AI (Groq Llama 3.3 70B) to generate a description in your language. Images are fetched from Wikidata or Wikipedia geosearch.</li>
-          <li><strong>Text-to-Speech</strong> — Tap "Listen" to have the description read aloud. PathReel automatically selects the best available voice (Siri > Enhanced > Default) and detects whether the text is in English or your language to pick the correct voice.</li>
+          <li><strong>Read More</strong> — Tap any attraction to view details. PathReel first tries to find a Wikipedia article in your language (via Wikidata language links). If none exists, it generates a multilingual description automatically. Images are fetched from Wikidata or Wikipedia geosearch.</li>
+          <li><strong>Text-to-Speech</strong> — Tap "Listen" to have the description read aloud. PathReel automatically selects the best available voice (Siri > Enhanced > Default) and detects the text language to pick the correct voice.</li>
           <li><strong>Add to Check-in</strong> — Tap the ⭐ button on any search result to save it as a check-in target.</li>
-          <li><strong>Custom Places</strong> — Add your own places (cafés, friends' houses, memorials) with a name, address, note, and category.</li>
+          <li><strong>Custom Places</strong> — Add your own places by entering a name and address, or long-press anywhere on the check-in map to add a pin directly. Choose a category (café, restaurant, friend, historic, memorial, other) and add optional notes.</li>
         </ul>
 
         <h3>Check-in Stamps</h3>
         <p>Switch to <strong>"My Check-ins"</strong> to manage your travel passport:</p>
         <ul>
           <li><strong>Stats cards</strong> — Four tier categories with progress: UNESCO (World Heritage), Featured (Wikivoyage), Local (Geoapify), and My Places (custom). Tap a card to filter the list and map.</li>
-          <li><strong>Map view</strong> — All check-in targets displayed on a satellite map. Visited targets show in bright tier colors with ✅; unvisited targets show in gray with the tier icon. Tap a visited marker to view details.</li>
-          <li><strong>Manual check-in</strong> — Tap the ✓ button next to an unvisited target. PathReel verifies your GPS position — you must be within 500 meters. The exact distance is recorded.</li>
-          <li><strong>Auto check-in</strong> — When you stop a trip recording, PathReel scans all GPS track points and automatically marks any planned target within 200 meters as visited. Distance, GPS coordinates, and trip ID are saved.</li>
+          <li><strong>Map view</strong> — All check-in targets displayed on a satellite map. Visited targets show in bright tier colors with ✅; unvisited targets show in gray. Tap any marker to zoom in and see the check-in radius circles (200m auto + 500m manual).</li>
+          <li><strong>Two tabs</strong> — "Unvisited" and "Visited" tabs below the map. Both lists sorted by distance from your current location (nearest first). Each item shows the distance to you in real time.</li>
+          <li><strong>Manual check-in</strong> — Each unvisited target has a "Check in" button. The button is disabled (gray) when you are outside 500m, and turns green when you are within range. Tapping it triggers a GPS verification with a loading indicator, then confirms success or shows the actual distance if too far.</li>
+          <li><strong>Auto check-in</strong> — When a trip recording stops (manual or auto), PathReel scans all GPS track points and automatically marks any planned target within 200 meters as visited. Distance, GPS coordinates, and trip ID are saved.</li>
           <li><strong>Check-in detail</strong> — Tap a visited record to see: a mini map with both the attraction pin and your check-in location, distance, method (Auto GPS / Manual), timestamp, tier, description, notes, and any photos taken nearby (within 1 km, ±1 hour of check-in time).</li>
           <li><strong>Delete targets</strong> — Long-press (2 seconds) an unvisited target to delete it. Visited records are locked and cannot be deleted or modified.</li>
         </ul>
@@ -689,11 +681,13 @@
         <h4>Auto Record (iOS)</h4>
         <p>Automatically start recording when you leave home and stop when you return — no more forgetting to press the button.</p>
         <ul>
-          <li><strong>Enable Auto Record</strong> — Master toggle. When enabled, PathReel monitors a circular geofence around your home location using iOS region monitoring (CLLocationManager). This works even when the app is in the background or terminated.</li>
+          <li><strong>Enable Auto Record</strong> — Master toggle. When enabled, PathReel monitors a circular geofence around your home location using iOS region monitoring. This works even when the app is in the background or terminated.</li>
           <li><strong>Home Location</strong> — Tap to enter your home address. PathReel geocodes the address and shows it on a map with the geofence circle for confirmation. You can retry if the location is wrong.</li>
-          <li><strong>Geofence Radius</strong> — The distance from your home location that triggers auto-start/stop. When you exit this circle, recording starts; when you re-enter, recording stops. Range: 100–500m. Default: 200m. Tip: If you live near a busy road, increase the radius to avoid false triggers.</li>
+          <li><strong>Geofence Radius</strong> — The distance from your home location that triggers auto-start/stop. When you exit this circle, recording starts; when you re-enter, recording stops. Range: 10–500m. Default: 50m.</li>
           <li><strong>Default Mode</strong> — The transport mode used when auto-recording starts (car, motorcycle, bike, walk, run, boat, or train). Default: car.</li>
           <li><strong>Min Stay to Stop</strong> — How long you must remain inside the geofence before recording automatically stops. This prevents premature stops if you briefly pass through your home area. Range: 1–10 min. Default: 3 min.</li>
+          <li><strong>Notifications</strong> — When auto-record starts or stops, you receive a local notification on your iPhone and Apple Watch in your chosen language (e.g. "🚗 Recording started — you left home").</li>
+          <li><strong>Invalid trip cleanup</strong> — If an auto-recorded trip's total distance is shorter than the geofence radius, it is considered invalid and automatically deleted. A notification informs you that the trip was not saved.</li>
         </ul>
 
         <h4>Backup</h4>
@@ -732,7 +726,7 @@
       <span class="section-label" data-i18n="lblPriv">Legal</span>
       <h2 class="section-title fade-in" data-i18n="privTitle">Privacy Policy</h2>
       <div class="docs-content fade-in" id="privBody" data-i18n="privBody" data-i18n-html="1">
-        <p><strong>Last updated:</strong> April 6, 2026</p>
+        <p><strong>Last updated:</strong> April 20, 2026</p>
         <h3>Overview</h3>
         <p>PathReel is designed with privacy at its core. All your data stays on your device. We do not collect, store, or transmit any personal data to external servers.</p>
         <h3>Data Collection</h3>
