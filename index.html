@@ -223,6 +223,11 @@
     }
     .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
     .feature-card p { color: var(--text-muted); font-size: 14px; }
+    .feature-group-title {
+      font-size: 18px; font-weight: 700; color: var(--accent);
+      margin-top: 40px; margin-bottom: -8px; letter-spacing: 0.5px;
+    }
+    .feature-group-title:first-of-type { margin-top: 32px; }
 
     /* ========== USE CASES ========== */
     .usecases { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%); }
@@ -390,6 +395,8 @@
       <span class="section-label" data-i18n="lblFeat">Features</span>
       <h2 class="section-title fade-in" data-i18n="featTitle">Everything You Need</h2>
       <p class="section-desc fade-in" data-i18n="featDesc">Powerful features wrapped in a beautiful, intuitive interface.</p>
+      <!-- Group: Record & Replay -->
+      <h3 class="feature-group-title fade-in" data-i18n="fgRecord">🎬 Record & Replay</h3>
       <div class="features-grid">
         <div class="feature-card fade-in">
           <span class="feature-num">01</span>
@@ -412,53 +419,75 @@
             <p data-i18n="f3d">Automatically detects stops with customizable time threshold (default 10 min), identifies venues via Apple Maps, and shows duration.</p>
           </div>
         </div>
+      </div>
+
+      <!-- Group: Export & Share -->
+      <h3 class="feature-group-title fade-in" data-i18n="fgExport">📤 Export & Share</h3>
+      <div class="features-grid">
         <div class="feature-card fade-in">
           <span class="feature-num">04</span>
           <div>
             <h3 data-i18n="f4t">HD Video Export</h3>
-            <p data-i18n="f4d">Export your replay as a stunning HD video. Choose from multiple aspect ratios for any platform. Photos, stops, notes, and auto-generated social captions all included.</p>
+            <p data-i18n="f4d">Export your replay as a stunning HD video. Photos, stops, notes, and auto-generated social captions all included. Share to any platform.</p>
           </div>
         </div>
         <div class="feature-card fade-in">
           <span class="feature-num">05</span>
+          <div>
+            <h3 data-i18n="f7t">Social Media Share Templates</h3>
+            <p data-i18n="f7d">Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group: Organize & Analyze -->
+      <h3 class="feature-group-title fade-in" data-i18n="fgOrganize">📊 Organize & Analyze</h3>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-num">06</span>
           <div>
             <h3 data-i18n="f5t">Trip Timeline & Notes</h3>
             <p data-i18n="f5d">Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.</p>
           </div>
         </div>
         <div class="feature-card fade-in">
-          <span class="feature-num">06</span>
-          <div>
-            <h3 data-i18n="f6t">Insights & Heatmap</h3>
-            <p data-i18n="f6d">Track your stats over time. See where you've been on a heatmap. Weekly and monthly distance reports.</p>
-          </div>
-        </div>
-        <div class="feature-card fade-in">
           <span class="feature-num">07</span>
-          <div>
-            <h3 data-i18n="f7t">Social Media Share Templates</h3>
-            <p data-i18n="f7d">Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. </p>
-          </div>
-        </div>
-        <div class="feature-card fade-in">
-          <span class="feature-num">08</span>
           <div>
             <h3 data-i18n="f8t">Custom Trip Groups</h3>
             <p data-i18n="f8d">Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.</p>
           </div>
         </div>
         <div class="feature-card fade-in">
+          <span class="feature-num">08</span>
+          <div>
+            <h3 data-i18n="f6t">Insights & Heatmap</h3>
+            <p data-i18n="f6d">Track your stats over time. See where you've been on a heatmap. Weekly and monthly distance reports.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group: Discover & Check-in -->
+      <h3 class="feature-group-title fade-in" data-i18n="fgDiscover">🗺 Discover & Check-in</h3>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
           <span class="feature-num">09</span>
           <div>
             <h3 data-i18n="f9t">Attraction Discovery</h3>
-            <p data-i18n="f9d">Search nearby attractions from UNESCO World Heritage, Wikivoyage, NPS, and Geoapify. Get Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.</p>
+            <p data-i18n="f9d">Search nearby attractions from UNESCO World Heritage, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.</p>
           </div>
         </div>
         <div class="feature-card fade-in">
           <span class="feature-num">10</span>
           <div>
             <h3 data-i18n="f10t">Check-in Stamps</h3>
-            <p data-i18n="f10d">Build your travel passport with GPS-verified check-ins. Auto check-in when your route passes within 200m of a saved attraction, or manually stamp on-site within 500m. Track UNESCO, featured, and custom places on a color-coded map.</p>
+            <p data-i18n="f10d">GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.</p>
+          </div>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">11</span>
+          <div>
+            <h3 data-i18n="f11t">Auto Record</h3>
+            <p data-i18n="f11d">Never forget to record again. Set your home location and PathReel automatically starts recording when you leave and stops when you return. Customizable geofence radius, transport mode, and stay time.</p>
           </div>
         </div>
       </div>
@@ -781,14 +810,14 @@
         why1Title:'Routes Become Films', why1Desc:'One tap turns any trip into a professional replay video with 3D map animation, smooth camera movements, and your photos woven in.',
         why2Title:'Every Stop Tells a Story', why2Desc:'PathReel auto-detects where you stopped, finds the venue name, and lets you add notes — building a rich timeline of your journey.',
         why3Title:'Share Instantly', why3Desc:'Export to video and share directly to Instagram, TikTok, WeChat, or any platform. Your adventures deserve an audience.', why4Title:'Collect the World', why4Desc:'Discover UNESCO sites, local gems, and hidden attractions. Check in with GPS verification and build your personal travel passport — one stamp at a time.',
-        lblFeat:'Features', featTitle:'Everything You Need', featDesc:'Powerful features wrapped in a beautiful, intuitive interface.',
+        lblFeat:'Features', fgRecord:'🎬 Record & Replay', fgExport:'📤 Export & Share', fgOrganize:'📊 Organize & Analyze', fgDiscover:'🗺 Discover & Check-in', featTitle:'Everything You Need', featDesc:'Powerful features wrapped in a beautiful, intuitive interface.',
         f1t:'Cinematic Route Replay', f1d:'3D satellite flyover with adaptive camera height, smooth transitions, and speed control (0.5x to 3x).',
         f2t:'Auto Photo Matching', f2d:'Photos taken during your trip appear on the map at their exact GPS location. Zoom in to relive the moment.',
         f3t:'Smart Stop Detection', f3d:'Automatically detects stops with customizable time threshold (default 10 min), identifies venues via Apple Maps, and shows duration.',
         f4t:'HD Video Export', f4d:'Export your replay as a stunning HD video. Photos, stops, notes, and auto-generated social captions all included. Share to any platform.',
         f5t:'Trip Timeline & Notes', f5d:'Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.',
         f6t:'Insights & Heatmap', f6d:'Track your stats over time. See where you\'ve been on a heatmap. Weekly and monthly distance reports.',
-        f7t:'Social Media Share Templates', f7d:'Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. ', f8t:'Custom Trip Groups', f8d:'Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.', f9t:'Attraction Discovery', f9d:'Search nearby attractions from UNESCO, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.', f10t:'Check-in Stamps', f10d:'GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.', lblUC:'Use Cases', ucTitle:'Built for Everyone Who Moves',
+        f7t:'Social Media Share Templates', f7d:'Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. ', f8t:'Custom Trip Groups', f8d:'Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.', f9t:'Attraction Discovery', f9d:'Search nearby attractions from UNESCO, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.', f10t:'Check-in Stamps', f10d:'GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.', f11t:'Auto Record', f11d:'Never forget to record again. Set your home location and PathReel automatically starts recording when you leave and stops when you return. Customizable geofence radius, transport mode, and stay time.', lblUC:'Use Cases', ucTitle:'Built for Everyone Who Moves',
         uc1t:'Road Trippers', uc1d:'Record epic cross-country drives. Generate a highlight reel with scenic stops and roadside photos.',
         uc2t:'Athletes & Runners', uc2d:'Replay your runs, hikes, and bike rides with speed data and route animation. Track your progress.',
         uc3t:'Travel Creators', uc3d:'Auto-generate route videos with geotagged photos. One-tap export to TikTok, Reels, or YouTube Shorts.',
@@ -811,14 +840,14 @@
         why1Title:'路线变电影', why1Desc:'一键把任何行程变成专业级回放视频，配有 3D 地图动画、流畅的镜头运动和你的照片。',
         why2Title:'每个停留都有故事', why2Desc:'PathReel 自动检测你的停留地点，查找商户名称，让你添加备注 — 构建丰富的旅程时间线。',
         why3Title:'即刻分享', why3Desc:'导出视频直接分享到 Instagram、TikTok、微信或任何平台。你的冒险值得被看见。', why4Title:'收集世界', why4Desc:'发现 UNESCO 遗产、本地宝藏和隐藏景点。GPS 验证打卡，打造你的专属旅行护照。',
-        lblFeat:'功能', featTitle:'你需要的一切', featDesc:'强大的功能，包裹在美观直觉的界面中。',
+        lblFeat:'功能', fgRecord:'🎬 錄製與回放', fgExport:'📤 匯出與分享', fgOrganize:'📊 整理與分析', fgDiscover:'🗺 發現與打卡', fgRecord:'🎬 录制与回放', fgExport:'📤 导出与分享', fgOrganize:'📊 整理与分析', fgDiscover:'🗺 发现与打卡', featTitle:'你需要的一切', featDesc:'强大的功能，包裹在美观直觉的界面中。',
         f1t:'电影级路线回放', f1d:'3D 卫星俯瞰，自适应镜头高度，流畅过渡，支持 0.5x 到 3x 变速。',
         f2t:'自动照片匹配', f2d:'行程中拍摄的照片自动出现在地图上的精确 GPS 位置，放大重温那一刻。',
         f3t:'智能停留检测', f3d:'自动检测停留，时间阈值可自定义（默认 10 分钟），通过 Apple 地图识别商户名称，显示停留时长。',
         f4t:'HEVC 视频导出', f4d:'将回放导出为高质量 HEVC 视频，包含照片、停留和备注。随处分享。',
         f5t:'行程时间线与备注', f5d:'每段行程都有时间线：起点、照片、停留、终点。长按任意事件添加个人备注。',
         f6t:'数据洞察与热力图', f6d:'追踪你的统计数据，在热力图上查看去过的地方。支持周报和月报。',
-        f7t:'社交媒体分享模版', f7d:'导出视频时自动生成分享文案，融合城市、天气、温度、途经地点等旅行信息。支持一键复制文案并分享到 TikTok、Instagram、YouTube、小红书、微信等平台。', f8t:'自定义行程组', f8d:'将多个行程归入一个旅行组，支持整体播放和导出。行程间自动缩放过渡，自然衔接。每个组可单独设置播放时长，轻松回顾多日旅行。', f9t:'景点发现', f9d:'搜索附近的 UNESCO 世界遗产、Wikivoyage 精选景点、美国国家公园及本地景点。多语言景点介绍，支持语音朗读，随时发现身边的隐藏宝藏。', f10t:'景点打卡', f10d:'GPS 验证的旅行护照。行程结束后自动检测打卡，也可现场手动打卡。在地图上用彩色标记追踪世界遗产、精选景点和自定义地点。', lblUC:'使用场景', ucTitle:'为所有移动的人而建',
+        f7t:'社交媒体分享模版', f7d:'导出视频时自动生成分享文案，融合城市、天气、温度、途经地点等旅行信息。支持一键复制文案并分享到 TikTok、Instagram、YouTube、小红书、微信等平台。', f8t:'自定义行程组', f8d:'将多个行程归入一个旅行组，支持整体播放和导出。行程间自动缩放过渡，自然衔接。每个组可单独设置播放时长，轻松回顾多日旅行。', f9t:'景点发现', f9d:'搜索附近的 UNESCO 世界遗产、Wikivoyage 精选景点、美国国家公园及本地景点。多语言景点介绍，支持语音朗读，随时发现身边的隐藏宝藏。', f10t:'景点打卡', f10d:'GPS 验证的旅行护照。行程结束后自动检测打卡，也可现场手动打卡。在地图上用彩色标记追踪世界遗产、精选景点和自定义地点。', f11t:'自动录制', f11d:'再也不会忘记录制。设置家的位置，离开时自动开始录制，回家后自动停止。可自定义围栏半径、交通方式和停留时间。', lblUC:'使用场景', ucTitle:'为所有移动的人而建',
         uc1t:'自驾旅行者', uc1d:'记录史诗级公路旅行，生成包含风景停靠点和路边照片的精彩回放。',
         uc2t:'运动爱好者', uc2d:'回放你的跑步、徒步和骑行路线，带有速度数据和路线动画。追踪你的进步。',
         uc3t:'旅行博主', uc3d:'自动生成带地理标记照片的路线视频。一键导出到 TikTok、Reels 或 YouTube Shorts。',
@@ -839,9 +868,9 @@
         heroBadge:'現已登陸 iOS', heroTitle:'把你的旅程<br>變成電影', heroDesc:'PathReel 記錄你的 GPS 路線，將它們轉化為電影級的回放影片 — 照片、停留點和回憶，一鍵生成。',
         lblWhy:'為什麼選 PathReel', whyTitle:'不只是又一個 GPS 追蹤器', whyDesc:'別的應用只記錄數據，PathReel 創造回憶。',
         why1Title:'路線變電影', why1Desc:'一鍵把任何行程變成專業級回放影片。', why2Title:'每個停留都有故事', why2Desc:'自動偵測停留地點，查找商戶名稱。', why3Title:'即刻分享', why3Desc:'匯出影片直接分享到任何平台。', why4Title:'收集世界', why4Desc:'發現 UNESCO 遺產、本地寶藏和隱藏景點。GPS 驗證打卡，打造你的專屬旅行護照。',
-        lblFeat:'功能', featTitle:'你需要的一切', featDesc:'強大的功能，美觀的介面。',
+        lblFeat:'功能', fgRecord:'🎬 錄製與回放', fgExport:'📤 匯出與分享', fgOrganize:'📊 整理與分析', fgDiscover:'🗺 發現與打卡', fgRecord:'🎬 录制与回放', fgExport:'📤 导出与分享', fgOrganize:'📊 整理与分析', fgDiscover:'🗺 发现与打卡', featTitle:'你需要的一切', featDesc:'強大的功能，美觀的介面。',
         f1t:'電影級路線回放', f1d:'3D衛星俯瞰，自適應鏡頭高度，流暢過渡。', f2t:'自動照片匹配', f2d:'行程中拍攝的照片自動出現在地圖上。', f3t:'智慧停留偵測', f3d:'自動偵測停留，時間閾值可自訂（預設 10 分鐘），識別商戶名稱和時長。', f4t:'高清影片匯出', f4d:'匯出高品質HEVC影片，包含照片和停留。', f5t:'行程時間線與備註', f5d:'每段行程都有時間線，長按添加備註。', f6t:'數據洞察與熱力圖', f6d:'追蹤統計數據，在熱力圖上查看去過的地方。',
-        f7t:'社交媒體分享模版', f7d:'導出視頻時自動生成分享文案，融合城市、天氣、溫度、途經地點等旅行資訊。支持一鍵複製文案並分享到 TikTok、Instagram、YouTube、小紅書、微信等平台。', f8t:'自定義行程組', f8d:'將多個行程歸入一個旅行組，支持整體播放和導出。行程間自動縮放過渡，自然銜接。每個組可單獨設置播放時長，輕鬆回顧多日旅行。', f9t:'景點發現', f9d:'搜尋附近的 UNESCO 世界遺產、Wikivoyage 精選景點、美國國家公園及本地景點。多語言景點介紹，支援語音朗讀，隨時發現身邊的隱藏寶藏。', f10t:'景點打卡', f10d:'GPS 驗證的旅行護照。行程結束後自動檢測打卡，也可現場手動打卡。在地圖上用彩色標記追蹤世界遺產、精選景點和自訂地點。', lblUC:'使用場景', ucTitle:'為所有移動的人而建', uc1t:'自駕旅行者', uc1d:'記錄公路旅行，生成精彩回放。', uc2t:'運動愛好者', uc2d:'回放跑步、健行和騎行路線。', uc3t:'旅行博主', uc3d:'自動生成路線影片，一鍵匯出。', uc4t:'商務出行', uc4d:'記錄每次出行，完美的費用依據。',
+        f7t:'社交媒體分享模版', f7d:'導出視頻時自動生成分享文案，融合城市、天氣、溫度、途經地點等旅行資訊。支持一鍵複製文案並分享到 TikTok、Instagram、YouTube、小紅書、微信等平台。', f8t:'自定義行程組', f8d:'將多個行程歸入一個旅行組，支持整體播放和導出。行程間自動縮放過渡，自然銜接。每個組可單獨設置播放時長，輕鬆回顧多日旅行。', f9t:'景點發現', f9d:'搜尋附近的 UNESCO 世界遺產、Wikivoyage 精選景點、美國國家公園及本地景點。多語言景點介紹，支援語音朗讀，隨時發現身邊的隱藏寶藏。', f10t:'景點打卡', f10d:'GPS 驗證的旅行護照。行程結束後自動檢測打卡，也可現場手動打卡。在地圖上用彩色標記追蹤世界遺產、精選景點和自訂地點。', f11t:'自動錄製', f11d:'再也不會忘記錄製。設定家的位置，離開時自動開始錄製，回家後自動停止。可自訂圍欄半徑、交通方式和停留時間。', lblUC:'使用場景', ucTitle:'為所有移動的人而建', uc1t:'自駕旅行者', uc1d:'記錄公路旅行，生成精彩回放。', uc2t:'運動愛好者', uc2d:'回放跑步、健行和騎行路線。', uc3t:'旅行博主', uc3d:'自動生成路線影片，一鍵匯出。', uc4t:'商務出行', uc4d:'記錄每次出行，完美的費用依據。',
         lblHow:'如何使用', howTitle:'三個簡單步驟', s1t:'記錄', s1d:'點擊開始，PathReel在背景追蹤路線。', s2t:'回放', s2d:'在3D地圖上看旅程活起來。', s3t:'分享', s3d:'匯出影片分享到任何平台。',
         btnExplore:'探索功能', btnDLStore:'在 App Store 下載',
         lblDL:'取得PathReel', dlTitle:'開始記錄你的故事', dlDesc:'iOS版現已可用，Android版即將推出。',
