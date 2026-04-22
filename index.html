@@ -1231,14 +1231,17 @@
       });
     }
 
-    // Scroll animations
+    // Scroll animations — threshold 0 so very tall elements
+    // (e.g. docs/privacy doc-card) can never get "stuck" invisible
+    // when their height exceeds the viewport.
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
