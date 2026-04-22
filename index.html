@@ -4,394 +4,526 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PathReel — Turn Your Journey Into a Film</title>
-  <meta name="description" content="PathReel transforms your GPS routes into cinematic replay videos with photos, stops, and memories. Record, replay, share.">
+  <meta name="description" content="PathReel transforms your GPS routes into cinematic 3D replay videos with photos, stops, and memories. Discover UNESCO sites, check in on arrival, and build your personal travel passport.">
   <link rel="canonical" href="https://pathreel.com">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg-deep: #05070F;
       --bg-mid: #0B0F1A;
+      --bg-card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.08);
       --accent: #52BAFF;
       --blue: #7C5DFA;
-      --green: #43E5A3;
       --magenta: #EC48B4;
+      --green: #43E5A3;
       --gold: #FFD74A;
-      --silver: #B8C4D0;
+      --orange: #FF8A4C;
       --text: #E8EDF2;
-      --text-muted: #7A8BA0;
-      --glass: rgba(255,255,255,0.03);
-      --glass-border: rgba(255,255,255,0.08);
+      --text-2: rgba(255,255,255,0.72);
+      --text-3: rgba(255,255,255,0.55);
+      --text-4: rgba(255,255,255,0.35);
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       background: var(--bg-deep);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
       position: relative;
+      min-height: 100vh;
     }
-    /* Ambient neon gradients */
+
+    /* ambient glows */
     body::before {
       content: '';
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed; inset: 0;
       pointer-events: none; z-index: 0;
       background:
-        radial-gradient(ellipse 600px 600px at 15% 10%, rgba(82,186,255,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 500px 500px at 85% 25%, rgba(236,72,180,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 550px 550px at 50% 60%, rgba(124,93,250,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 400px 400px at 80% 80%, rgba(67,229,163,0.05) 0%, transparent 70%);
+        radial-gradient(circle 900px at -10% -10%, rgba(82,186,255,0.20) 0%, transparent 55%),
+        radial-gradient(circle 1000px at 110% 30%, rgba(236,72,180,0.17) 0%, transparent 55%),
+        radial-gradient(circle 1100px at 20% 110%, rgba(124,93,250,0.18) 0%, transparent 60%);
+      filter: blur(40px);
     }
-    /* Grid overlay */
+    /* grid overlay */
     body::after {
       content: '';
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed; inset: 0;
       pointer-events: none; z-index: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
       background-size: 80px 80px;
-      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
-      mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 40%, transparent 85%);
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 40%, transparent 85%);
     }
     body > * { position: relative; z-index: 1; }
 
-    /* ========== NAV ========== */
+    /* ========== NAV (glass pill) ========== */
     nav {
-      position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 100;
-      width: calc(100% - 48px); max-width: 1100px;
-      padding: 12px 28px;
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(12,16,28,0.55);
-      backdrop-filter: blur(28px);
-      border: 1px solid var(--glass-border);
+      position: sticky; top: 16px; z-index: 100;
+      margin: 16px auto 0; width: calc(100% - 32px); max-width: 1280px;
+      padding: 12px 22px;
+      display: flex; align-items: center; gap: 28px;
       border-radius: 999px;
-      transition: all 0.3s;
+      background: rgba(12,16,28,0.55);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
     }
     .nav-logo {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 18px; letter-spacing: -0.3px;
     }
-    .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
-    .nav-logo span { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-logo-mark {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: conic-gradient(from 90deg at 50% 50%, #52BAFF 0%, #EC48B4 33%, #7C5DFA 66%, #52BAFF 100%);
+      box-shadow: 0 0 16px rgba(82,186,255,0.5);
+    }
+    .nav-links { display: flex; gap: 24px; flex: 1; align-items: center; }
     .nav-links a {
-      color: var(--text-muted); text-decoration: none; font-size: 14px;
-      font-weight: 500; transition: color 0.2s;
+      color: var(--text-2); text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent); }
-    .nav-cta {
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      color: #fff !important; padding: 8px 20px; border-radius: 20px;
-      font-weight: 600 !important;
-      box-shadow: 0 0 16px rgba(82,186,255,0.3);
+    .nav-right { display: flex; gap: 12px; align-items: center; }
+    #langSelect {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px; font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
     }
+    #langSelect option { background: #0B0F1A; color: #fff; }
+    .nav-cta {
+      padding: 10px 20px; border-radius: 999px;
+      background: linear-gradient(135deg, #52BAFF, #7C5DFA);
+      color: #fff !important; text-decoration: none;
+      font-size: 14px; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(82,186,255,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(82,186,255,0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
+
+    /* ========== GENERIC ========== */
+    section { padding: 100px 48px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px; letter-spacing: 3px; font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: '✦ '; color: var(--magenta); }
+    .eyebrow.magenta { color: var(--magenta); }
+    .eyebrow.purple { color: var(--blue); }
+    .eyebrow.green { color: var(--green); }
+    .eyebrow.gold { color: var(--gold); }
+    .section-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800; letter-spacing: -2px;
+      line-height: 1.05;
+      margin: 0;
+    }
+    .section-desc {
+      font-size: 17px; color: var(--text-3);
+      max-width: 640px; margin: 16px auto 0;
+    }
+    .section-head { text-align: center; margin-bottom: 56px; }
 
     /* ========== HERO ========== */
     .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      text-align: center;
-      padding: 120px 24px 80px;
+      padding: 80px 48px 80px;
       position: relative;
-      background: radial-gradient(ellipse at 50% 20%, rgba(82,186,255,0.1) 0%, transparent 50%),
-                  radial-gradient(ellipse at 30% 60%, rgba(236,72,180,0.06) 0%, transparent 50%),
-                  radial-gradient(ellipse at 70% 50%, rgba(124,93,250,0.06) 0%, transparent 50%),
-                  linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
     }
-    .hero-particles {
-      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 540px) minmax(0, 1fr);
+      gap: 60px;
+      align-items: center;
+      max-width: 1280px; margin: 0 auto;
     }
-    .hero-particles span {
-      position: absolute;
-      width: 2px; height: 2px;
-      background: var(--accent);
-      border-radius: 50%;
-      opacity: 0;
-      animation: particle 4s infinite;
-    }
-    .hero-particles span:nth-child(3n) { background: var(--magenta); }
-    .hero-particles span:nth-child(5n) { background: var(--green); }
-    .hero-particles span:nth-child(7n) { background: var(--gold); }
-    @keyframes particle {
-      0% { opacity: 0; transform: translateY(0) scale(1); }
-      50% { opacity: 0.6; }
-      100% { opacity: 0; transform: translateY(-100px) scale(0); }
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 13px; color: var(--accent);
-      margin-bottom: 32px;
-      backdrop-filter: blur(10px);
-    }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
     .hero h1 {
-      font-size: clamp(40px, 6vw, 72px);
+      font-size: clamp(52px, 7vw, 88px);
       font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #fff 20%, var(--accent) 60%, var(--magenta) 100%);
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin: 0 0 24px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, #52BAFF 0%, #EC48B4 70%);
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-style: italic;
     }
-    .hero p {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--text-muted);
-      max-width: 560px;
-      margin-bottom: 16px;
+    .hero-sub {
+      font-size: 18px; line-height: 1.55; color: var(--text-3);
+      max-width: 500px; margin: 0 0 32px;
     }
-    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 14px; }
     .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      color: #fff; padding: 14px 32px; border-radius: 28px;
-      text-decoration: none; font-weight: 600; font-size: 16px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 26px; border-radius: 999px;
+      background: linear-gradient(135deg, #52BAFF, #7C5DFA);
+      color: #fff; text-decoration: none;
+      font-size: 15px; font-weight: 600;
+      box-shadow: 0 12px 32px rgba(82,186,255,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
       transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(82,186,255,0.3), 0 0 40px rgba(124,93,250,0.15);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(82,186,255,0.45), 0 0 60px rgba(124,93,250,0.2); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(82,186,255,0.5), inset 0 1px 0 rgba(255,255,255,0.35); }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: var(--text); padding: 14px 32px; border-radius: 28px;
-      text-decoration: none; font-weight: 600; font-size: 16px;
+      padding: 15px 26px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 15px; font-weight: 500;
       backdrop-filter: blur(10px);
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .btn-secondary:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(82,186,255,0.1); }
-    .hero-phone {
-      margin: 16px 0 20px;
-      width: clamp(240px, 28vw, 300px);
-      border-radius: 20px;
-      box-shadow: 0 20px 80px rgba(0,0,0,0.6), 0 0 60px rgba(82,186,255,0.15), 0 0 100px rgba(124,93,250,0.1);
+    .btn-secondary:hover { border-color: rgba(82,186,255,0.4); background: rgba(82,186,255,0.06); }
+    .hero-stats {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      margin-top: 56px; padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-stats .stat-n {
+      font-size: 26px; font-weight: 700; letter-spacing: -1px;
+    }
+    .hero-stats .stat-l {
+      font-size: 12px; color: var(--text-4); margin-top: 2px;
     }
 
-    /* ========== SECTIONS ========== */
-    section { padding: 100px 24px; }
-    .section-label {
-      display: inline-block;
-      font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 3px; color: var(--accent);
-      margin-bottom: 16px;
+    /* hero map */
+    .hero-map-wrap {
+      position: relative;
+      height: 560px;
     }
-    .section-label::before {
-      content: '\2726 ';
-      color: var(--magenta);
+    .hero-map-wrap svg.world { width: 100%; height: 100%; display: block; }
+    .chip {
+      position: absolute;
+      padding: 14px 18px; border-radius: 16px;
+      background: rgba(12,16,28,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      font-size: 12px;
     }
-    .section-title {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800; letter-spacing: -2px;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .chip .chip-tag { color: rgba(255,255,255,0.5); margin-bottom: 4px; letter-spacing: 1.5px; font-size: 10px; font-weight: 600; }
+    .chip .chip-val { font-size: 20px; font-weight: 700; }
+    .chip .chip-sub { color: rgba(255,255,255,0.5); }
+    .chip-tr { top: 30px; right: 10px; }
+    .chip-bl { bottom: 70px; left: 0; display: flex; gap: 10px; align-items: center; }
+    .chip-bl .dot {
+      width: 8px; height: 8px; border-radius: 4px;
+      background: #52BAFF; box-shadow: 0 0 10px #52BAFF;
+      animation: pulse 2s ease-in-out infinite;
     }
-    .section-desc {
-      font-size: 17px; color: var(--text-muted);
-      max-width: 600px;
-    }
-    .container { max-width: 1120px; margin: 0 auto; }
+    .chip-bl .t1 { font-weight: 600; }
+    .chip-bl .t2 { color: rgba(255,255,255,0.5); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
     /* ========== WHY ========== */
-    .why { background: linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%); position: relative; }
     .why-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 24px; margin-top: 48px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
     }
-    @media (min-width: 1100px) { .why-grid { grid-template-columns: repeat(4, 1fr); } }
-    @media (max-width: 600px) { .why-grid { grid-template-columns: 1fr; } }
     .why-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 32px;
+      position: relative; overflow: hidden;
+      padding: 28px; border-radius: 20px;
+      background: var(--bg-card);
       backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
       transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
-    .why-card:hover { transform: translateY(-4px); border-color: rgba(82,186,255,0.3); box-shadow: 0 0 30px rgba(82,186,255,0.08), 0 8px 32px rgba(0,0,0,0.3); }
-    .why-icon {
-      width: 48px; height: 48px; border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      display: flex; justify-content: center; align-items: center;
-      font-size: 22px; margin-bottom: 20px;
-      box-shadow: 0 0 20px rgba(82,186,255,0.2);
+    .why-card:hover { transform: translateY(-4px); border-color: rgba(82,186,255,0.3); box-shadow: 0 0 40px rgba(82,186,255,0.1); }
+    .why-card::before {
+      content: ''; position: absolute;
+      top: -40px; right: -40px; width: 140px; height: 140px;
+      border-radius: 50%;
+      filter: blur(24px);
+      opacity: 0.6;
+      pointer-events: none;
     }
+    .why-card:nth-child(1)::before { background: radial-gradient(circle, rgba(82,186,255,0.5) 0%, transparent 70%); }
+    .why-card:nth-child(2)::before { background: radial-gradient(circle, rgba(236,72,180,0.5) 0%, transparent 70%); }
+    .why-card:nth-child(3)::before { background: radial-gradient(circle, rgba(124,93,250,0.5) 0%, transparent 70%); }
+    .why-card:nth-child(4)::before { background: radial-gradient(circle, rgba(255,215,74,0.45) 0%, transparent 70%); }
     .why-card-img {
-      width: 100%; max-height: 200px;
+      position: relative; z-index: 1;
+      width: 100%; aspect-ratio: 1 / 1;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-bottom: 16px;
       display: block;
-      margin-left: auto; margin-right: auto;
+      filter: saturate(1.05);
+      border: 1px solid rgba(255,255,255,0.06);
     }
-    .why-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .why-card p { color: var(--text-muted); font-size: 15px; }
+    .why-card h3 {
+      position: relative; z-index: 1;
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+    .why-card p {
+      position: relative; z-index: 1;
+      font-size: 13px; line-height: 1.55; color: var(--text-3);
+    }
 
     /* ========== FEATURES ========== */
-    .feature-group {
-      margin-top: 40px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 28px 28px 20px;
-      backdrop-filter: blur(20px);
+    #features .container { max-width: 1280px; }
+    .features-intro {
+      display: grid; grid-template-columns: 320px 1fr; gap: 60px;
+      align-items: center; margin-bottom: 48px;
     }
-    .feature-group:first-of-type { margin-top: 36px; }
-    .feature-group:nth-child(odd) .feature-group-title { color: var(--accent); }
-    .feature-group:nth-child(even) .feature-group-title { color: var(--magenta); }
-    .feature-group-title {
-      font-size: 15px; font-weight: 700; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;
-    }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 900px) {
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 560px) {
-      .features-grid { grid-template-columns: 1fr; }
-      .feature-group { padding: 20px 16px 14px; }
-    }
-    .feature-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
-      padding: 20px;
-      transition: transform 0.3s, border-color 0.3s, background 0.3s, box-shadow 0.3s;
-    }
-    .feature-card:hover { transform: translateY(-2px); border-color: rgba(82,186,255,0.25); background: rgba(255,255,255,0.05); box-shadow: 0 0 24px rgba(82,186,255,0.06); }
-    .feature-num {
-      font-size: 28px; font-weight: 900; opacity: 0.3;
-      line-height: 1; margin-bottom: 8px;
-      background: linear-gradient(135deg, var(--accent), var(--magenta));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .feature-card p { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
-
-    /* ========== USE CASES ========== */
-    .usecases { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%); position: relative; }
-    .usecase-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px; margin-top: 48px;
-    }
-    .usecase-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 32px; text-align: center;
-      backdrop-filter: blur(20px);
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    }
-    .usecase-card:hover { transform: scale(1.03); border-color: rgba(236,72,180,0.3); box-shadow: 0 0 30px rgba(236,72,180,0.08); }
-    .usecase-emoji { font-size: 48px; margin-bottom: 16px; }
-    .usecase-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .usecase-card p { font-size: 14px; color: var(--text-muted); }
-
-    /* ========== HOW IT WORKS ========== */
-    .steps {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 24px; margin-top: 48px;
+    .phone-showcase {
+      display: flex; justify-content: center; align-items: center;
       position: relative;
     }
-    /* Connecting gradient line between steps */
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 28px; left: calc(12.5% + 28px); right: calc(12.5% + 28px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--magenta), var(--blue), var(--green));
+    .phone-showcase::before {
+      content: ''; position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(82,186,255,0.25) 0%, transparent 70%);
+      filter: blur(40px);
       z-index: 0;
-      opacity: 0.4;
     }
-    @media (max-width: 900px) {
-      .steps { grid-template-columns: repeat(2, 1fr); }
-      .steps::before { display: none; }
-    }
-    @media (max-width: 500px) { .steps { grid-template-columns: 1fr; } }
-    .step {
-      text-align: center;
+    .phone-showcase img {
       position: relative; z-index: 1;
+      width: 290px; height: auto;
+      border-radius: 32px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), 0 0 80px rgba(82,186,255,0.25);
     }
-    .step-num {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      display: flex; justify-content: center; align-items: center;
-      font-size: 22px; font-weight: 800; color: #fff;
-      margin: 0 auto 16px;
-      box-shadow: 0 4px 20px rgba(82,186,255,0.3), 0 0 40px rgba(124,93,250,0.15);
-    }
-    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .step p { font-size: 14px; color: var(--text-muted); }
+    .features-intro .feat-text { text-align: left; }
+    .features-intro .feat-text .section-title { text-align: left; margin-bottom: 20px; }
+    .features-intro .feat-text .section-desc { margin: 16px 0 0 0; max-width: none; }
 
-    /* ========== DOWNLOAD ========== */
-    .download {
-      text-align: center;
-      background: radial-gradient(ellipse at 50% 50%, rgba(82,186,255,0.08) 0%, transparent 50%),
-                  radial-gradient(ellipse at 30% 70%, rgba(236,72,180,0.05) 0%, transparent 50%);
-    }
-    .download .btn-primary { font-size: 18px; padding: 16px 40px; }
-
-    /* ========== DOCS ========== */
-    .docs-content {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 40px;
+    .feature-group {
       margin-top: 32px;
+      padding: 28px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       backdrop-filter: blur(20px);
     }
-    .docs-content h3 {
-      font-size: 18px; font-weight: 700; margin-top: 24px; margin-bottom: 8px;
+    .feature-group-title {
+      font-size: 14px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px;
+      margin-bottom: 20px;
+    }
+    .feature-group:nth-of-type(1) .feature-group-title { color: var(--accent); }
+    .feature-group:nth-of-type(2) .feature-group-title { color: var(--magenta); }
+    .feature-group:nth-of-type(3) .feature-group-title { color: var(--blue); }
+    .feature-group:nth-of-type(4) .feature-group-title { color: var(--green); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .feature-card {
+      padding: 20px; border-radius: 14px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .feature-card:hover { transform: translateY(-2px); border-color: rgba(82,186,255,0.25); background: rgba(255,255,255,0.04); }
+    .feature-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, rgba(82,186,255,0.2), rgba(236,72,180,0.2));
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
       color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
     }
-    .docs-content h3:first-child { margin-top: 0; }
-    .docs-content p, .docs-content li {
-      font-size: 15px; color: var(--text-muted); margin-bottom: 8px;
-    }
-    .docs-content ul { padding-left: 20px; }
+    .feature-card .feat-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.2px; }
+    .feature-card .feat-body p { font-size: 13px; line-height: 1.5; color: var(--text-3); }
 
-    /* ========== PRIVACY ========== */
-    .privacy { background: var(--bg-mid); position: relative; }
+    /* ========== USECASES ========== */
+    .usecase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .usecase-card {
+      position: relative;
+      padding: 32px 28px; border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      min-height: 180px;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .usecase-card:hover { transform: translateY(-3px); border-color: rgba(236,72,180,0.3); box-shadow: 0 0 30px rgba(236,72,180,0.08); }
+    .usecase-dot {
+      width: 8px; height: 8px; border-radius: 4px; margin-bottom: 18px;
+    }
+    .usecase-card:nth-child(1) .usecase-dot { background: #52BAFF; box-shadow: 0 0 12px #52BAFF; }
+    .usecase-card:nth-child(2) .usecase-dot { background: #EC48B4; box-shadow: 0 0 12px #EC48B4; }
+    .usecase-card:nth-child(3) .usecase-dot { background: #FFD74A; box-shadow: 0 0 12px #FFD74A; }
+    .usecase-card:nth-child(4) .usecase-dot { background: #43E5A3; box-shadow: 0 0 12px #43E5A3; }
+    .usecase-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .usecase-card p { font-size: 13px; line-height: 1.5; color: var(--text-3); }
+
+    /* ========== HOW ========== */
+    .how-wrap { position: relative; }
+    .how-line {
+      position: absolute;
+      top: 48px; left: 12.5%; right: 12.5%; height: 2px;
+      background: linear-gradient(90deg, transparent, #52BAFF 20%, #EC48B4 50%, #7C5DFA 80%, transparent);
+      opacity: 0.35;
+    }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; }
+    .step { text-align: center; }
+    .step-num {
+      width: 96px; height: 96px; border-radius: 50%;
+      margin: 0 auto 24px;
+      background: var(--bg-deep);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; font-weight: 800;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 32px rgba(82,186,255,0.25);
+    }
+    .step-num span {
+      background: linear-gradient(135deg, #52BAFF, #EC48B4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 13px; color: var(--text-3); line-height: 1.5; max-width: 220px; margin: 0 auto; }
+
+    /* ========== LIVE GLOBE ========== */
+    .live-wrap {
+      border-radius: 32px;
+      padding: 50px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      position: relative; overflow: hidden;
+    }
+    .live-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 32px; flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .live-head .section-title { font-size: clamp(30px, 3.5vw, 44px); max-width: 620px; }
+    .live-head .section-title,
+    .live-head .eyebrow { text-align: left; }
+    .live-legend { display: flex; gap: 24px; }
+    .live-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.6); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 4px; }
+    .legend-u { background: #FFD74A; box-shadow: 0 0 8px #FFD74A; }
+    .legend-f { background: #52BAFF; box-shadow: 0 0 8px #52BAFF; }
+    .legend-l { background: #EC48B4; box-shadow: 0 0 8px #EC48B4; }
+    .live-map { height: 440px; position: relative; }
+    .live-map svg { width: 100%; height: 100%; }
+
+    /* ========== DOWNLOAD ========== */
+    .download { text-align: center; padding: 80px 48px; }
+    .download .section-desc { margin: 16px auto 32px; }
+    .download .btn-primary { font-size: 17px; padding: 17px 40px; }
+
+    /* ========== DOCS / PRIVACY ========== */
+    .doc-card {
+      margin-top: 32px;
+      padding: 40px 44px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(18,22,38,0.7) 0%, rgba(8,10,20,0.5) 100%);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+    .doc-card h3 {
+      font-size: 19px; font-weight: 700;
+      color: var(--accent);
+      margin-top: 28px; margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .doc-card h3:first-child { margin-top: 0; }
+    .doc-card h4 {
+      font-size: 15px; font-weight: 700;
+      color: var(--magenta);
+      margin-top: 20px; margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .doc-card p, .doc-card li {
+      font-size: 15px; color: var(--text-3); margin-bottom: 6px;
+      line-height: 1.65;
+    }
+    .doc-card p { margin-bottom: 10px; }
+    .doc-card ul { padding-left: 22px; margin-bottom: 16px; }
+    .doc-card li { margin-bottom: 6px; }
+    .doc-card strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+    .doc-card code {
+      background: rgba(82,186,255,0.08);
+      border: 1px solid rgba(82,186,255,0.2);
+      color: var(--accent);
+      padding: 2px 6px; border-radius: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+    .doc-card a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(82,186,255,0.3); }
+    .doc-card a:hover { border-bottom-color: var(--accent); }
+
+    /* ========== CONTACT ========== */
+    #contact { text-align: center; padding: 80px 48px; }
+    #contact .btn-primary { margin-top: 24px; }
 
     /* ========== FOOTER ========== */
     footer {
-      padding: 48px 24px;
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      background: rgba(5,7,15,0.8);
+      padding: 40px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: var(--text-4); gap: 20px;
+      flex-wrap: wrap;
     }
-    footer p { color: var(--text-muted); font-size: 14px; }
-    footer a { color: var(--accent); text-decoration: none; }
+    footer p { color: var(--text-4); }
+    footer a { color: var(--text-2); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
 
     /* ========== ANIMATIONS ========== */
-    .fade-in {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ========== RESPONSIVE ========== */
-    @media (max-width: 768px) {
-      nav { padding: 10px 20px; width: calc(100% - 24px); }
-      .nav-links { display: none; }
-      section { padding: 60px 20px; }
-      .docs-content { padding: 24px; }
+    @media (max-width: 1100px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .usecase-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .how-line { display: none; }
+    }
+    @media (max-width: 900px) {
+      section { padding: 72px 24px; }
+      .hero { padding: 48px 24px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-map-wrap { height: 420px; }
+      .features-intro { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+      .features-intro .feat-text .section-title { text-align: center; }
+      .features-intro .feat-text .section-desc { margin: 16px auto 0; }
+      .live-wrap { padding: 32px 24px; }
+      .live-map { height: 340px; }
+      .doc-card { padding: 28px 20px; }
+      nav { padding: 10px 16px; gap: 12px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+    @media (max-width: 640px) {
+      .why-grid, .usecase-grid, .features-grid, .steps { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 46px; letter-spacing: -2px; }
+      .section-title { font-size: 32px; letter-spacing: -1.5px; }
+      .hero-stats { gap: 24px; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -400,7 +532,7 @@
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-logo">
-      <img src="icon.png" alt="PathReel">
+      <span class="nav-logo-mark"></span>
       <span>PathReel</span>
     </a>
     <div class="nav-links">
@@ -410,51 +542,162 @@
       <a href="#how" data-i18n="navHow">How It Works</a>
       <a href="#docs" data-i18n="navDocs">Docs</a>
       <a href="#contact" data-i18n="navContact">Contact</a>
-      <select id="langSelect" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:4px 8px;font-size:13px;cursor:pointer;"></select>
+    </div>
+    <div class="nav-right">
+      <select id="langSelect" aria-label="Language"></select>
       <a href="#download" class="nav-cta" data-i18n="navDownload">Download</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero" id="home">
-    <div class="hero-particles" id="particles"></div>
-    <div class="hero-badge" data-i18n="heroBadge">Now Available on iOS</div>
-    <h1 data-i18n="heroTitle" data-i18n-html="1">Turn Your Journey<br>Into a Film</h1>
-    <p data-i18n="heroDesc">PathReel records your GPS routes and transforms them into cinematic replay videos — with photos, stops, and memories, all in one tap.</p>
-    <img src="hero-phone.png" alt="PathReel App" class="hero-phone">
-    <div class="hero-buttons">
-      <a href="https://apps.apple.com/app/pathreel/id6761773065" class="btn-primary" target="_blank">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        <span data-i18n="btnAppStore">App Store</span>
-      </a>
-      <a href="#features" class="btn-secondary" data-i18n="btnExplore">Explore Features</a>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow">PATHREEL · iOS</div>
+        <h1>
+          <span data-i18n="heroTitle" data-i18n-html="1">Turn Your Journey<br>Into a Film</span>
+        </h1>
+        <p class="hero-sub" data-i18n="heroDesc">PathReel records your GPS routes and transforms them into cinematic replay videos — with photos, stops, and memories, all in one tap.</p>
+        <div class="hero-buttons">
+          <a href="https://apps.apple.com/app/pathreel/id6761773065" class="btn-primary" target="_blank">
+            <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor"><path d="M13.6 9.5c0-2.4 2-3.6 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9s-1.9-.9-3.1-.9c-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.1 1.7 2.4 3 2.4 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.1 2.9-2.3 0.9-1.3 1.3-2.6 1.3-2.7 0-.1-2.6-1-2.6-4z"/></svg>
+            <span data-i18n="btnAppStore">App Store</span>
+          </a>
+          <a href="#features" class="btn-secondary">
+            <span>▶</span>
+            <span data-i18n="btnExplore">Explore Features</span>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-n">4.8★</div>
+            <div class="stat-l">App Store rating</div>
+          </div>
+          <div>
+            <div class="stat-n">16</div>
+            <div class="stat-l">Languages</div>
+          </div>
+          <div>
+            <div class="stat-n">142</div>
+            <div class="stat-l">Countries</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-map-wrap" id="heroMap">
+        <svg class="world" viewBox="0 0 1000 500" aria-hidden="true">
+          <defs>
+            <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(82,186,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(82,186,255,0)"/>
+            </radialGradient>
+            <linearGradient id="trailGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#52BAFF" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#52BAFF" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#EC48B4" stop-opacity="1"/>
+            </linearGradient>
+            <filter id="pinGlow"><feGaussianBlur stdDeviation="4"/></filter>
+          </defs>
+          <circle cx="500" cy="250" r="260" fill="url(#earthGlow)"/>
+          <!-- continent blobs -->
+          <g opacity="0.28" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" stroke-width="0.6">
+            <path d="M180 160 Q220 130 270 140 T360 150 Q400 175 380 210 Q370 230 340 240 T260 260 Q210 265 180 240 Q160 210 180 160 Z"/>
+            <path d="M430 180 Q460 165 490 170 Q520 170 540 180 T600 200 Q630 230 610 260 Q580 280 540 275 T480 270 Q440 260 425 230 Q415 205 430 180 Z"/>
+            <path d="M630 140 Q680 120 730 130 T820 140 Q860 165 850 200 T830 250 Q800 270 750 265 T670 255 Q630 240 620 200 Q615 165 630 140 Z"/>
+            <path d="M470 300 Q500 290 520 310 T560 370 Q555 420 530 430 T490 420 Q460 400 455 360 Q460 320 470 300 Z"/>
+            <path d="M580 330 Q620 320 650 340 T680 390 Q670 425 640 430 T590 420 Q565 400 565 370 Q570 345 580 330 Z"/>
+            <path d="M790 340 Q830 330 860 350 T890 390 Q880 420 850 425 Q820 420 800 405 T780 370 Q785 350 790 340 Z"/>
+          </g>
+          <!-- flight trails -->
+          <g>
+            <path d="M534.7 133.6 Q520.6 119.7 506.5 114.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M506.5 114.3 Q503.1 109.6 499.6 106.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M499.6 106.9 Q397.0 91.1 294.4 136.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M294.4 136.9 Q227.2 120.8 159.9 145.1" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M159.9 145.1 Q524.1 38.7 888.2 150.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M888.2 150.9 Q838.3 183.6 788.4 246.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M788.4 246.3 Q804.0 255.0 819.7 273.2" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M779.2 211.8 Q783.8 227.6 788.4 246.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M380.1 313.6 Q359.0 323.5 337.8 346.1" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M224.6 196.0 Q259.5 156.0 294.4 136.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M439.1 71.8 Q469.3 80.3 499.6 106.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M837.4 163.2 Q827.3 172.6 817.1 188.0" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M817.1 188.0 Q802.8 212.8 788.4 246.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+          </g>
+          <!-- pins -->
+          <g>
+            <g><circle cx="888.2" cy="150.9" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="888.2" cy="150.9" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="877.1" cy="152.8" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="877.1" cy="152.8" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="852.7" cy="145.7" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="852.7" cy="145.7" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="779.2" cy="211.8" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="779.2" cy="211.8" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="819.7" cy="273.2" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="819.7" cy="273.2" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="920.0" cy="344.1" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="920.0" cy="344.1" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="653.5" cy="180.0" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="653.5" cy="180.0" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="580.5" cy="136.1" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="580.5" cy="136.1" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="534.7" cy="133.6" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="534.7" cy="133.6" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="506.5" cy="114.3" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="506.5" cy="114.3" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="499.6" cy="106.9" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="499.6" cy="106.9" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="439.1" cy="71.8" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="439.1" cy="71.8" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="294.4" cy="136.9" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="294.4" cy="136.9" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="295.6" cy="123.6" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="295.6" cy="123.6" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="224.6" cy="196.0" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="224.6" cy="196.0" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="286.0" cy="283.5" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="286.0" cy="283.5" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="380.1" cy="313.6" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="380.1" cy="313.6" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="337.8" cy="346.1" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="337.8" cy="346.1" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="551.2" cy="344.2" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="551.2" cy="344.2" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="586.8" cy="166.6" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="586.8" cy="166.6" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="702.4" cy="197.0" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="702.4" cy="197.0" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="788.4" cy="246.3" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="788.4" cy="246.3" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="817.1" cy="188.0" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="817.1" cy="188.0" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="837.4" cy="163.2" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="837.4" cy="163.2" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="823.3" cy="139.2" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="823.3" cy="139.2" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="158.0" cy="113.1" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="158.0" cy="113.1" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="159.9" cy="145.1" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="159.9" cy="145.1" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="477.8" cy="162.1" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="477.8" cy="162.1" r="2.6" fill="#FFD74A"/></g>
+          </g>
+        </svg>
+        <div class="chip chip-tr">
+          <div class="chip-tag">LIVE</div>
+          <div class="chip-val">28,142</div>
+          <div class="chip-sub">check-ins worldwide</div>
+        </div>
+        <div class="chip chip-bl">
+          <div class="dot"></div>
+          <div>
+            <div class="t1">Just now · Tokyo</div>
+            <div class="t2">Fushimi Inari Taisha</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- WHY -->
-  <section class="why" id="why">
+  <section id="why">
     <div class="container">
-      <span class="section-label" data-i18n="lblWhy">Why PathReel</span>
-      <h2 class="section-title fade-in" data-i18n="whyTitle">Not Just Another GPS Tracker</h2>
-      <p class="section-desc fade-in" data-i18n="whyDesc">Other apps record data. PathReel creates memories. Every route becomes a shareable cinematic experience.</p>
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="lblWhy">Why PathReel</span>
+        <h2 class="section-title fade-in" data-i18n="whyTitle">Not Just Another GPS Tracker</h2>
+        <p class="section-desc fade-in" data-i18n="whyDesc">Other apps record data. PathReel creates memories. Every route becomes a shareable cinematic experience.</p>
+      </div>
       <div class="why-grid">
         <div class="why-card fade-in">
-          <img src="why-routes.png" alt="Routes Become Films" class="why-card-img">
+          <img src="why-routes.png" alt="Routes Become Films" class="why-card-img" loading="lazy">
           <h3 data-i18n="why1Title">Routes Become Films</h3>
           <p data-i18n="why1Desc">One tap turns any trip into a professional replay video with 3D map animation, smooth camera movements, and your photos woven in.</p>
         </div>
         <div class="why-card fade-in">
-          <img src="why-stops.png" alt="Every Stop Tells a Story" class="why-card-img">
+          <img src="why-stops.png" alt="Every Stop Tells a Story" class="why-card-img" loading="lazy">
           <h3 data-i18n="why2Title">Every Stop Tells a Story</h3>
           <p data-i18n="why2Desc">PathReel auto-detects where you stopped, finds the venue name, and lets you add notes — building a rich timeline of your journey.</p>
         </div>
         <div class="why-card fade-in">
-          <img src="why-share.png" alt="Share Instantly" class="why-card-img">
+          <img src="why-share.png" alt="Share Instantly" class="why-card-img" loading="lazy">
           <h3 data-i18n="why3Title">Share Instantly</h3>
           <p data-i18n="why3Desc">Export to video and share directly to Instagram, TikTok, WeChat, or any platform. Your adventures deserve an audience.</p>
         </div>
         <div class="why-card fade-in">
-          <img src="why-checkin.png" alt="Collect the World" class="why-card-img">
+          <img src="why-checkin.png" alt="Collect the World" class="why-card-img" loading="lazy">
           <h3 data-i18n="why4Title">Collect the World</h3>
           <p data-i18n="why4Desc">Discover UNESCO sites, local gems, and hidden attractions nearby. Check in with GPS verification and build your personal travel passport — one stamp at a time.</p>
         </div>
@@ -465,84 +708,114 @@
   <!-- FEATURES -->
   <section id="features">
     <div class="container">
-      <span class="section-label" data-i18n="lblFeat">Features</span>
-      <h2 class="section-title fade-in" data-i18n="featTitle">Everything You Need</h2>
-      <p class="section-desc fade-in" data-i18n="featDesc">Powerful features wrapped in a beautiful, intuitive interface.</p>
+      <div class="features-intro">
+        <div class="phone-showcase">
+          <img src="hero-phone.png" alt="PathReel App" loading="lazy">
+        </div>
+        <div class="feat-text">
+          <span class="eyebrow magenta" data-i18n="lblFeat">Features</span>
+          <h2 class="section-title fade-in" data-i18n="featTitle">Everything You Need</h2>
+          <p class="section-desc fade-in" data-i18n="featDesc">Powerful features wrapped in a beautiful, intuitive interface.</p>
+        </div>
+      </div>
+
       <div class="feature-group fade-in">
-        <h3 class="feature-group-title" data-i18n="fgRecord">🎬 Record & Replay</h3>
+        <div class="feature-group-title" data-i18n="fgRecord">🎬 Record &amp; Replay</div>
         <div class="features-grid">
           <div class="feature-card">
             <span class="feature-num">01</span>
-            <h3 data-i18n="f1t">Cinematic Route Replay</h3>
-            <p data-i18n="f1d">3D satellite flyover with adaptive camera height, smooth transitions, and speed control (0.5x to 3x).</p>
+            <div class="feat-body">
+              <h3 data-i18n="f1t">Cinematic Route Replay</h3>
+              <p data-i18n="f1d">3D satellite flyover with adaptive camera height, smooth transitions, and speed control (0.5x to 3x).</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">02</span>
-            <h3 data-i18n="f2t">Auto Photo Matching</h3>
-            <p data-i18n="f2d">Photos taken during your trip appear on the map at their exact GPS location. Zoom in to relive the moment.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f2t">Auto Photo Matching</h3>
+              <p data-i18n="f2d">Photos taken during your trip appear on the map at their exact GPS location. Zoom in to relive the moment.</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">03</span>
-            <h3 data-i18n="f3t">Smart Stop Detection</h3>
-            <p data-i18n="f3d">Automatically detects stops with customizable time threshold (default 10 min), identifies venues via Apple Maps, and shows duration.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f3t">Smart Stop Detection</h3>
+              <p data-i18n="f3d">Automatically detects stops with customizable time threshold (default 10 min), identifies venues via Apple Maps, and shows duration.</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="feature-group fade-in">
-        <h3 class="feature-group-title" data-i18n="fgExport">📤 Export & Share</h3>
+        <div class="feature-group-title" data-i18n="fgExport">📤 Export &amp; Share</div>
         <div class="features-grid">
           <div class="feature-card">
             <span class="feature-num">04</span>
-            <h3 data-i18n="f4t">HD Video Export</h3>
-            <p data-i18n="f4d">Export your replay as a stunning HD video. Photos, stops, notes, and auto-generated social captions all included. Share to any platform.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f4t">HD Video Export</h3>
+              <p data-i18n="f4d">Export your replay as a stunning HD video. Photos, stops, notes, and auto-generated social captions all included. Share to any platform.</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">05</span>
-            <h3 data-i18n="f7t">Social Media Share Templates</h3>
-            <p data-i18n="f7d">Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. </p>
+            <div class="feat-body">
+              <h3 data-i18n="f7t">Social Media Share Templates</h3>
+              <p data-i18n="f7d">Auto-generated captions with city, weather, temperature, and places visited. One-tap copy &amp; share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat &amp; more.</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="feature-group fade-in">
-        <h3 class="feature-group-title" data-i18n="fgOrganize">⚡ Organize & Analyze</h3>
+        <div class="feature-group-title" data-i18n="fgOrganize">⚡ Organize &amp; Analyze</div>
         <div class="features-grid">
           <div class="feature-card">
             <span class="feature-num">06</span>
-            <h3 data-i18n="f5t">Trip Timeline & Notes</h3>
-            <p data-i18n="f5d">Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f5t">Trip Timeline &amp; Notes</h3>
+              <p data-i18n="f5d">Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">07</span>
-            <h3 data-i18n="f8t">Custom Trip Groups</h3>
-            <p data-i18n="f8d">Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f8t">Custom Trip Groups</h3>
+              <p data-i18n="f8d">Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">08</span>
-            <h3 data-i18n="f6t">Insights & Heatmap</h3>
-            <p data-i18n="f6d">Track your stats over time. See where you've been on a heatmap. Weekly and monthly distance reports.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f6t">Insights &amp; Heatmap</h3>
+              <p data-i18n="f6d">Track your stats over time. See where you've been on a heatmap. Weekly and monthly distance reports.</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="feature-group fade-in">
-        <h3 class="feature-group-title" data-i18n="fgDiscover">🌍 Discover & Check-in</h3>
+        <div class="feature-group-title" data-i18n="fgDiscover">🌍 Discover &amp; Check-in</div>
         <div class="features-grid">
           <div class="feature-card">
             <span class="feature-num">09</span>
-            <h3 data-i18n="f9t">Attraction Discovery</h3>
-            <p data-i18n="f9d">Search nearby attractions from UNESCO World Heritage, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f9t">Attraction Discovery</h3>
+              <p data-i18n="f9d">Search nearby attractions from UNESCO World Heritage, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">10</span>
-            <h3 data-i18n="f10t">Check-in Stamps</h3>
-            <p data-i18n="f10d">GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f10t">Check-in Stamps</h3>
+              <p data-i18n="f10d">GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.</p>
+            </div>
           </div>
           <div class="feature-card">
             <span class="feature-num">11</span>
-            <h3 data-i18n="f11t">Auto Record</h3>
-            <p data-i18n="f11d">Never forget to record again. Set your home location and PathReel automatically starts recording when you leave and stops when you return. Customizable geofence radius, transport mode, and stay time.</p>
+            <div class="feat-body">
+              <h3 data-i18n="f11t">Auto Record</h3>
+              <p data-i18n="f11d">Never forget to record again. Set your home location and PathReel automatically starts recording when you leave and stops when you return. Customizable geofence radius, transport mode, and stay time.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -550,28 +823,30 @@
   </section>
 
   <!-- USE CASES -->
-  <section class="usecases" id="usecases">
+  <section id="usecases">
     <div class="container">
-      <span class="section-label" data-i18n="lblUC">Use Cases</span>
-      <h2 class="section-title fade-in" data-i18n="ucTitle">Built for Everyone Who Moves</h2>
+      <div class="section-head">
+        <span class="eyebrow purple" data-i18n="lblUC">Use Cases</span>
+        <h2 class="section-title fade-in" data-i18n="ucTitle">Built for Everyone Who Moves</h2>
+      </div>
       <div class="usecase-grid">
         <div class="usecase-card fade-in">
-          <div class="usecase-emoji">🚗</div>
+          <div class="usecase-dot"></div>
           <h3 data-i18n="uc1t">Road Trippers</h3>
           <p data-i18n="uc1d">Record epic cross-country drives. Generate a highlight reel with scenic stops and roadside photos.</p>
         </div>
         <div class="usecase-card fade-in">
-          <div class="usecase-emoji">🏃</div>
-          <h3 data-i18n="uc2t">Athletes & Runners</h3>
+          <div class="usecase-dot"></div>
+          <h3 data-i18n="uc2t">Athletes &amp; Runners</h3>
           <p data-i18n="uc2d">Replay your runs, hikes, and bike rides with speed data and route animation. Track your progress.</p>
         </div>
         <div class="usecase-card fade-in">
-          <div class="usecase-emoji">🌍</div>
+          <div class="usecase-dot"></div>
           <h3 data-i18n="uc3t">Globe Collectors</h3>
           <p data-i18n="uc3d">Discover UNESCO sites and hidden gems. Check in at landmarks with GPS verification and build your personal travel passport.</p>
         </div>
         <div class="usecase-card fade-in">
-          <div class="usecase-emoji">💼</div>
+          <div class="usecase-dot"></div>
           <h3 data-i18n="uc4t">Business Travelers</h3>
           <p data-i18n="uc4d">Keep a record of every trip with timestamps, distances, and stops. Perfect for expense reports.</p>
         </div>
@@ -581,29 +856,108 @@
 
   <!-- HOW IT WORKS -->
   <section id="how">
-    <div class="container" style="text-align:center;">
-      <span class="section-label" data-i18n="lblHow">How It Works</span>
-      <h2 class="section-title fade-in" data-i18n="howTitle">Four Simple Steps</h2>
-      <div class="steps">
-        <div class="step fade-in">
-          <div class="step-num">1</div>
-          <h3 data-i18n="s1t">Record</h3>
-          <p data-i18n="s1d">Tap start or let auto-record handle it. PathReel tracks your route in the background with GPS precision.</p>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow green" data-i18n="lblHow">How It Works</span>
+        <h2 class="section-title fade-in" data-i18n="howTitle">Four Simple Steps</h2>
+      </div>
+      <div class="how-wrap">
+        <div class="how-line"></div>
+        <div class="steps">
+          <div class="step fade-in">
+            <div class="step-num"><span>1</span></div>
+            <h3 data-i18n="s1t">Record</h3>
+            <p data-i18n="s1d">Tap start or let auto-record handle it. PathReel tracks your route in the background with GPS precision.</p>
+          </div>
+          <div class="step fade-in">
+            <div class="step-num"><span>2</span></div>
+            <h3 data-i18n="s2t">Discover</h3>
+            <p data-i18n="s2d">Search nearby attractions. Arrive and check in with GPS verification to collect stamps in your travel passport.</p>
+          </div>
+          <div class="step fade-in">
+            <div class="step-num"><span>3</span></div>
+            <h3 data-i18n="s3t">Replay</h3>
+            <p data-i18n="s3d">Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.</p>
+          </div>
+          <div class="step fade-in">
+            <div class="step-num"><span>4</span></div>
+            <h3 data-i18n="s4t">Share</h3>
+            <p data-i18n="s4d">Export as a video and share to any social platform — or keep it as your personal travel diary.</p>
+          </div>
         </div>
-        <div class="step fade-in">
-          <div class="step-num">2</div>
-          <h3 data-i18n="s2t">Discover</h3>
-          <p data-i18n="s2d">Search nearby attractions. Arrive and check in with GPS verification to collect stamps in your travel passport.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE GLOBE -->
+  <section id="live">
+    <div class="container">
+      <div class="live-wrap">
+        <div class="live-head">
+          <div>
+            <span class="eyebrow">Live globe</span>
+            <h2 class="section-title">Check-ins from the PathReel community.</h2>
+          </div>
+          <div class="live-legend">
+            <div class="live-legend-item"><span class="legend-dot legend-u"></span> UNESCO</div>
+            <div class="live-legend-item"><span class="legend-dot legend-f"></span> Featured</div>
+            <div class="live-legend-item"><span class="legend-dot legend-l"></span> Local</div>
+          </div>
         </div>
-        <div class="step fade-in">
-          <div class="step-num">3</div>
-          <h3 data-i18n="s3t">Replay</h3>
-          <p data-i18n="s3d">Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.</p>
-        </div>
-        <div class="step fade-in">
-          <div class="step-num">4</div>
-          <h3 data-i18n="s4t">Share</h3>
-          <p data-i18n="s4d">Export as a video and share to any social platform — or keep it as your personal travel diary.</p>
+        <div class="live-map">
+          <svg viewBox="0 0 1000 500" aria-hidden="true">
+            <defs>
+              <radialGradient id="earthGlow2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(82,186,255,0.12)"/>
+                <stop offset="100%" stop-color="rgba(82,186,255,0)"/>
+              </radialGradient>
+            </defs>
+            <circle cx="500" cy="250" r="280" fill="url(#earthGlow2)"/>
+            <g opacity="0.25" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="0.6">
+              <path d="M180 160 Q220 130 270 140 T360 150 Q400 175 380 210 Q370 230 340 240 T260 260 Q210 265 180 240 Q160 210 180 160 Z"/>
+              <path d="M430 180 Q460 165 490 170 Q520 170 540 180 T600 200 Q630 230 610 260 Q580 280 540 275 T480 270 Q440 260 425 230 Q415 205 430 180 Z"/>
+              <path d="M630 140 Q680 120 730 130 T820 140 Q860 165 850 200 T830 250 Q800 270 750 265 T670 255 Q630 240 620 200 Q615 165 630 140 Z"/>
+              <path d="M470 300 Q500 290 520 310 T560 370 Q555 420 530 430 T490 420 Q460 400 455 360 Q460 320 470 300 Z"/>
+              <path d="M580 330 Q620 320 650 340 T680 390 Q670 425 640 430 T590 420 Q565 400 565 370 Q570 345 580 330 Z"/>
+              <path d="M790 340 Q830 330 860 350 T890 390 Q880 420 850 425 Q820 420 800 405 T780 370 Q785 350 790 340 Z"/>
+            </g>
+            <g stroke="rgba(82,186,255,0.06)" stroke-dasharray="2 6">
+              <line x1="0" x2="1000" y1="100" y2="100"/>
+              <line x1="0" x2="1000" y1="200" y2="200"/>
+              <line x1="0" x2="1000" y1="300" y2="300"/>
+              <line x1="0" x2="1000" y1="400" y2="400"/>
+            </g>
+            <g>
+              <g><circle cx="888.2" cy="150.9" r="13" fill="#FFD74A" opacity=".15"/><circle cx="888.2" cy="150.9" r="6" fill="#FFD74A" opacity=".35"/><circle cx="888.2" cy="150.9" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="877.1" cy="152.8" r="13" fill="#FFD74A" opacity=".15"/><circle cx="877.1" cy="152.8" r="6" fill="#FFD74A" opacity=".35"/><circle cx="877.1" cy="152.8" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="852.7" cy="145.7" r="13" fill="#52BAFF" opacity=".15"/><circle cx="852.7" cy="145.7" r="6" fill="#52BAFF" opacity=".35"/><circle cx="852.7" cy="145.7" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="779.2" cy="211.8" r="13" fill="#EC48B4" opacity=".15"/><circle cx="779.2" cy="211.8" r="6" fill="#EC48B4" opacity=".35"/><circle cx="779.2" cy="211.8" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="819.7" cy="273.2" r="13" fill="#EC48B4" opacity=".15"/><circle cx="819.7" cy="273.2" r="6" fill="#EC48B4" opacity=".35"/><circle cx="819.7" cy="273.2" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="920.0" cy="344.1" r="13" fill="#52BAFF" opacity=".15"/><circle cx="920.0" cy="344.1" r="6" fill="#52BAFF" opacity=".35"/><circle cx="920.0" cy="344.1" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="653.5" cy="180.0" r="13" fill="#52BAFF" opacity=".15"/><circle cx="653.5" cy="180.0" r="6" fill="#52BAFF" opacity=".35"/><circle cx="653.5" cy="180.0" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="580.5" cy="136.1" r="13" fill="#FFD74A" opacity=".15"/><circle cx="580.5" cy="136.1" r="6" fill="#FFD74A" opacity=".35"/><circle cx="580.5" cy="136.1" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="534.7" cy="133.6" r="13" fill="#FFD74A" opacity=".15"/><circle cx="534.7" cy="133.6" r="6" fill="#FFD74A" opacity=".35"/><circle cx="534.7" cy="133.6" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="506.5" cy="114.3" r="13" fill="#FFD74A" opacity=".15"/><circle cx="506.5" cy="114.3" r="6" fill="#FFD74A" opacity=".35"/><circle cx="506.5" cy="114.3" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="499.6" cy="106.9" r="13" fill="#52BAFF" opacity=".15"/><circle cx="499.6" cy="106.9" r="6" fill="#52BAFF" opacity=".35"/><circle cx="499.6" cy="106.9" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="439.1" cy="71.8" r="13" fill="#EC48B4" opacity=".15"/><circle cx="439.1" cy="71.8" r="6" fill="#EC48B4" opacity=".35"/><circle cx="439.1" cy="71.8" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="294.4" cy="136.9" r="13" fill="#52BAFF" opacity=".15"/><circle cx="294.4" cy="136.9" r="6" fill="#52BAFF" opacity=".35"/><circle cx="294.4" cy="136.9" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="295.6" cy="123.6" r="13" fill="#EC48B4" opacity=".15"/><circle cx="295.6" cy="123.6" r="6" fill="#EC48B4" opacity=".35"/><circle cx="295.6" cy="123.6" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="224.6" cy="196.0" r="13" fill="#FFD74A" opacity=".15"/><circle cx="224.6" cy="196.0" r="6" fill="#FFD74A" opacity=".35"/><circle cx="224.6" cy="196.0" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="286.0" cy="283.5" r="13" fill="#EC48B4" opacity=".15"/><circle cx="286.0" cy="283.5" r="6" fill="#EC48B4" opacity=".35"/><circle cx="286.0" cy="283.5" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="380.1" cy="313.6" r="13" fill="#52BAFF" opacity=".15"/><circle cx="380.1" cy="313.6" r="6" fill="#52BAFF" opacity=".35"/><circle cx="380.1" cy="313.6" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="337.8" cy="346.1" r="13" fill="#EC48B4" opacity=".15"/><circle cx="337.8" cy="346.1" r="6" fill="#EC48B4" opacity=".35"/><circle cx="337.8" cy="346.1" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="551.2" cy="344.2" r="13" fill="#52BAFF" opacity=".15"/><circle cx="551.2" cy="344.2" r="6" fill="#52BAFF" opacity=".35"/><circle cx="551.2" cy="344.2" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="586.8" cy="166.6" r="13" fill="#FFD74A" opacity=".15"/><circle cx="586.8" cy="166.6" r="6" fill="#FFD74A" opacity=".35"/><circle cx="586.8" cy="166.6" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="702.4" cy="197.0" r="13" fill="#EC48B4" opacity=".15"/><circle cx="702.4" cy="197.0" r="6" fill="#EC48B4" opacity=".35"/><circle cx="702.4" cy="197.0" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="788.4" cy="246.3" r="13" fill="#52BAFF" opacity=".15"/><circle cx="788.4" cy="246.3" r="6" fill="#52BAFF" opacity=".35"/><circle cx="788.4" cy="246.3" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="817.1" cy="188.0" r="13" fill="#52BAFF" opacity=".15"/><circle cx="817.1" cy="188.0" r="6" fill="#52BAFF" opacity=".35"/><circle cx="817.1" cy="188.0" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="837.4" cy="163.2" r="13" fill="#52BAFF" opacity=".15"/><circle cx="837.4" cy="163.2" r="6" fill="#52BAFF" opacity=".35"/><circle cx="837.4" cy="163.2" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="823.3" cy="139.2" r="13" fill="#FFD74A" opacity=".15"/><circle cx="823.3" cy="139.2" r="6" fill="#FFD74A" opacity=".35"/><circle cx="823.3" cy="139.2" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="158.0" cy="113.1" r="13" fill="#EC48B4" opacity=".15"/><circle cx="158.0" cy="113.1" r="6" fill="#EC48B4" opacity=".35"/><circle cx="158.0" cy="113.1" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="159.9" cy="145.1" r="13" fill="#52BAFF" opacity=".15"/><circle cx="159.9" cy="145.1" r="6" fill="#52BAFF" opacity=".35"/><circle cx="159.9" cy="145.1" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="477.8" cy="162.1" r="13" fill="#FFD74A" opacity=".15"/><circle cx="477.8" cy="162.1" r="6" fill="#FFD74A" opacity=".35"/><circle cx="477.8" cy="162.1" r="2.5" fill="#FFD74A"/></g>
+            </g>
+          </svg>
         </div>
       </div>
     </div>
@@ -611,11 +965,13 @@
 
   <!-- DOWNLOAD -->
   <section class="download" id="download">
-    <div class="container" style="text-align:center;">
-      <span class="section-label" data-i18n="lblDL">Get PathReel</span>
-      <h2 class="section-title fade-in" data-i18n="dlTitle">Start Recording Your Story</h2>
-      <p class="section-desc fade-in" style="margin: 0 auto 40px;" data-i18n="dlDesc">Available on iOS. Android coming soon.</p>
-      <a href="https://apps.apple.com/app/pathreel/id6761773065" class="btn-primary fade-in" style="font-size:18px; padding:16px 40px;" target="_blank">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow gold" data-i18n="lblDL">Get PathReel</span>
+        <h2 class="section-title fade-in" data-i18n="dlTitle">Start Recording Your Story</h2>
+        <p class="section-desc fade-in" data-i18n="dlDesc">Available on iOS. Android coming soon.</p>
+      </div>
+      <a href="https://apps.apple.com/app/pathreel/id6761773065" class="btn-primary fade-in" target="_blank">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         <span data-i18n="btnDLStore">Download on the App Store</span>
       </a>
@@ -625,13 +981,15 @@
   <!-- DOCS -->
   <section id="docs">
     <div class="container">
-      <span class="section-label" data-i18n="lblDocs">Documentation</span>
-      <h2 class="section-title fade-in" data-i18n="docsTitle">Getting Started</h2>
-      <div class="docs-content fade-in" id="docsBody" data-i18n="docsBody" data-i18n-html="1">
+      <div class="section-head">
+        <span class="eyebrow gold" data-i18n="lblDocs">Documentation</span>
+        <h2 class="section-title fade-in" data-i18n="docsTitle">Getting Started</h2>
+      </div>
+      <div class="doc-card fade-in" id="docsBody" data-i18n="docsBody" data-i18n-html="1">
         <h3>Permissions</h3>
         <p>PathReel requires two permissions to work properly:</p>
         <ul>
-          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording. PathReel uses high-accuracy GPS to track your route even when the screen is locked or you switch to other apps. Go to Settings > PathReel > Location > Always.</li>
+          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording. PathReel uses high-accuracy GPS to track your route even when the screen is locked or you switch to other apps. Go to Settings &gt; PathReel &gt; Location &gt; Always.</li>
           <li><strong>Photo Library (Full Access)</strong> — Required to match your photos to routes and save exported videos. PathReel scans photos taken during a trip's time range and places them on the route.</li>
         </ul>
 
@@ -675,7 +1033,7 @@
         <p>During replay, tap the <strong>export button</strong>. PathReel replays the entire route and captures every frame as a high-quality HD video. Progress is shown on screen.</p>
         <p>Once saved, you can choose to <strong>share</strong>:</p>
         <ul>
-          <li><strong>Copy & Share</strong> — An auto-generated caption is copied to your clipboard (includes city name, weather, temperature, places visited, season, and time of day), then the system share sheet opens for the video.</li>
+          <li><strong>Copy &amp; Share</strong> — An auto-generated caption is copied to your clipboard (includes city name, weather, temperature, places visited, season, and time of day), then the system share sheet opens for the video.</li>
           <li><strong>Share Video Only</strong> — Opens the share sheet directly without the caption.</li>
         </ul>
         <p>The share caption is generated based on the actual trip data — start/end city (via reverse geocoding), weather and temperature at the time of the trip (via Open-Meteo API), notable stops, and more. A different template is randomly selected each time.</p>
@@ -683,7 +1041,7 @@
         <h3>Trip Groups</h3>
         <p>Organize multiple trips into groups — perfect for multi-day vacations or themed collections.</p>
         <ul>
-          <li>Go to <strong>Trips</strong> tab > tap <strong>"Trip Groups"</strong> at the top.</li>
+          <li>Go to <strong>Trips</strong> tab &gt; tap <strong>"Trip Groups"</strong> at the top.</li>
           <li>Tap <strong>"+ New Group"</strong> to create a group. Enter a name (required) and optional note.</li>
           <li>Tap a group to open it. Use <strong>"Add Trips"</strong> to select trips to include (multi-select with checkboxes).</li>
           <li>A trip can belong to multiple groups. Deleting a group does not delete the trips.</li>
@@ -709,7 +1067,7 @@
           <li><strong>Search center</strong> — Three ways to set where to search: use your current GPS location, long-press the map to drop a pin, or tap the search icon to enter a city/address.</li>
           <li><strong>Search radius</strong> — Drag the slider to set the search radius from 1 km to 50 km.</li>
           <li><strong>Read More</strong> — Tap any attraction to view details. PathReel first tries to find a Wikipedia article in your language (via Wikidata language links). If none exists, it generates a multilingual description automatically. Images are fetched from Wikidata or Wikipedia geosearch.</li>
-          <li><strong>Text-to-Speech</strong> — Tap "Listen" to have the description read aloud. PathReel automatically selects the best available voice (Siri > Enhanced > Default) and detects the text language to pick the correct voice.</li>
+          <li><strong>Text-to-Speech</strong> — Tap "Listen" to have the description read aloud. PathReel automatically selects the best available voice (Siri &gt; Enhanced &gt; Default) and detects the text language to pick the correct voice.</li>
           <li><strong>Add to Check-in</strong> — Tap the ⭐ button on any search result to save it as a check-in target.</li>
           <li><strong>Custom Places</strong> — Add your own places by entering a name and address, or long-press anywhere on the check-in map to add a pin directly. Choose a category (café, restaurant, friend, historic, memorial, other) and add optional notes.</li>
         </ul>
@@ -786,11 +1144,13 @@
   </section>
 
   <!-- PRIVACY -->
-  <section class="privacy" id="privacy">
+  <section id="privacy">
     <div class="container">
-      <span class="section-label" data-i18n="lblPriv">Legal</span>
-      <h2 class="section-title fade-in" data-i18n="privTitle">Privacy Policy</h2>
-      <div class="docs-content fade-in" id="privBody" data-i18n="privBody" data-i18n-html="1">
+      <div class="section-head">
+        <span class="eyebrow magenta" data-i18n="lblPriv">Legal</span>
+        <h2 class="section-title fade-in" data-i18n="privTitle">Privacy Policy</h2>
+      </div>
+      <div class="doc-card fade-in" id="privBody" data-i18n="privBody" data-i18n-html="1">
         <p><strong>Last updated:</strong> April 20, 2026</p>
         <h3>Overview</h3>
         <p>PathReel is designed with privacy at its core. All your data stays on your device. We do not collect, store, or transmit any personal data to external servers.</p>
@@ -812,37 +1172,59 @@
         <h3>Children's Privacy</h3>
         <p>PathReel does not knowingly collect information from children under 13.</p>
         <h3>Contact</h3>
-        <p>Questions? Contact <a href="mailto:support@pathreel.com" style="color:var(--accent);">support@pathreel.com</a></p>
+        <p>Questions? Contact <a href="mailto:support@pathreel.com">support@pathreel.com</a></p>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" style="text-align:center;">
+  <section id="contact">
     <div class="container">
-      <span class="section-label" data-i18n="lblContact">Contact</span>
-      <h2 class="section-title fade-in" data-i18n="contactTitle">Get in Touch</h2>
-      <p class="section-desc fade-in" style="margin:0 auto 24px;" data-i18n="contactDesc">Questions, feedback, or partnerships — we'd love to hear from you.</p>
-      <a href="mailto:support@pathreel.com" class="btn-primary" style="font-size:16px;">support@pathreel.com</a>
+      <div class="section-head">
+        <span class="eyebrow green" data-i18n="lblContact">Contact</span>
+        <h2 class="section-title fade-in" data-i18n="contactTitle">Get in Touch</h2>
+        <p class="section-desc fade-in" data-i18n="contactDesc">Questions, feedback, or partnerships — we'd love to hear from you.</p>
+      </div>
+      <a href="mailto:support@pathreel.com" class="btn-primary">support@pathreel.com</a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p data-i18n="footer" data-i18n-html="1">&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a></p>
+    <p data-i18n="footer" data-i18n-html="1">&copy; 2026 PathReel · Made for travelers, by travelers. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a></p>
+    <div>
+      <a href="#privacy">Privacy</a> · <a href="#docs">Docs</a> · <a href="mailto:support@pathreel.com">Support</a>
+    </div>
   </footer>
 
   <!-- SCRIPTS -->
   <script>
-    // Particles
+    // Particles (optional container — skip if removed)
     const container = document.getElementById('particles');
-    for (let i = 0; i < 40; i++) {
-      const span = document.createElement('span');
-      span.style.left = Math.random() * 100 + '%';
-      span.style.top = Math.random() * 100 + '%';
-      span.style.animationDelay = Math.random() * 4 + 's';
-      span.style.animationDuration = (3 + Math.random() * 3) + 's';
-      container.appendChild(span);
+    if (container) {
+      for (let i = 0; i < 40; i++) {
+        const span = document.createElement('span');
+        span.style.left = Math.random() * 100 + '%';
+        span.style.top = Math.random() * 100 + '%';
+        span.style.animationDelay = Math.random() * 4 + 's';
+        span.style.animationDuration = (3 + Math.random() * 3) + 's';
+        container.appendChild(span);
+      }
+    }
+
+    // Hero map mouse parallax
+    const heroMap = document.getElementById('heroMap');
+    if (heroMap && window.matchMedia('(hover: hover)').matches) {
+      heroMap.addEventListener('mousemove', (e) => {
+        const r = heroMap.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 16;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * 16;
+        heroMap.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+        heroMap.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1)';
+      });
+      heroMap.addEventListener('mouseleave', () => {
+        heroMap.style.transform = 'translate(0,0)';
+      });
     }
 
     // Scroll animations
