@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PathReel — Turn Your Journey Into a Film</title>
+  <meta name="description" content="PathReel transforms your GPS routes into cinematic 3D replay videos with photos, videos, weather, and memories. Discover UNESCO sites, check in on arrival, and build your personal travel passport.">
+  <link rel="canonical" href="https://pathreel.com">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #05070F;
+      --bg-mid: #0B0F1A;
+      --bg-card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.08);
+      --accent: #52BAFF;
+      --blue: #7C5DFA;
+      --magenta: #EC48B4;
+      --green: #43E5A3;
+      --gold: #FFD74A;
+      --orange: #FF8A4C;
+      --text: #E8EDF2;
+      --text-2: rgba(255,255,255,0.72);
+      --text-3: rgba(255,255,255,0.55);
+      --text-4: rgba(255,255,255,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* ambient glows */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(circle 900px at -10% -10%, rgba(82,186,255,0.20) 0%, transparent 55%),
+        radial-gradient(circle 1000px at 110% 30%, rgba(236,72,180,0.17) 0%, transparent 55%),
+        radial-gradient(circle 1100px at 20% 110%, rgba(124,93,250,0.18) 0%, transparent 60%);
+      filter: blur(40px);
+    }
+    /* grid overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 40%, transparent 85%);
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 40%, transparent 85%);
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ========== NAV (glass pill) ========== */
+    nav {
+      position: sticky; top: 16px; z-index: 100;
+      margin: 16px auto 0; width: calc(100% - 32px); max-width: 1280px;
+      padding: 12px 22px;
+      display: flex; align-items: center; gap: 28px;
+      border-radius: 999px;
+      background: rgba(12,16,28,0.55);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 18px; letter-spacing: -0.3px;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 0 16px rgba(82,186,255,0.35);
+    }
+    .nav-links { display: flex; gap: 24px; flex: 1; align-items: center; }
+    .nav-links a {
+      color: var(--text-2); text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-right { display: flex; gap: 12px; align-items: center; }
+    #langSelect {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px; font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    #langSelect option { background: #0B0F1A; color: #fff; }
+    .nav-cta {
+      padding: 10px 20px; border-radius: 999px;
+      background: linear-gradient(135deg, #52BAFF, #7C5DFA);
+      color: #fff !important; text-decoration: none;
+      font-size: 14px; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(82,186,255,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(82,186,255,0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
+
+    /* ========== GENERIC ========== */
+    section { padding: 100px 48px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px; letter-spacing: 3px; font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: '✦ '; color: var(--magenta); }
+    .eyebrow.magenta { color: var(--magenta); }
+    .eyebrow.purple { color: var(--blue); }
+    .eyebrow.green { color: var(--green); }
+    .eyebrow.gold { color: var(--gold); }
+    .section-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800; letter-spacing: -2px;
+      line-height: 1.05;
+      margin: 0;
+    }
+    .section-desc {
+      font-size: 17px; color: var(--text-3);
+      max-width: 640px; margin: 16px auto 0;
+    }
+    .section-head { text-align: center; margin-bottom: 56px; }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 80px 48px 80px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 540px) minmax(0, 1fr);
+      gap: 60px;
+      align-items: center;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin: 0 0 24px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, #52BAFF 0%, #EC48B4 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: 18px; line-height: 1.55; color: var(--text-3);
+      max-width: 500px; margin: 0 0 32px;
+    }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 26px; border-radius: 999px;
+      background: linear-gradient(135deg, #52BAFF, #7C5DFA);
+      color: #fff; text-decoration: none;
+      font-size: 15px; font-weight: 600;
+      box-shadow: 0 12px 32px rgba(82,186,255,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(82,186,255,0.5), inset 0 1px 0 rgba(255,255,255,0.35); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 26px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 15px; font-weight: 500;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: rgba(82,186,255,0.4); background: rgba(82,186,255,0.06); }
+    .hero-stats {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      margin-top: 56px; padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-stats .stat-n {
+      font-size: 26px; font-weight: 700; letter-spacing: -1px;
+    }
+    .hero-stats .stat-l {
+      font-size: 12px; color: var(--text-4); margin-top: 2px;
+    }
+
+    /* hero map */
+    .hero-map-wrap {
+      position: relative;
+      height: 560px;
+    }
+    .hero-map-wrap svg.world { width: 100%; height: 100%; display: block; }
+    .chip {
+      position: absolute;
+      padding: 14px 18px; border-radius: 16px;
+      background: rgba(12,16,28,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      font-size: 12px;
+    }
+    .chip .chip-tag { color: rgba(255,255,255,0.5); margin-bottom: 4px; letter-spacing: 1.5px; font-size: 10px; font-weight: 600; }
+    .chip .chip-val { font-size: 20px; font-weight: 700; }
+    .chip .chip-sub { color: rgba(255,255,255,0.5); }
+    .chip-tr { top: 30px; right: 10px; }
+    .chip-bl { bottom: 70px; left: 0; display: flex; gap: 10px; align-items: center; }
+    .chip-bl .dot {
+      width: 8px; height: 8px; border-radius: 4px;
+      background: #43E5A3; box-shadow: 0 0 10px #43E5A3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .chip-bl .t1 { font-weight: 600; }
+    .chip-bl .t2 { color: rgba(255,255,255,0.5); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ========== WHY ========== */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .why-card {
+      position: relative; overflow: hidden;
+      padding: 28px; border-radius: 20px;
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .why-card:hover { transform: translateY(-4px); border-color: rgba(82,186,255,0.3); box-shadow: 0 0 40px rgba(82,186,255,0.1); }
+    .why-card::before {
+      content: ''; position: absolute;
+      top: -40px; right: -40px; width: 140px; height: 140px;
+      border-radius: 50%;
+      filter: blur(24px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .why-card:nth-child(1)::before { background: radial-gradient(circle, rgba(82,186,255,0.5) 0%, transparent 70%); }
+    .why-card:nth-child(2)::before { background: radial-gradient(circle, rgba(236,72,180,0.5) 0%, transparent 70%); }
+    .why-card:nth-child(3)::before { background: radial-gradient(circle, rgba(124,93,250,0.5) 0%, transparent 70%); }
+    .why-card:nth-child(4)::before { background: radial-gradient(circle, rgba(255,215,74,0.45) 0%, transparent 70%); }
+    .why-card-img {
+      position: relative; z-index: 1;
+      width: 100%; aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      display: block;
+      filter: saturate(1.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .why-card h3 {
+      position: relative; z-index: 1;
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+    .why-card p {
+      position: relative; z-index: 1;
+      font-size: 13px; line-height: 1.55; color: var(--text-3);
+    }
+
+    /* ========== FEATURES ========== */
+    #features .container { max-width: 1280px; }
+    .features-intro {
+      display: grid; grid-template-columns: 320px 1fr; gap: 60px;
+      align-items: center; margin-bottom: 48px;
+    }
+    .phone-showcase {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .phone-showcase::before {
+      content: ''; position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(82,186,255,0.25) 0%, transparent 70%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    .phone-showcase img {
+      position: relative; z-index: 1;
+      width: 290px; height: auto;
+      border-radius: 32px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), 0 0 80px rgba(82,186,255,0.25);
+    }
+    .features-intro .feat-text { text-align: left; }
+    .features-intro .feat-text .section-title { text-align: left; margin-bottom: 20px; }
+    .features-intro .feat-text .section-desc { margin: 16px 0 0 0; max-width: none; }
+
+    .feature-group {
+      margin-top: 32px;
+      padding: 28px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+    .feature-group-title {
+      font-size: 14px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px;
+      margin-bottom: 20px;
+    }
+    .feature-group:nth-of-type(1) .feature-group-title { color: var(--accent); }
+    .feature-group:nth-of-type(2) .feature-group-title { color: var(--magenta); }
+    .feature-group:nth-of-type(3) .feature-group-title { color: var(--blue); }
+    .feature-group:nth-of-type(4) .feature-group-title { color: var(--green); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .feature-card {
+      padding: 20px; border-radius: 14px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .feature-card:hover { transform: translateY(-2px); border-color: rgba(82,186,255,0.25); background: rgba(255,255,255,0.04); }
+    .feature-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, rgba(82,186,255,0.2), rgba(236,72,180,0.2));
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .feature-card .feat-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.2px; }
+    .feature-card .feat-body p { font-size: 13px; line-height: 1.5; color: var(--text-3); }
+
+    /* ========== USECASES ========== */
+    .usecase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .usecase-card {
+      position: relative;
+      padding: 32px 28px; border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      min-height: 180px;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .usecase-card:hover { transform: translateY(-3px); border-color: rgba(236,72,180,0.3); box-shadow: 0 0 30px rgba(236,72,180,0.08); }
+    .usecase-dot {
+      width: 8px; height: 8px; border-radius: 4px; margin-bottom: 18px;
+    }
+    .usecase-card:nth-child(1) .usecase-dot { background: #52BAFF; box-shadow: 0 0 12px #52BAFF; }
+    .usecase-card:nth-child(2) .usecase-dot { background: #EC48B4; box-shadow: 0 0 12px #EC48B4; }
+    .usecase-card:nth-child(3) .usecase-dot { background: #FFD74A; box-shadow: 0 0 12px #FFD74A; }
+    .usecase-card:nth-child(4) .usecase-dot { background: #43E5A3; box-shadow: 0 0 12px #43E5A3; }
+    .usecase-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.4px; }
+    .usecase-card p { font-size: 13px; line-height: 1.5; color: var(--text-3); }
+
+    /* ========== HOW ========== */
+    .how-wrap { position: relative; }
+    .how-line {
+      position: absolute;
+      top: 48px; left: 12.5%; right: 12.5%; height: 2px;
+      background: linear-gradient(90deg, transparent, #52BAFF 20%, #EC48B4 50%, #7C5DFA 80%, transparent);
+      opacity: 0.35;
+    }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; }
+    .step { text-align: center; }
+    .step-num {
+      width: 96px; height: 96px; border-radius: 50%;
+      margin: 0 auto 24px;
+      background: var(--bg-deep);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; font-weight: 800;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 32px rgba(82,186,255,0.25);
+    }
+    .step-num span {
+      background: linear-gradient(135deg, #52BAFF, #EC48B4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 13px; color: var(--text-3); line-height: 1.5; max-width: 220px; margin: 0 auto; }
+
+    /* ========== LIVE GLOBE ========== */
+    .live-wrap {
+      border-radius: 32px;
+      padding: 50px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      position: relative; overflow: hidden;
+    }
+    .live-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 32px; flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .live-head .section-title { font-size: clamp(30px, 3.5vw, 44px); max-width: 620px; }
+    .live-head .section-title,
+    .live-head .eyebrow { text-align: left; }
+    .live-legend { display: flex; gap: 24px; }
+    .live-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.6); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 4px; }
+    .legend-u { background: #FFD74A; box-shadow: 0 0 8px #FFD74A; }
+    .legend-f { background: #52BAFF; box-shadow: 0 0 8px #52BAFF; }
+    .legend-l { background: #EC48B4; box-shadow: 0 0 8px #EC48B4; }
+    .live-map { height: 440px; position: relative; }
+    .live-map svg { width: 100%; height: 100%; }
+
+    /* ========== DOWNLOAD ========== */
+    .download { text-align: center; padding: 80px 48px; }
+    .download .section-desc { margin: 16px auto 32px; }
+    .download .btn-primary { font-size: 17px; padding: 17px 40px; }
+
+    /* ========== DOCS / PRIVACY ========== */
+    .doc-card {
+      margin-top: 32px;
+      padding: 40px 44px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(18,22,38,0.7) 0%, rgba(8,10,20,0.5) 100%);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+    .doc-card h3 {
+      font-size: 19px; font-weight: 700;
+      color: var(--accent);
+      margin-top: 28px; margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .doc-card h3:first-child { margin-top: 0; }
+    .doc-card h4 {
+      font-size: 15px; font-weight: 700;
+      color: var(--magenta);
+      margin-top: 20px; margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .doc-card p, .doc-card li {
+      font-size: 15px; color: var(--text-3); margin-bottom: 6px;
+      line-height: 1.65;
+    }
+    .doc-card p { margin-bottom: 10px; }
+    .doc-card ul { padding-left: 22px; margin-bottom: 16px; }
+    .doc-card li { margin-bottom: 6px; }
+    .doc-card strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+    .doc-card code {
+      background: rgba(82,186,255,0.08);
+      border: 1px solid rgba(82,186,255,0.2);
+      color: var(--accent);
+      padding: 2px 6px; border-radius: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+    .doc-card a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(82,186,255,0.3); }
+    .doc-card a:hover { border-bottom-color: var(--accent); }
+
+    /* ========== CONTACT ========== */
+    #contact { text-align: center; padding: 80px 48px; }
+    #contact .btn-primary { margin-top: 24px; }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 40px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: var(--text-4); gap: 20px;
+      flex-wrap: wrap;
+    }
+    footer p { color: var(--text-4); }
+    footer a { color: var(--text-2); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1100px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .usecase-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .how-line { display: none; }
+    }
+    @media (max-width: 900px) {
+      section { padding: 72px 24px; }
+      .hero { padding: 48px 24px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-map-wrap { height: 420px; }
+      .features-intro { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+      .features-intro .feat-text .section-title { text-align: center; }
+      .features-intro .feat-text .section-desc { margin: 16px auto 0; }
+      .live-wrap { padding: 32px 24px; }
+      .live-map { height: 340px; }
+      .doc-card { padding: 28px 20px; }
+      nav { padding: 10px 16px; gap: 12px; }
+      .nav-links { gap: 16px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+    @media (max-width: 640px) {
+      .why-grid, .usecase-grid, .features-grid, .steps { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 46px; letter-spacing: -2px; }
+      .section-title { font-size: 32px; letter-spacing: -1.5px; }
+      .hero-stats { gap: 24px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="icon.png" alt="PathReel" class="nav-logo-mark">
+      <span>PathReel</span>
+    </a>
+    <div class="nav-links">
+      <a href="#why" data-i18n="navWhy">Why</a>
+      <a href="#features" data-i18n="navFeatures">Features</a>
+      <a href="#usecases" data-i18n="navUseCases">Use Cases</a>
+      <a href="#how" data-i18n="navHow">How It Works</a>
+      <a href="#docs" data-i18n="navDocs">Docs</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <select id="langSelect" aria-label="Language"></select>
+      <a href="#download" class="nav-cta" data-i18n="navDownload">Download</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow">PATHREEL · iOS</div>
+        <h1>
+          <span data-i18n="heroTitle" data-i18n-html="1">Turn Your Journey<br>Into a Film</span>
+        </h1>
+        <p class="hero-sub" data-i18n="heroDesc">PathReel records your GPS routes and transforms them into cinematic replay videos — with photos, videos, weather, and memories, all in one tap.</p>
+        <div class="hero-buttons">
+          <a href="https://apps.apple.com/app/pathreel/id6761773065" class="btn-primary" target="_blank">
+            <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor"><path d="M13.6 9.5c0-2.4 2-3.6 2.1-3.6-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.6.9s-1.9-.9-3.1-.9c-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.1 1.7 2.4 3 2.4 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.1 2.9-2.3 0.9-1.3 1.3-2.6 1.3-2.7 0-.1-2.6-1-2.6-4z"/></svg>
+            <span data-i18n="btnAppStore">App Store</span>
+          </a>
+          <a href="#features" class="btn-secondary">
+            <span>▶</span>
+            <span data-i18n="btnExplore">Explore Features</span>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-n">iOS</div>
+            <div class="stat-l">Platform</div>
+          </div>
+          <div>
+            <div class="stat-n">Free</div>
+            <div class="stat-l">Forever</div>
+          </div>
+          <div>
+            <div class="stat-n">16</div>
+            <div class="stat-l">Languages</div>
+          </div>
+          <div>
+            <div class="stat-n">100%</div>
+            <div class="stat-l">On-device</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-map-wrap" id="heroMap">
+        <svg class="world" viewBox="0 0 1000 500" aria-hidden="true">
+          <defs>
+            <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(82,186,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(82,186,255,0)"/>
+            </radialGradient>
+            <linearGradient id="trailGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#52BAFF" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#52BAFF" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#EC48B4" stop-opacity="1"/>
+            </linearGradient>
+            <filter id="pinGlow"><feGaussianBlur stdDeviation="4"/></filter>
+          </defs>
+          <circle cx="500" cy="250" r="260" fill="url(#earthGlow)"/>
+          <!-- continent blobs -->
+          <g opacity="0.28" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" stroke-width="0.6">
+            <path d="M180 160 Q220 130 270 140 T360 150 Q400 175 380 210 Q370 230 340 240 T260 260 Q210 265 180 240 Q160 210 180 160 Z"/>
+            <path d="M430 180 Q460 165 490 170 Q520 170 540 180 T600 200 Q630 230 610 260 Q580 280 540 275 T480 270 Q440 260 425 230 Q415 205 430 180 Z"/>
+            <path d="M630 140 Q680 120 730 130 T820 140 Q860 165 850 200 T830 250 Q800 270 750 265 T670 255 Q630 240 620 200 Q615 165 630 140 Z"/>
+            <path d="M470 300 Q500 290 520 310 T560 370 Q555 420 530 430 T490 420 Q460 400 455 360 Q460 320 470 300 Z"/>
+            <path d="M580 330 Q620 320 650 340 T680 390 Q670 425 640 430 T590 420 Q565 400 565 370 Q570 345 580 330 Z"/>
+            <path d="M790 340 Q830 330 860 350 T890 390 Q880 420 850 425 Q820 420 800 405 T780 370 Q785 350 790 340 Z"/>
+          </g>
+          <!-- flight trails -->
+          <g>
+            <path d="M534.7 133.6 Q520.6 119.7 506.5 114.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M506.5 114.3 Q503.1 109.6 499.6 106.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M499.6 106.9 Q397.0 91.1 294.4 136.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M294.4 136.9 Q227.2 120.8 159.9 145.1" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M159.9 145.1 Q524.1 38.7 888.2 150.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M888.2 150.9 Q838.3 183.6 788.4 246.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M788.4 246.3 Q804.0 255.0 819.7 273.2" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M779.2 211.8 Q783.8 227.6 788.4 246.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M380.1 313.6 Q359.0 323.5 337.8 346.1" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M224.6 196.0 Q259.5 156.0 294.4 136.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M439.1 71.8 Q469.3 80.3 499.6 106.9" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M837.4 163.2 Q827.3 172.6 817.1 188.0" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+            <path d="M817.1 188.0 Q802.8 212.8 788.4 246.3" fill="none" stroke="url(#trailGrad)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".55"/>
+          </g>
+          <!-- pins -->
+          <g>
+            <g><circle cx="888.2" cy="150.9" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="888.2" cy="150.9" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="877.1" cy="152.8" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="877.1" cy="152.8" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="852.7" cy="145.7" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="852.7" cy="145.7" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="779.2" cy="211.8" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="779.2" cy="211.8" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="819.7" cy="273.2" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="819.7" cy="273.2" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="920.0" cy="344.1" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="920.0" cy="344.1" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="653.5" cy="180.0" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="653.5" cy="180.0" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="580.5" cy="136.1" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="580.5" cy="136.1" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="534.7" cy="133.6" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="534.7" cy="133.6" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="506.5" cy="114.3" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="506.5" cy="114.3" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="499.6" cy="106.9" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="499.6" cy="106.9" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="439.1" cy="71.8" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="439.1" cy="71.8" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="294.4" cy="136.9" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="294.4" cy="136.9" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="295.6" cy="123.6" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="295.6" cy="123.6" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="224.6" cy="196.0" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="224.6" cy="196.0" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="286.0" cy="283.5" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="286.0" cy="283.5" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="380.1" cy="313.6" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="380.1" cy="313.6" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="337.8" cy="346.1" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="337.8" cy="346.1" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="551.2" cy="344.2" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="551.2" cy="344.2" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="586.8" cy="166.6" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="586.8" cy="166.6" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="702.4" cy="197.0" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="702.4" cy="197.0" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="788.4" cy="246.3" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="788.4" cy="246.3" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="817.1" cy="188.0" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="817.1" cy="188.0" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="837.4" cy="163.2" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="837.4" cy="163.2" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="823.3" cy="139.2" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="823.3" cy="139.2" r="2.6" fill="#FFD74A"/></g>
+            <g><circle cx="158.0" cy="113.1" r="7" fill="#EC48B4" opacity=".3" filter="url(#pinGlow)"/><circle cx="158.0" cy="113.1" r="2.6" fill="#EC48B4"/></g>
+            <g><circle cx="159.9" cy="145.1" r="7" fill="#52BAFF" opacity=".3" filter="url(#pinGlow)"/><circle cx="159.9" cy="145.1" r="2.6" fill="#52BAFF"/></g>
+            <g><circle cx="477.8" cy="162.1" r="7" fill="#FFD74A" opacity=".3" filter="url(#pinGlow)"/><circle cx="477.8" cy="162.1" r="2.6" fill="#FFD74A"/></g>
+          </g>
+        </svg>
+        <div class="chip chip-tr">
+          <div class="chip-tag">DATA SOURCES</div>
+          <div class="chip-val">4</div>
+          <div class="chip-sub">UNESCO · Wikivoyage<br>NPS · Geoapify</div>
+        </div>
+        <div class="chip chip-bl">
+          <div class="dot"></div>
+          <div>
+            <div class="t1">No account · No cloud</div>
+            <div class="t2">All data stays on device</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="lblWhy">Why PathReel</span>
+        <h2 class="section-title fade-in" data-i18n="whyTitle">Not Just Another GPS Tracker</h2>
+        <p class="section-desc fade-in" data-i18n="whyDesc">Other apps record data. PathReel creates memories. Every route becomes a shareable cinematic experience.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <img src="why-routes.png" alt="Routes Become Films" class="why-card-img" loading="lazy">
+          <h3 data-i18n="why1Title">Routes Become Films</h3>
+          <p data-i18n="why1Desc">One tap turns any trip into a professional replay video with 3D map animation, smooth camera movements, and your photos woven in.</p>
+        </div>
+        <div class="why-card fade-in">
+          <img src="why-stops.png" alt="Every Stop Tells a Story" class="why-card-img" loading="lazy">
+          <h3 data-i18n="why2Title">Every Stop Tells a Story</h3>
+          <p data-i18n="why2Desc">PathReel auto-detects where you stopped, finds the venue name, and lets you add notes — building a rich timeline of your journey.</p>
+        </div>
+        <div class="why-card fade-in">
+          <img src="why-share.png" alt="Share Instantly" class="why-card-img" loading="lazy">
+          <h3 data-i18n="why3Title">Share Instantly</h3>
+          <p data-i18n="why3Desc">Export to video and share directly to Instagram, TikTok, WeChat, or any platform. Your adventures deserve an audience.</p>
+        </div>
+        <div class="why-card fade-in">
+          <img src="why-checkin.png" alt="Collect the World" class="why-card-img" loading="lazy">
+          <h3 data-i18n="why4Title">Collect the World</h3>
+          <p data-i18n="why4Desc">Discover UNESCO sites, local gems, and hidden attractions nearby. Check in with GPS verification and build your personal travel passport — one stamp at a time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="features-intro">
+        <div class="phone-showcase">
+          <img src="hero-phone.png" alt="PathReel App" loading="lazy">
+        </div>
+        <div class="feat-text">
+          <span class="eyebrow magenta" data-i18n="lblFeat">Features</span>
+          <h2 class="section-title fade-in" data-i18n="featTitle">Everything You Need</h2>
+          <p class="section-desc fade-in" data-i18n="featDesc">Powerful features wrapped in a beautiful, intuitive interface.</p>
+        </div>
+      </div>
+
+      <div class="feature-group fade-in">
+        <div class="feature-group-title" data-i18n="fgRecord">🎬 Record &amp; Replay</div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-num">01</span>
+            <div class="feat-body">
+              <h3 data-i18n="f1t">Cinematic Route Replay</h3>
+              <p data-i18n="f1d">3D satellite flyover with adaptive camera height, smooth transitions, and speed control (0.5x to 3x).</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">02</span>
+            <div class="feat-body">
+              <h3 data-i18n="f2t">Auto Photo Matching</h3>
+              <p data-i18n="f2d">Photos taken during your trip appear on the map at their exact GPS location. Zoom in to relive the moment.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">03</span>
+            <div class="feat-body">
+              <h3 data-i18n="f3t">Smart Stop Detection</h3>
+              <p data-i18n="f3d">Automatically detects stops with customizable time threshold (default 10 min), identifies venues via Apple Maps, and shows duration.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">11</span>
+            <div class="feat-body">
+              <h3 data-i18n="f11t">Auto Record</h3>
+              <p data-i18n="f11d">Never forget to record again. Set your home location and PathReel automatically starts recording when you leave and stops when you return. Customizable geofence radius, transport mode, and stay time.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">12</span>
+            <div class="feat-body">
+              <h3 data-i18n="f12t">Weather Recording</h3>
+              <p data-i18n="f12d">Automatically records real-time weather during your trip. Temperature, wind speed, and conditions are displayed during replay. Historical weather is fetched for older trips.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-group fade-in">
+        <div class="feature-group-title" data-i18n="fgExport">📤 Export &amp; Share</div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-num">04</span>
+            <div class="feat-body">
+              <h3 data-i18n="f4t">HD Video Export</h3>
+              <p data-i18n="f4d">Export your replay as a stunning HD video. Photos, stops, notes, and auto-generated social captions all included. Share to any platform.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">05</span>
+            <div class="feat-body">
+              <h3 data-i18n="f7t">Social Media Share Templates</h3>
+              <p data-i18n="f7d">Auto-generated captions with city, weather, temperature, and places visited. One-tap copy &amp; share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat &amp; more.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">14</span>
+            <div class="feat-body">
+              <h3 data-i18n="f14t">AI Travel Log</h3>
+              <p data-i18n="f14d">Generate a rich trip summary with one tap. AI analyzes your route, photos (via Apple Vision), speed, elevation, weather, and stops to create a factual travel log. Save as image or share directly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-group fade-in">
+        <div class="feature-group-title" data-i18n="fgOrganize">⚡ Organize &amp; Analyze</div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-num">06</span>
+            <div class="feat-body">
+              <h3 data-i18n="f5t">Trip Timeline &amp; Notes</h3>
+              <p data-i18n="f5d">Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">07</span>
+            <div class="feat-body">
+              <h3 data-i18n="f8t">Custom Trip Groups</h3>
+              <p data-i18n="f8d">Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">08</span>
+            <div class="feat-body">
+              <h3 data-i18n="f6t">Insights &amp; Heatmap</h3>
+              <p data-i18n="f6d">Track your stats over time. See where you've been on a heatmap. Weekly and monthly distance reports.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">13</span>
+            <div class="feat-body">
+              <h3 data-i18n="f13t">iCloud Auto Backup</h3>
+              <p data-i18n="f13d">All trips are automatically backed up to iCloud Drive after each recording. Switch to a new iPhone and your entire trip history restores automatically — no manual export needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-group fade-in">
+        <div class="feature-group-title" data-i18n="fgDiscover">🌍 Discover &amp; Check-in</div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-num">09</span>
+            <div class="feat-body">
+              <h3 data-i18n="f9t">Attraction Discovery</h3>
+              <p data-i18n="f9d">Search nearby attractions from UNESCO World Heritage, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <span class="feature-num">10</span>
+            <div class="feat-body">
+              <h3 data-i18n="f10t">Check-in Stamps</h3>
+              <p data-i18n="f10d">GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="usecases">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow purple" data-i18n="lblUC">Use Cases</span>
+        <h2 class="section-title fade-in" data-i18n="ucTitle">Built for Everyone Who Moves</h2>
+      </div>
+      <div class="usecase-grid">
+        <div class="usecase-card fade-in">
+          <div class="usecase-dot"></div>
+          <h3 data-i18n="uc1t">Road Trippers</h3>
+          <p data-i18n="uc1d">Record epic cross-country drives. Generate a highlight reel with scenic stops and roadside photos.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <div class="usecase-dot"></div>
+          <h3 data-i18n="uc2t">Athletes &amp; Runners</h3>
+          <p data-i18n="uc2d">Replay your runs, hikes, and bike rides with speed data and route animation. Track your progress.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <div class="usecase-dot"></div>
+          <h3 data-i18n="uc3t">Globe Collectors</h3>
+          <p data-i18n="uc3d">Discover UNESCO sites and hidden gems. Check in at landmarks with GPS verification and build your personal travel passport.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <div class="usecase-dot"></div>
+          <h3 data-i18n="uc4t">Business Travelers</h3>
+          <p data-i18n="uc4d">Keep a record of every trip with timestamps, distances, and stops. Perfect for expense reports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow green" data-i18n="lblHow">How It Works</span>
+        <h2 class="section-title fade-in" data-i18n="howTitle">Four Simple Steps</h2>
+      </div>
+      <div class="how-wrap">
+        <div class="how-line"></div>
+        <div class="steps">
+          <div class="step fade-in">
+            <div class="step-num"><span>1</span></div>
+            <h3 data-i18n="s1t">Record</h3>
+            <p data-i18n="s1d">Tap start or let auto-record handle it. PathReel tracks your route in the background with GPS precision.</p>
+          </div>
+          <div class="step fade-in">
+            <div class="step-num"><span>2</span></div>
+            <h3 data-i18n="s2t">Discover</h3>
+            <p data-i18n="s2d">Search nearby attractions. Arrive and check in with GPS verification to collect stamps in your travel passport.</p>
+          </div>
+          <div class="step fade-in">
+            <div class="step-num"><span>3</span></div>
+            <h3 data-i18n="s3t">Replay</h3>
+            <p data-i18n="s3d">Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.</p>
+          </div>
+          <div class="step fade-in">
+            <div class="step-num"><span>4</span></div>
+            <h3 data-i18n="s4t">Share</h3>
+            <p data-i18n="s4d">Export as a video and share to any social platform — or keep it as your personal travel diary.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE GLOBE -->
+  <section id="live">
+    <div class="container">
+      <div class="live-wrap">
+        <div class="live-head">
+          <div>
+            <span class="eyebrow">Live globe</span>
+            <h2 class="section-title">Check-ins from the PathReel community.</h2>
+          </div>
+          <div class="live-legend">
+            <div class="live-legend-item"><span class="legend-dot legend-u"></span> UNESCO</div>
+            <div class="live-legend-item"><span class="legend-dot legend-f"></span> Featured</div>
+            <div class="live-legend-item"><span class="legend-dot legend-l"></span> Local</div>
+          </div>
+        </div>
+        <div class="live-map">
+          <svg viewBox="0 0 1000 500" aria-hidden="true">
+            <defs>
+              <radialGradient id="earthGlow2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(82,186,255,0.12)"/>
+                <stop offset="100%" stop-color="rgba(82,186,255,0)"/>
+              </radialGradient>
+            </defs>
+            <circle cx="500" cy="250" r="280" fill="url(#earthGlow2)"/>
+            <g opacity="0.25" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="0.6">
+              <path d="M180 160 Q220 130 270 140 T360 150 Q400 175 380 210 Q370 230 340 240 T260 260 Q210 265 180 240 Q160 210 180 160 Z"/>
+              <path d="M430 180 Q460 165 490 170 Q520 170 540 180 T600 200 Q630 230 610 260 Q580 280 540 275 T480 270 Q440 260 425 230 Q415 205 430 180 Z"/>
+              <path d="M630 140 Q680 120 730 130 T820 140 Q860 165 850 200 T830 250 Q800 270 750 265 T670 255 Q630 240 620 200 Q615 165 630 140 Z"/>
+              <path d="M470 300 Q500 290 520 310 T560 370 Q555 420 530 430 T490 420 Q460 400 455 360 Q460 320 470 300 Z"/>
+              <path d="M580 330 Q620 320 650 340 T680 390 Q670 425 640 430 T590 420 Q565 400 565 370 Q570 345 580 330 Z"/>
+              <path d="M790 340 Q830 330 860 350 T890 390 Q880 420 850 425 Q820 420 800 405 T780 370 Q785 350 790 340 Z"/>
+            </g>
+            <g stroke="rgba(82,186,255,0.06)" stroke-dasharray="2 6">
+              <line x1="0" x2="1000" y1="100" y2="100"/>
+              <line x1="0" x2="1000" y1="200" y2="200"/>
+              <line x1="0" x2="1000" y1="300" y2="300"/>
+              <line x1="0" x2="1000" y1="400" y2="400"/>
+            </g>
+            <g>
+              <g><circle cx="888.2" cy="150.9" r="13" fill="#FFD74A" opacity=".15"/><circle cx="888.2" cy="150.9" r="6" fill="#FFD74A" opacity=".35"/><circle cx="888.2" cy="150.9" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="877.1" cy="152.8" r="13" fill="#FFD74A" opacity=".15"/><circle cx="877.1" cy="152.8" r="6" fill="#FFD74A" opacity=".35"/><circle cx="877.1" cy="152.8" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="852.7" cy="145.7" r="13" fill="#52BAFF" opacity=".15"/><circle cx="852.7" cy="145.7" r="6" fill="#52BAFF" opacity=".35"/><circle cx="852.7" cy="145.7" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="779.2" cy="211.8" r="13" fill="#EC48B4" opacity=".15"/><circle cx="779.2" cy="211.8" r="6" fill="#EC48B4" opacity=".35"/><circle cx="779.2" cy="211.8" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="819.7" cy="273.2" r="13" fill="#EC48B4" opacity=".15"/><circle cx="819.7" cy="273.2" r="6" fill="#EC48B4" opacity=".35"/><circle cx="819.7" cy="273.2" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="920.0" cy="344.1" r="13" fill="#52BAFF" opacity=".15"/><circle cx="920.0" cy="344.1" r="6" fill="#52BAFF" opacity=".35"/><circle cx="920.0" cy="344.1" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="653.5" cy="180.0" r="13" fill="#52BAFF" opacity=".15"/><circle cx="653.5" cy="180.0" r="6" fill="#52BAFF" opacity=".35"/><circle cx="653.5" cy="180.0" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="580.5" cy="136.1" r="13" fill="#FFD74A" opacity=".15"/><circle cx="580.5" cy="136.1" r="6" fill="#FFD74A" opacity=".35"/><circle cx="580.5" cy="136.1" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="534.7" cy="133.6" r="13" fill="#FFD74A" opacity=".15"/><circle cx="534.7" cy="133.6" r="6" fill="#FFD74A" opacity=".35"/><circle cx="534.7" cy="133.6" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="506.5" cy="114.3" r="13" fill="#FFD74A" opacity=".15"/><circle cx="506.5" cy="114.3" r="6" fill="#FFD74A" opacity=".35"/><circle cx="506.5" cy="114.3" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="499.6" cy="106.9" r="13" fill="#52BAFF" opacity=".15"/><circle cx="499.6" cy="106.9" r="6" fill="#52BAFF" opacity=".35"/><circle cx="499.6" cy="106.9" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="439.1" cy="71.8" r="13" fill="#EC48B4" opacity=".15"/><circle cx="439.1" cy="71.8" r="6" fill="#EC48B4" opacity=".35"/><circle cx="439.1" cy="71.8" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="294.4" cy="136.9" r="13" fill="#52BAFF" opacity=".15"/><circle cx="294.4" cy="136.9" r="6" fill="#52BAFF" opacity=".35"/><circle cx="294.4" cy="136.9" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="295.6" cy="123.6" r="13" fill="#EC48B4" opacity=".15"/><circle cx="295.6" cy="123.6" r="6" fill="#EC48B4" opacity=".35"/><circle cx="295.6" cy="123.6" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="224.6" cy="196.0" r="13" fill="#FFD74A" opacity=".15"/><circle cx="224.6" cy="196.0" r="6" fill="#FFD74A" opacity=".35"/><circle cx="224.6" cy="196.0" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="286.0" cy="283.5" r="13" fill="#EC48B4" opacity=".15"/><circle cx="286.0" cy="283.5" r="6" fill="#EC48B4" opacity=".35"/><circle cx="286.0" cy="283.5" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="380.1" cy="313.6" r="13" fill="#52BAFF" opacity=".15"/><circle cx="380.1" cy="313.6" r="6" fill="#52BAFF" opacity=".35"/><circle cx="380.1" cy="313.6" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="337.8" cy="346.1" r="13" fill="#EC48B4" opacity=".15"/><circle cx="337.8" cy="346.1" r="6" fill="#EC48B4" opacity=".35"/><circle cx="337.8" cy="346.1" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="551.2" cy="344.2" r="13" fill="#52BAFF" opacity=".15"/><circle cx="551.2" cy="344.2" r="6" fill="#52BAFF" opacity=".35"/><circle cx="551.2" cy="344.2" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="586.8" cy="166.6" r="13" fill="#FFD74A" opacity=".15"/><circle cx="586.8" cy="166.6" r="6" fill="#FFD74A" opacity=".35"/><circle cx="586.8" cy="166.6" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="702.4" cy="197.0" r="13" fill="#EC48B4" opacity=".15"/><circle cx="702.4" cy="197.0" r="6" fill="#EC48B4" opacity=".35"/><circle cx="702.4" cy="197.0" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="788.4" cy="246.3" r="13" fill="#52BAFF" opacity=".15"/><circle cx="788.4" cy="246.3" r="6" fill="#52BAFF" opacity=".35"/><circle cx="788.4" cy="246.3" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="817.1" cy="188.0" r="13" fill="#52BAFF" opacity=".15"/><circle cx="817.1" cy="188.0" r="6" fill="#52BAFF" opacity=".35"/><circle cx="817.1" cy="188.0" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="837.4" cy="163.2" r="13" fill="#52BAFF" opacity=".15"/><circle cx="837.4" cy="163.2" r="6" fill="#52BAFF" opacity=".35"/><circle cx="837.4" cy="163.2" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="823.3" cy="139.2" r="13" fill="#FFD74A" opacity=".15"/><circle cx="823.3" cy="139.2" r="6" fill="#FFD74A" opacity=".35"/><circle cx="823.3" cy="139.2" r="2.5" fill="#FFD74A"/></g>
+              <g><circle cx="158.0" cy="113.1" r="13" fill="#EC48B4" opacity=".15"/><circle cx="158.0" cy="113.1" r="6" fill="#EC48B4" opacity=".35"/><circle cx="158.0" cy="113.1" r="2.5" fill="#EC48B4"/></g>
+              <g><circle cx="159.9" cy="145.1" r="13" fill="#52BAFF" opacity=".15"/><circle cx="159.9" cy="145.1" r="6" fill="#52BAFF" opacity=".35"/><circle cx="159.9" cy="145.1" r="2.5" fill="#52BAFF"/></g>
+              <g><circle cx="477.8" cy="162.1" r="13" fill="#FFD74A" opacity=".15"/><circle cx="477.8" cy="162.1" r="6" fill="#FFD74A" opacity=".35"/><circle cx="477.8" cy="162.1" r="2.5" fill="#FFD74A"/></g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="download" id="download">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow gold" data-i18n="lblDL">Get PathReel</span>
+        <h2 class="section-title fade-in" data-i18n="dlTitle">Start Recording Your Story</h2>
+        <p class="section-desc fade-in" data-i18n="dlDesc">Available on iOS. Android coming soon.</p>
+      </div>
+      <a href="https://apps.apple.com/app/pathreel/id6761773065" class="btn-primary fade-in" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span data-i18n="btnDLStore">Download on the App Store</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- DOCS -->
+  <section id="docs">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow gold" data-i18n="lblDocs">Documentation</span>
+        <h2 class="section-title fade-in" data-i18n="docsTitle">Getting Started</h2>
+      </div>
+      <div class="doc-card fade-in" id="docsBody" data-i18n="docsBody" data-i18n-html="1">
+        <h3>Permissions</h3>
+        <p>PathReel requires two permissions to work properly:</p>
+        <ul>
+          <li><strong>Location (Always Allow)</strong> — Required for background GPS recording. PathReel uses high-accuracy GPS to track your route even when the screen is locked or you switch to other apps. Go to Settings &gt; PathReel &gt; Location &gt; Always.</li>
+          <li><strong>Photo Library (Full Access)</strong> — Required to match your photos to routes and save exported videos. PathReel scans photos taken during a trip's time range and places them on the route.</li>
+        </ul>
+
+        <h3>Recording a Trip</h3>
+        <p>On the Record tab, tap <strong>"Start Recording"</strong>. A transport mode picker appears — choose from car, motorcycle, bike, walk, run, boat, or train. PathReel begins tracking your route immediately using high-accuracy GPS (updated every 3 meters of movement).</p>
+        <ul>
+          <li>You can lock your phone, switch apps, or put it in your pocket — recording continues in the background.</li>
+          <li>The blue status bar indicator shows that location is being tracked.</li>
+          <li>The map follows your direction of travel with the forward direction always pointing up, like a navigation app.</li>
+          <li>Distance, duration, and point count update in real time on screen.</li>
+          <li>The transport icon changes automatically — if driving speed drops below 8 km/h, a walking icon appears; it switches back to the vehicle icon when speed picks up.</li>
+          <li>Take photos along the way — they will automatically appear on your route during replay.</li>
+          <li>To stop, tap <strong>"Stop Recording"</strong> and confirm.</li>
+          <li>When a trip ends, PathReel automatically checks if your route passed within 200m of any saved check-in targets and marks them as visited.</li>
+        </ul>
+
+        <h3>Viewing Trip Details</h3>
+        <p>Go to the <strong>Trips</strong> tab to see all recorded trips. Tap a trip to view its details:</p>
+        <ul>
+          <li>Full route displayed on a satellite or standard map.</li>
+          <li>Timeline showing start, end, photos taken along the way, and detected stops.</li>
+          <li>Tap any photo in the timeline to view it full screen.</li>
+          <li>Long-press any timeline item to add a personal note. Notes appear during replay and in exported videos.</li>
+          <li>Long-press the trip card in the list to edit the trip name, description, or delete it (requires biometric authentication).</li>
+        </ul>
+
+        <h3>Replaying a Route</h3>
+        <p>From the trip detail page, tap <strong>"Replay Route"</strong>. The cinematic 3D flyover begins:</p>
+        <ul>
+          <li>The camera follows the route in real time with pitch and heading matching the direction of travel.</li>
+          <li>Photos zoom in automatically when the route passes nearby, showing the photo, address, and POI name.</li>
+          <li>Stops are highlighted with a card showing place name, address, and duration.</li>
+          <li>A compass in the top-right corner shows orientation. Real-time clock, distance, and speed show in the top-left panel.</li>
+          <li><strong>Speed control</strong> — Tap the speed button (1x/2x/3x) to change playback speed. All route points are rendered at every speed; only the interval between frames changes.</li>
+          <li><strong>Camera height</strong> — Tap the altitude button to adjust camera height (0.5x to 3x). Higher shows more area, lower gives more detail.</li>
+          <li><strong>Map style</strong> — Toggle between satellite and standard map view.</li>
+          <li>After the route finishes, a 5-second overview zooms out to show the complete route.</li>
+        </ul>
+
+        <h3>Exporting Video</h3>
+        <p>During replay, tap the <strong>export button</strong>. PathReel replays the entire route and captures every frame as a high-quality HD video. Progress is shown on screen.</p>
+        <p>Once saved, you can choose to <strong>share</strong>:</p>
+        <ul>
+          <li><strong>Copy &amp; Share</strong> — An auto-generated caption is copied to your clipboard (includes city name, weather, temperature, places visited, season, and time of day), then the system share sheet opens for the video.</li>
+          <li><strong>Share Video Only</strong> — Opens the share sheet directly without the caption.</li>
+        </ul>
+        <p>The share caption is generated based on the actual trip data — start/end city (via reverse geocoding), weather and temperature at the time of the trip (via Open-Meteo API), notable stops, and more. A different template is randomly selected each time.</p>
+
+        <h3>Trip Groups</h3>
+        <p>Organize multiple trips into groups — perfect for multi-day vacations or themed collections.</p>
+        <ul>
+          <li>Go to <strong>Trips</strong> tab &gt; tap <strong>"Trip Groups"</strong> at the top.</li>
+          <li>Tap <strong>"+ New Group"</strong> to create a group. Enter a name (required) and optional note.</li>
+          <li>Tap a group to open it. Use <strong>"Add Trips"</strong> to select trips to include (multi-select with checkboxes).</li>
+          <li>A trip can belong to multiple groups. Deleting a group does not delete the trips.</li>
+          <li>Long-press a trip inside a group to remove it. Long-press the group card to edit or delete the group.</li>
+          <li><strong>Group Playback Duration</strong> — Each group has its own duration setting (default: 60 seconds total). Tap the duration display to change it (1–300 seconds).</li>
+          <li>Tap <strong>"Replay Route"</strong> to play all trips in sequence. Between trips, the camera zooms out to show both endpoints, then zooms into the next trip's starting point for a smooth transition.</li>
+          <li>All photos and stops from every trip in the group are included during playback.</li>
+        </ul>
+
+        <h3>Insights</h3>
+        <p>The <strong>Insights</strong> tab shows your travel statistics:</p>
+        <ul>
+          <li>Total distance, driving time, average speed.</li>
+          <li>Records: longest trip, top speed.</li>
+          <li>Heatmap showing everywhere you've been — tap to explore.</li>
+          <li>Filter by 7 days, 30 days, or all time.</li>
+        </ul>
+
+        <h3>Attraction Discovery</h3>
+        <p>The <strong>Attractions</strong> tab lets you search for nearby points of interest from multiple data sources:</p>
+        <ul>
+          <li><strong>Data sources</strong> — UNESCO World Heritage Sites, Wikivoyage curated travel guides, US National Park Service (NPS), and Geoapify local points of interest. Results are deduplicated and merged automatically.</li>
+          <li><strong>Search center</strong> — Three ways to set where to search: use your current GPS location, long-press the map to drop a pin, or tap the search icon to enter a city/address.</li>
+          <li><strong>Search radius</strong> — Drag the slider to set the search radius from 1 km to 50 km.</li>
+          <li><strong>Read More</strong> — Tap any attraction to view details. PathReel first tries to find a Wikipedia article in your language (via Wikidata language links). If none exists, it generates a multilingual description automatically. Images are fetched from Wikidata or Wikipedia geosearch.</li>
+          <li><strong>Text-to-Speech</strong> — Tap "Listen" to have the description read aloud. PathReel automatically selects the best available voice (Siri &gt; Enhanced &gt; Default) and detects the text language to pick the correct voice.</li>
+          <li><strong>Add to Check-in</strong> — Tap the ⭐ button on any search result to save it as a check-in target.</li>
+          <li><strong>Custom Places</strong> — Add your own places by entering a name and address, or long-press anywhere on the check-in map to add a pin directly. Choose a category (café, restaurant, friend, historic, memorial, other) and add optional notes.</li>
+        </ul>
+
+        <h3>Check-in Stamps</h3>
+        <p>Switch to <strong>"My Check-ins"</strong> to manage your travel passport:</p>
+        <ul>
+          <li><strong>Stats cards</strong> — Four tier categories with progress: UNESCO (World Heritage), Featured (Wikivoyage), Local (Geoapify), and My Places (custom). Tap a card to filter the list and map.</li>
+          <li><strong>Map view</strong> — All check-in targets displayed on a satellite map. Visited targets show in bright tier colors with ✅; unvisited targets show in gray. Tap any marker to zoom in and see the check-in radius circles (200m auto + 500m manual).</li>
+          <li><strong>Two tabs</strong> — "Unvisited" and "Visited" tabs below the map. Both lists sorted by distance from your current location (nearest first). Each item shows the distance to you in real time.</li>
+          <li><strong>Manual check-in</strong> — Each unvisited target has a "Check in" button. The button is disabled (gray) when you are outside 500m, and turns green when you are within range. Tapping it triggers a GPS verification with a loading indicator, then confirms success or shows the actual distance if too far.</li>
+          <li><strong>Auto check-in</strong> — When a trip recording stops (manual or auto), PathReel scans all GPS track points and automatically marks any planned target within 200 meters as visited. Distance, GPS coordinates, and trip ID are saved.</li>
+          <li><strong>Check-in detail</strong> — Tap a visited record to see: a mini map with both the attraction pin and your check-in location, distance, method (Auto GPS / Manual), timestamp, tier, description, notes, and any photos taken nearby (within 1 km, ±1 hour of check-in time).</li>
+          <li><strong>Delete targets</strong> — Long-press (2 seconds) an unvisited target to delete it. Visited records are locked and cannot be deleted or modified.</li>
+        </ul>
+
+        <h3>Settings</h3>
+        <p>Customize your PathReel experience on the <strong>Settings</strong> tab:</p>
+
+        <h4>Appearance</h4>
+        <ul>
+          <li><strong>Appearance</strong> — Switch between Day (light) and Night (dark) mode. All screens, modals, maps, and exported videos follow the selected theme.</li>
+          <li><strong>Language</strong> — Choose from 16 languages: English, 简体中文, 繁體中文, Español, Français, العربية, Português, Русский, 日本語, 한국어, Deutsch, हिन्दी, Italiano, Türkçe, ไทย, Tiếng Việt. Automatically detects your device language on first launch. All UI elements, attraction descriptions, TTS voice, and share captions adapt to your chosen language.</li>
+        </ul>
+
+        <h4>Replay Settings</h4>
+        <ul>
+          <li><strong>Photo Display (seconds)</strong> — How long a photo stays on screen during route replay and video export. When the route passes a GPS-matched photo, it zooms in and shows the image for this duration. Range: 0.5–10s. Default: 1.5s.</li>
+          <li><strong>Stop Display (seconds)</strong> — How long a detected stop card stays on screen during replay and video export. The card shows the place name (via reverse geocoding), address, and stop duration. Range: 0.5–10s. Default: 2s.</li>
+          <li><strong>Stop Min Time (minutes)</strong> — The minimum duration you must remain at a location for it to be detected as a "stop." Shorter stays (e.g., traffic lights, quick bathroom breaks) are filtered out. Range: 1–60 min. Default: 10 min.</li>
+          <li><strong>Trip Duration (seconds)</strong> — Total playback duration for a single trip replay. PathReel distributes all GPS points evenly across this duration. Shorter = faster flyover, longer = more detail. Range: 5–300s. Default: 30s. Note: Group playback uses the group's own duration setting.</li>
+        </ul>
+
+        <h4>Auto Record (iOS)</h4>
+        <p>Automatically start recording when you leave home and stop when you return — no more forgetting to press the button.</p>
+        <ul>
+          <li><strong>Enable Auto Record</strong> — Master toggle. When enabled, PathReel monitors a circular geofence around your home location using iOS region monitoring. This works even when the app is in the background or terminated.</li>
+          <li><strong>Home Location</strong> — Tap to enter your home address. PathReel geocodes the address and shows it on a map with the geofence circle for confirmation. You can retry if the location is wrong.</li>
+          <li><strong>Geofence Radius</strong> — The distance from your home location that triggers auto-start/stop. When you exit this circle, recording starts; when you re-enter, recording stops. Range: 10–500m. Default: 50m.</li>
+          <li><strong>Default Mode</strong> — The transport mode used when auto-recording starts (car, motorcycle, bike, walk, run, boat, or train). Default: car.</li>
+          <li><strong>Min Stay to Stop</strong> — How long you must remain inside the geofence before recording automatically stops. This prevents premature stops if you briefly pass through your home area. Range: 1–10 min. Default: 3 min.</li>
+          <li><strong>Notifications</strong> — When auto-record starts or stops, you receive a local notification on your iPhone and Apple Watch in your chosen language (e.g. "🚗 Recording started — you left home").</li>
+          <li><strong>Invalid trip cleanup</strong> — If an auto-recorded trip's total distance is shorter than the geofence radius, it is considered invalid and automatically deleted. A notification informs you that the trip was not saved.</li>
+        </ul>
+
+        <h4>Backup</h4>
+        <ul>
+          <li><strong>iCloud Auto Backup</strong> — Automatically backs up all trips to iCloud Drive after each recording. On a new iPhone, PathReel detects and restores the backup automatically.</li>
+            <li><strong>Export All Trips</strong> — Exports all trips, track points, groups, notes, and settings into a single <code>.pathreel</code> file. Use the iOS share sheet to save it to Files, AirDrop, or cloud storage. This is a full backup of your travel data.</li>
+          <li><strong>Import Backup</strong> — Import a previously exported <code>.pathreel</code> file. Duplicate trips (matching start time and distance) are automatically skipped. Groups and notes are restored.</li>
+        </ul>
+
+        <h4>About</h4>
+        <ul>
+          <li><strong>Version</strong> — Shows the current app version number.</li>
+          <li><strong>Check for Updates</strong> — (iOS only) Checks the App Store for a newer version. If available, shows the version comparison and a direct link to update.</li>
+        </ul>
+
+        <h3>Tips</h3>
+        <ul>
+          <li>For best GPS accuracy, keep "Always Allow" location permission. "While Using" mode may stop recording when the app goes to the background.</li>
+          <li>Take photos during your trip — they automatically appear at the right location during replay.</li>
+          <li>Use satellite map mode for the most cinematic replays.</li>
+          <li>Export in 9:16 for vertical social media platforms, 16:9 for YouTube.</li>
+          <li>Search for attractions before visiting a new city — save them as check-in targets and let PathReel auto-stamp them as you travel.</li>
+          <li>Enable Auto Record if you commute daily — PathReel will track every trip without manual start/stop.</li>
+          <li>Use the "Read More" + "Listen" feature to learn about attractions hands-free while walking or driving.</li>
+          <li>All data is stored locally on your device. No accounts, no cloud, no tracking.</li>
+        </ul>
+
+        <h3>Supported Languages</h3>
+        <p>English, 简体中文, 繁體中文, Español, Français, العربية, Português, Русский, 日本語, 한국어, Deutsch, हिन्दी, Italiano, Türkçe, ไทย, Tiếng Việt</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow magenta" data-i18n="lblPriv">Legal</span>
+        <h2 class="section-title fade-in" data-i18n="privTitle">Privacy Policy</h2>
+      </div>
+      <div class="doc-card fade-in" id="privBody" data-i18n="privBody" data-i18n-html="1">
+        <p><strong>Last updated:</strong> April 20, 2026</p>
+        <h3>Overview</h3>
+        <p>PathReel is designed with privacy at its core. All your data stays on your device. We do not collect, store, or transmit any personal data to external servers.</p>
+        <h3>Data Collection</h3>
+        <p>PathReel does <strong>not</strong> collect: personal information, location data to any server, photos, or usage analytics.</p>
+        <h3>On-Device Storage</h3>
+        <p>All data is stored locally on your device: GPS track points, trip metadata, notes, and app settings.</p>
+        <h3>Permissions</h3>
+        <p><strong>Location (Always)</strong> — Used solely to record GPS routes. Never leaves your device.<br><strong>Photo Library</strong> — Used to display trip photos and save exported videos.</p>
+        <h3>Third-Party Services</h3>
+        <p><strong>Apple Maps/MapKit</strong> — Map display and POI lookup via Apple's servers.<br>
+        <strong>App Store</strong> — Update check via iTunes API. No personal data sent.<br>
+        <strong>Attraction Data</strong> — UNESCO API, Wikivoyage API, Geoapify, US NPS API — used to search nearby attractions. Only coordinates are sent; no personal data.<br>
+        <strong>AI Descriptions</strong> — Groq API (Llama 3.3) — generates attraction descriptions. Only the attraction name and category are sent.<br>
+        <strong>Google Translate</strong> — Used to translate Wikipedia articles. Only article text is sent.<br>
+        <strong>Nominatim (OpenStreetMap)</strong> — Used for address geocoding in Auto Record home location setup. Only the address text is sent.</p>
+        <h3>Data Sharing</h3>
+        <p>When you share via the iOS share sheet, PathReel provides the file to your chosen platform. PathReel itself does not upload anything.</p>
+        <h3>Children's Privacy</h3>
+        <p>PathReel does not knowingly collect information from children under 13.</p>
+        <h3>Contact</h3>
+        <p>Questions? Contact <a href="mailto:support@pathreel.com">support@pathreel.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow green" data-i18n="lblContact">Contact</span>
+        <h2 class="section-title fade-in" data-i18n="contactTitle">Get in Touch</h2>
+        <p class="section-desc fade-in" data-i18n="contactDesc">Questions, feedback, or partnerships — we'd love to hear from you.</p>
+      </div>
+      <a href="mailto:support@pathreel.com" class="btn-primary">support@pathreel.com</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p data-i18n="footer" data-i18n-html="1">&copy; 2026 PathReel · Made for travelers, by travelers. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a></p>
+    <div>
+      <a href="#privacy">Privacy</a> · <a href="#docs">Docs</a> · <a href="mailto:support@pathreel.com">Support</a>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Particles (optional container — skip if removed)
+    const container = document.getElementById('particles');
+    if (container) {
+      for (let i = 0; i < 40; i++) {
+        const span = document.createElement('span');
+        span.style.left = Math.random() * 100 + '%';
+        span.style.top = Math.random() * 100 + '%';
+        span.style.animationDelay = Math.random() * 4 + 's';
+        span.style.animationDuration = (3 + Math.random() * 3) + 's';
+        container.appendChild(span);
+      }
+    }
+
+    // Hero map mouse parallax
+    const heroMap = document.getElementById('heroMap');
+    if (heroMap && window.matchMedia('(hover: hover)').matches) {
+      heroMap.addEventListener('mousemove', (e) => {
+        const r = heroMap.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 16;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * 16;
+        heroMap.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+        heroMap.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1)';
+      });
+      heroMap.addEventListener('mouseleave', () => {
+        heroMap.style.transform = 'translate(0,0)';
+      });
+    }
+
+    // Scroll animations — threshold 0 so very tall elements
+    // (e.g. docs/privacy doc-card) can never get "stuck" invisible
+    // when their height exceeds the viewport.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ========== i18n ==========
+    const langs = {
+      en: { navWhy:'Why', navFeatures:'Features', navUseCases:'Use Cases', navHow:'How It Works', navDocs:'Docs', navDownload:'Download',
+        heroBadge:'Now Available on iOS', heroTitle:'Turn Your Journey<br>Into a Film', heroDesc:'PathReel records your GPS routes and transforms them into cinematic replay videos — with photos, videos, weather, and memories, all in one tap.',
+        lblWhy:'Why PathReel', whyTitle:'Not Just Another GPS Tracker', whyDesc:'Other apps record data. PathReel creates memories. Every route becomes a shareable cinematic experience.',
+        why1Title:'Routes Become Films', why1Desc:'One tap turns any trip into a professional replay video with 3D map animation, smooth camera movements, and your photos woven in.',
+        why2Title:'Every Stop Tells a Story', why2Desc:'PathReel auto-detects where you stopped, finds the venue name, and lets you add notes — building a rich timeline of your journey.',
+        why3Title:'Share Instantly', why3Desc:'Export to video and share directly to Instagram, TikTok, WeChat, or any platform. Your adventures deserve an audience.', why4Title:'Collect the World', why4Desc:'Discover UNESCO sites, local gems, and hidden attractions. Check in with GPS verification and build your personal travel passport — one stamp at a time.',
+        lblFeat:'Features', fgRecord:'🎬 Record & Replay', fgExport:'📤 Export & Share', fgOrganize:'⚡ Organize & Analyze', fgDiscover:'🌍 Discover & Check-in', featTitle:'Everything You Need', featDesc:'Powerful features wrapped in a beautiful, intuitive interface.',
+        f1t:'Cinematic Route Replay', f1d:'3D satellite flyover with adaptive camera height, smooth transitions, and speed control (0.5x to 3x).',
+        f2t:'Auto Photo Matching', f2d:'Photos taken during your trip appear on the map at their exact GPS location. Zoom in to relive the moment.',
+        f3t:'Smart Stop Detection', f3d:'Automatically detects stops with customizable time threshold (default 10 min), identifies venues via Apple Maps, and shows duration.',
+        f4t:'HD Video Export', f4d:'Export your replay as a stunning HD video. Photos, stops, notes, and auto-generated social captions all included. Share to any platform.',
+        f5t:'Trip Timeline & Notes', f5d:'Every trip has a chronological timeline: start, photos, stops, end. Long-press any event to add personal notes.',
+        f6t:'Insights & Heatmap', f6d:'Track your stats over time. See where you\'ve been on a heatmap. Weekly and monthly distance reports.',
+        f7t:'Social Media Share Templates', f7d:'Auto-generated captions with city, weather, temperature, and places visited. One-tap copy & share to TikTok, Instagram, YouTube, Xiaohongshu, WeChat & more. ', f8t:'Custom Trip Groups', f8d:'Organize multiple trips into a travel group. Seamless zoom transitions between trips during playback. Custom duration per group. Perfect for multi-day travel replays.', f9t:'Attraction Discovery', f9d:'Search nearby attractions from UNESCO, Wikivoyage, NPS, and Geoapify. Multilingual descriptions and text-to-speech. Discover hidden gems wherever you go.', f10t:'Check-in Stamps', f10d:'GPS-verified travel passport. Auto check-in when your trip ends, or manually stamp on-site. Track UNESCO, featured, and custom places on a color-coded map.', f11t:'Auto Record', f11d:'Never forget to record again. Set your home location and PathReel automatically starts recording when you leave and stops when you return. Customizable geofence radius, transport mode, and stay time.', f12t:'Weather Recording', f12d:'Automatically records real-time weather during your trip. Temperature, wind speed, and conditions are displayed during replay. Historical weather is fetched for older trips.', f13t:'iCloud Auto Backup', f13d:'All trips automatically backed up to iCloud Drive. Switch to a new iPhone and your trip history restores automatically.', f14t:'AI Travel Log', f14d:'Generate a rich trip summary with one tap. AI analyzes route, photos, speed, elevation, weather, and stops.', lblUC:'Use Cases', ucTitle:'Built for Everyone Who Moves',
+        uc1t:'Road Trippers', uc1d:'Record epic cross-country drives. Generate a highlight reel with scenic stops and roadside photos.',
+        uc2t:'Athletes & Runners', uc2d:'Replay your runs, hikes, and bike rides with speed data and route animation. Track your progress.',
+        uc3t:'Globe Collectors', uc3d:'Discover UNESCO sites and hidden gems. Check in at landmarks with GPS verification and build your personal travel passport.',
+        uc4t:'Business Travelers', uc4d:'Keep a record of every trip with timestamps, distances, and stops. Perfect for expense reports.',
+        lblHow:'How It Works', howTitle:'Four Simple Steps',
+        s1t:'Record', s1d:'Tap start or let auto-record handle it. PathReel tracks your route in the background with GPS precision.',
+        s2t:'Discover', s2d:'Search nearby attractions. Arrive and check in with GPS verification to collect stamps in your travel passport.',
+        s3t:'Replay', s3d:'Watch your journey come alive on a 3D map with cinematic camera movements, your photos, and stop annotations.', s4t:'Share', s4d:'Export as a video and share to any social platform — or keep it as your personal travel diary.',
+        btnAppStore:'App Store', btnExplore:'Explore Features', btnDLStore:'Download on the App Store',
+        lblDL:'Get PathReel', dlTitle:'Start Recording Your Story', dlDesc:'Available on iOS. Android coming soon.',
+        navContact:'Contact', lblContact:'Contact', contactTitle:'Get in Touch', contactDesc:'Questions, feedback, or partnerships — we\'d love to hear from you.',
+        lblDocs:'Documentation', docsTitle:'Getting Started',
+        
+        lblPriv:'Legal', privTitle:'Privacy Policy',
+        privBody:'<p><strong>Last updated:</strong> April 6, 2026</p><h3>Overview</h3><p>All data stays on your device. We do not collect or transmit personal data.</p><h3>Data Collection</h3><p>PathReel does <strong>not</strong> collect personal info, location data to servers, photos, or analytics.</p><h3>On-Device Storage</h3><p>All data stored locally: GPS points, trip metadata, notes, settings.</p><h3>Permissions</h3><p><strong>Location (Always)</strong> — GPS recording only. Never leaves device.<br><strong>Photo Library</strong> — Display trip photos and save videos.</p><h3>Third-Party</h3><p>Apple Maps for display/POI. iTunes API for update check. No personal data sent.</p><h3>Data Sharing</h3><p>You choose what to share via iOS share sheet. PathReel does not upload anything.</p><h3>Children</h3><p>Not designed for children under 13.</p><h3>Contact</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#docs">Documentation</a>' },
+      zh: { navWhy:'为什么', navFeatures:'功能', navUseCases:'使用场景', navHow:'如何使用', navDocs:'文档', navDownload:'下载',
+        heroBadge:'现已登陆 iOS', heroTitle:'把你的旅程<br>变成电影', heroDesc:'PathReel 记录你的 GPS 路线，将它们转化为电影级的回放视频 — 照片、视频、天气和回忆，一键生成。',
+        whyTitle:'不只是又一个 GPS 追踪器', whyDesc:'别的应用只记录数据，PathReel 创造回忆。每条路线都变成可分享的电影级体验。',
+        why1Title:'路线变电影', why1Desc:'一键把任何行程变成专业级回放视频，配有 3D 地图动画、流畅的镜头运动和你的照片。',
+        why2Title:'每个停留都有故事', why2Desc:'PathReel 自动检测你的停留地点，查找商户名称，让你添加备注 — 构建丰富的旅程时间线。',
+        why3Title:'即刻分享', why3Desc:'导出视频直接分享到 Instagram、TikTok、微信或任何平台。你的冒险值得被看见。', why4Title:'收集世界', why4Desc:'发现 UNESCO 遗产、本地宝藏和隐藏景点。GPS 验证打卡，打造你的专属旅行护照。',
+        lblFeat:'功能', fgRecord:'🎬 錄製與回放', fgExport:'📤 匯出與分享', fgOrganize:'⚡ 整理與分析', fgDiscover:'🌍 發現與打卡', fgRecord:'🎬 录制与回放', fgExport:'📤 导出与分享', fgOrganize:'⚡ 整理与分析', fgDiscover:'🌍 发现与打卡', featTitle:'你需要的一切', featDesc:'强大的功能，包裹在美观直觉的界面中。',
+        f1t:'电影级路线回放', f1d:'3D 卫星俯瞰，自适应镜头高度，流畅过渡，支持 0.5x 到 3x 变速。',
+        f2t:'自动照片匹配', f2d:'行程中拍摄的照片自动出现在地图上的精确 GPS 位置，放大重温那一刻。',
+        f3t:'智能停留检测', f3d:'自动检测停留，时间阈值可自定义（默认 10 分钟），通过 Apple 地图识别商户名称，显示停留时长。',
+        f4t:'HEVC 视频导出', f4d:'将回放导出为高质量 HEVC 视频，包含照片、停留和备注。随处分享。',
+        f5t:'行程时间线与备注', f5d:'每段行程都有时间线：起点、照片、停留、终点。长按任意事件添加个人备注。',
+        f6t:'数据洞察与热力图', f6d:'追踪你的统计数据，在热力图上查看去过的地方。支持周报和月报。',
+        f7t:'社交媒体分享模版', f7d:'导出视频时自动生成分享文案，融合城市、天气、温度、途经地点等旅行信息。支持一键复制文案并分享到 TikTok、Instagram、YouTube、小红书、微信等平台。', f8t:'自定义行程组', f8d:'将多个行程归入一个旅行组，支持整体播放和导出。行程间自动缩放过渡，自然衔接。每个组可单独设置播放时长，轻松回顾多日旅行。', f9t:'景点发现', f9d:'搜索附近的 UNESCO 世界遗产、Wikivoyage 精选景点、美国国家公园及本地景点。多语言景点介绍，支持语音朗读，随时发现身边的隐藏宝藏。', f10t:'景点打卡', f10d:'GPS 验证的旅行护照。行程结束后自动检测打卡，也可现场手动打卡。在地图上用彩色标记追踪世界遗产、精选景点和自定义地点。', f11t:'自动录制', f11d:'再也不会忘记录制。设置家的位置，离开时自动开始录制，回家后自动停止。可自定义围栏半径、交通方式和停留时间。', f12t:'天气记录', f12d:'录制行程时自动记录实时天气。回放时显示温度、风速和天气状况。历史行程首次回放时自动获取天气数据。', f13t:'iCloud 自动备份', f13d:'每次录制结束后自动备份到 iCloud 云盘。换新 iPhone 时自动恢复全部行程，无需手动导出。', f14t:'AI 旅行日志', f14d:'一键生成行程摘要。AI 分析路线、照片、速度、海拔、天气和停留点，生成真实的旅行日志。', lblUC:'使用场景', ucTitle:'为所有移动的人而建',
+        uc1t:'自驾旅行者', uc1d:'记录史诗级公路旅行，生成包含风景停靠点和路边照片的精彩回放。',
+        uc2t:'运动爱好者', uc2d:'回放你的跑步、徒步和骑行路线，带有速度数据和路线动画。追踪你的进步。',
+        uc3t:'景点收集者', uc3d:'发现世界遗产和隐藏景点。GPS 验证打卡，打造你的专属旅行护照。',
+        uc4t:'商务出行', uc4d:'记录每次出行的时间、距离和停留。完美的费用报销依据。',
+        lblHow:'如何使用', howTitle:'四个简单步骤',
+        s1t:'记录', s1d:'点击开始或自动出发录制，PathReel 在后台精确追踪路线。',
+        s2t:'发现', s2d:'搜索附近景点，到达后 GPS 打卡，集齐旅行护照。',
+        s3t:'回放', s3d:'3D 电影级地图回放，配有照片和停留标注。', s4t:'分享', s4d:'导出视频，一键分享到任何平台。',
+        btnExplore:'探索功能', btnDLStore:'在 App Store 下载',
+        lblWhy:'为什么选 PathReel', lblDL:'获取 PathReel', dlTitle:'开始记录你的故事', dlDesc:'iOS 版现已可用，Android 版即将推出。',
+        navContact:'联系', lblContact:'联系我们', contactTitle:'联系我们', contactDesc:'问题、反馈或合作 — 我们很乐意听到你的声音。',
+        lblDocs:'文档', docsTitle:'快速入门',
+        docsBody:'<h3>权限</h3><p>PathReel 需要两项权限才能正常工作：</p><ul><li><strong>位置（始终允许）</strong>— 用于后台 GPS 记录。即使锁屏或切换应用也能持续追踪路线。</li><li><strong>照片图库（完全访问）</strong>— 用于将照片匹配到路线上，以及保存导出的视频。</li></ul><h3>录制行程</h3><p>在"记录"页面，选择交通方式后点击<strong>"开始记录"</strong>。PathReel 使用高精度 GPS 追踪路线。</p><ul><li>可以锁屏、切换应用——录制在后台持续进行。</li><li>距离、时长和点数实时更新。</li><li>交通图标自动切换——低速时显示步行图标。</li><li>途中拍照或录视频——照片和视频会自动出现在回放中。</li><li>天气信息每 30 分钟或每 25 公里自动记录。</li><li>行程结束时自动检测附近的打卡目标。</li></ul><h3>景点发现</h3><p><strong>"景点"</strong>页面搜索附近的景点：</p><ul><li>数据来源包括 UNESCO 世界遗产、Wikivoyage 精选景点、美国国家公园和本地景点。</li><li>三种方式设置搜索中心：GPS 定位、长按地图、搜索地址。</li><li>点击景点查看多语言介绍，支持语音朗读。</li><li>点击 ⭐ 保存为打卡目标。</li><li>在打卡地图上长按可直接添加自定义地点。</li></ul><h3>景点打卡</h3><p>切换到<strong>"我的打卡"</strong>管理旅行护照：</p><ul><li>四个等级分类：世界遗产、精选景点、本地景点、我的地点。</li><li>地图上显示所有打卡目标，点击可查看 200m 自动打卡圈和 500m 手动打卡圈。</li><li>未打卡/已打卡两个标签页，按距离排序。</li><li>每个未打卡目标有"打卡"按钮——范围外灰色禁用，范围内绿色可用。点击后 GPS 二次验证。</li><li>行程结束时自动扫描 GPS 轨迹，200m 内自动打卡。</li></ul><h3>路线回放</h3><p>行程详情页点击<strong>"回放路线"</strong>，3D 电影级飞行回放。支持速度控制、相机高度调节和地图样式切换。</p><ul><li>左上角显示日期时间和天气信息（温度、风速）。</li><li>显示 GPS 实际海拔，回放结束后标注最高/最低海拔点。</li><li>暂停时可查看 Apple Look Around 360° 街景。</li><li>步行/骑行时自动切换低空沉浸视角。</li><li>视频在路线上自动播放，时长可在设置中调整。</li></ul><h3>导出视频</h3><p>回放时点击导出按钮，PathReel 录制高清视频。保存后可复制自动生成的分享文案并分享到任何平台。</p><h3>旅行日志</h3><p>行程详情页右上角点击<strong>"日志"</strong>，AI 自动生成旅行日志：</p><ul><li>包含路线地图截图、照片、距离、时长、天气和速度数据。</li><li>Apple Vision 自动识别照片内容（城市、湖泊、建筑等），融入日志描述。</li><li>根据速度数据自动判断实际交通方式（步行/骑车/驾车）。</li><li>分析交通拥堵、海拔变化、停留点等详细信息。</li><li>可保存为图片或直接分享到社交媒体。</li></ul><h3>设置</h3><p>在<strong>"设置"</strong>页面自定义体验：</p><h4>外观</h4><ul><li><strong>外观</strong>— 切换日间（浅色）和夜间（深色）模式。所有界面、弹窗、地图和导出视频都跟随主题。</li><li><strong>语言</strong>— 支持 16 种语言。首次启动自动检测设备语言。所有界面文字、景点介绍、语音朗读和分享文案都会适配所选语言。</li></ul><h4>回放设置</h4><ul><li><strong>照片显示（秒）</strong>— 回放和视频导出时照片在屏幕上停留的时间。范围：0.5-10 秒。默认：1.5 秒。</li><li><strong>停留显示（秒）</strong>— 回放和视频导出时停留卡片在屏幕上停留的时间。范围：0.5-10 秒。默认：2 秒。</li><li><strong>最短停留时间（分钟）</strong>— 被检测为"停留"的最短时长。更短的（如等红灯）会被过滤。范围：1-60 分钟。默认：10 分钟。</li><li><strong>视频播放时长（秒）</strong>— 回放时视频片段的播放时长。默认：10 秒。</li><li><strong>照片上限</strong>— 路线回放中显示的最大照片数。超过上限时智能筛选最多样的照片。默认：15。设为 0 表示无限制。</li><li><strong>视频上限</strong>— 路线回放中显示的最大视频数。默认：3。设为 0 表示无限制。</li><li><strong>行程时长（秒）</strong>— 单个行程的播放总时长。PathReel 将所有 GPS 点均匀分布在此时长内。越短飞行越快，越长细节越多。范围：5-300 秒。默认：30 秒。注意：行程组使用自己的时长设置。</li></ul><h4>自动录制（iOS）</h4><p>离开家时自动开始录制，回家后自动停止。</p><ul><li><strong>启用自动录制</strong>— 总开关。启用后 PathReel 监控家的位置周围的地理围栏，即使 app 在后台或被关闭也能工作。</li><li><strong>家的位置</strong>— 输入家的地址，PathReel 在地图上显示围栏圆圈供确认。</li><li><strong>围栏半径</strong>— 离开此范围触发录制，进入此范围触发停止。范围：10-500 米。默认：50 米。</li><li><strong>默认交通方式</strong>— 自动录制时使用的交通方式（汽车、摩托车、自行车、步行、跑步、船、火车）。默认：汽车。</li><li><strong>最小停留时间</strong>— 进入围栏后需停留多久才自动停止录制，防止短暂经过时误停。范围：1-10 分钟。默认：3 分钟。</li><li><strong>通知</strong>— 自动开始和停止时，手机和 Apple Watch 收到本地通知，使用所选语言显示。</li><li><strong>无效行程清理</strong>— 如果自动录制的行程距离小于围栏半径，视为无效行程并自动删除。</li></ul><h4>备份</h4><ul><li><strong>iCloud 自动备份</strong>— 开启后每次行程结束自动备份到 iCloud 云盘。首次开启时全量备份所有历史行程。换新 iPhone 后首次打开 PathReel 会自动检测并恢复备份。</li><li><strong>导出所有行程</strong>— 将所有行程、轨迹点、分组、备注和设置导出为 .pathreel 文件。</li><li><strong>导入备份</strong>— 导入 .pathreel 备份文件，重复行程自动跳过。</li></ul><h4>关于</h4><ul><li><strong>版本</strong>— 显示当前版本号。</li><li><strong>检查更新</strong>— 检查 App Store 是否有新版本。</li></ul><h3>支持的语言</h3><p>English、简体中文、繁體中文、Español、Français、العربية、Português、Русский、日本語、한국어、Deutsch、हिन्दी、Italiano、Türkçe、ไทย、Tiếng Việt</p>',
+        lblPriv:'法律', privTitle:'隐私政策',
+        privBody:'<p><strong>更新日期：</strong>2026年4月6日</p><h3>概述</h3><p>所有数据保存在你的设备上。我们不收集或传输任何个人数据。</p><h3>数据收集</h3><p>PathReel <strong>不</strong>收集个人信息、位置数据、照片或使用分析。</p><h3>本地存储</h3><p>所有数据本地存储：GPS 轨迹点、行程元数据、备注、设置。</p><h3>权限</h3><p><strong>定位（始终）</strong> — 仅用于 GPS 记录，数据不离开设备。<br><strong>照片库</strong> — 显示行程照片和保存视频。</p><h3>第三方服务</h3><p>Apple 地图用于显示和 POI 查询。iTunes API 用于更新检查。不发送个人数据。</p><h3>数据共享</h3><p>通过 iOS 分享功能由你选择分享平台。PathReel 本身不上传任何内容。</p><h3>儿童隐私</h3><p>不面向 13 岁以下儿童。</p><h3>联系</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. 保留所有权利。 | <a href="#privacy">隐私政策</a> | <a href="#docs">文档</a>' },
+      'zh-TW': { navWhy:'為什麼', navFeatures:'功能', navUseCases:'使用場景', navHow:'如何使用', navDocs:'文件', navDownload:'下載',
+        heroBadge:'現已登陸 iOS', heroTitle:'把你的旅程<br>變成電影', heroDesc:'PathReel 記錄你的 GPS 路線，將它們轉化為電影級的回放影片 — 照片、視頻、天氣和回憶，一鍵生成。',
+        lblWhy:'為什麼選 PathReel', whyTitle:'不只是又一個 GPS 追蹤器', whyDesc:'別的應用只記錄數據，PathReel 創造回憶。',
+        why1Title:'路線變電影', why1Desc:'一鍵把任何行程變成專業級回放影片。', why2Title:'每個停留都有故事', why2Desc:'自動偵測停留地點，查找商戶名稱。', why3Title:'即刻分享', why3Desc:'匯出影片直接分享到任何平台。', why4Title:'收集世界', why4Desc:'發現 UNESCO 遺產、本地寶藏和隱藏景點。GPS 驗證打卡，打造你的專屬旅行護照。',
+        lblFeat:'功能', fgRecord:'🎬 錄製與回放', fgExport:'📤 匯出與分享', fgOrganize:'⚡ 整理與分析', fgDiscover:'🌍 發現與打卡', fgRecord:'🎬 录制与回放', fgExport:'📤 导出与分享', fgOrganize:'⚡ 整理与分析', fgDiscover:'🌍 发现与打卡', featTitle:'你需要的一切', featDesc:'強大的功能，美觀的介面。',
+        f1t:'電影級路線回放', f1d:'3D衛星俯瞰，自適應鏡頭高度，流暢過渡。', f2t:'自動照片匹配', f2d:'行程中拍攝的照片自動出現在地圖上。', f3t:'智慧停留偵測', f3d:'自動偵測停留，時間閾值可自訂（預設 10 分鐘），識別商戶名稱和時長。', f4t:'高清影片匯出', f4d:'匯出高品質HEVC影片，包含照片和停留。', f5t:'行程時間線與備註', f5d:'每段行程都有時間線，長按添加備註。', f6t:'數據洞察與熱力圖', f6d:'追蹤統計數據，在熱力圖上查看去過的地方。',
+        f7t:'社交媒體分享模版', f7d:'導出視頻時自動生成分享文案，融合城市、天氣、溫度、途經地點等旅行資訊。支持一鍵複製文案並分享到 TikTok、Instagram、YouTube、小紅書、微信等平台。', f8t:'自定義行程組', f8d:'將多個行程歸入一個旅行組，支持整體播放和導出。行程間自動縮放過渡，自然銜接。每個組可單獨設置播放時長，輕鬆回顧多日旅行。', f9t:'景點發現', f9d:'搜尋附近的 UNESCO 世界遺產、Wikivoyage 精選景點、美國國家公園及本地景點。多語言景點介紹，支援語音朗讀，隨時發現身邊的隱藏寶藏。', f10t:'景點打卡', f10d:'GPS 驗證的旅行護照。行程結束後自動檢測打卡，也可現場手動打卡。在地圖上用彩色標記追蹤世界遺產、精選景點和自訂地點。', f11t:'自動錄製', f11d:'再也不會忘記錄製。設定家的位置，離開時自動開始錄製，回家後自動停止。可自訂圍欄半徑、交通方式和停留時間。', f12t:'天氣記錄', f12d:'錄製行程時自動記錄實時天氣。回放時顯示溫度、風速和天氣狀況。歷史行程首次回放時自動獲取天氣資料。', f13t:'iCloud 自動備份', f13d:'每次錄製結束後自動備份到 iCloud 雲端。換新 iPhone 時自動恢復全部行程，無需手動匯出。', f14t:'AI 旅行日誌', f14d:'一鍵生成行程摘要。AI 分析路線、照片、速度、海拔、天氣和停留點，生成真實的旅行日誌。', lblUC:'使用場景', ucTitle:'為所有移動的人而建', uc1t:'自駕旅行者', uc1d:'記錄公路旅行，生成精彩回放。', uc2t:'運動愛好者', uc2d:'回放跑步、健行和騎行路線。', uc3t:'景點收集者', uc3d:'發現世界遺產和隱藏景點。GPS 驗證打卡，打造你的專屬旅行護照。', uc4t:'商務出行', uc4d:'記錄每次出行，完美的費用依據。',
+        lblHow:'如何使用', howTitle:'四個簡單步驟', s1t:'記錄', s1d:'點擊開始或自動出發錄製，PathReel 在背景精確追蹤路線。', s2t:'發現', s2d:'搜尋附近景點，到達後 GPS 打卡，集齊旅行護照。', s3t:'回放', s3d:'3D 電影級地圖回放，配有照片和停留標註。', s4t:'分享', s4d:'匯出影片，一鍵分享到任何平台。',
+        btnExplore:'探索功能', btnDLStore:'在 App Store 下載',
+        lblDL:'取得PathReel', dlTitle:'開始記錄你的故事', dlDesc:'iOS版現已可用，Android版即將推出。',
+        navContact:'聯絡', lblContact:'聯絡我們', contactTitle:'聯絡我們', contactDesc:'問題、回饋或合作 — 我們很樂意聽到你的聲音。',
+        lblDocs:'文件', docsTitle:'快速入門',
+        lblPriv:'法律', privTitle:'隱私政策',
+        privBody:'<p><strong>更新日期：</strong>2026年4月6日</p><h3>概述</h3><p>所有資料保存在裝置上。不收集或傳輸個人資料。</p><h3>資料收集</h3><p>PathReel<strong>不</strong>收集個人資訊、位置資料、照片或分析。</p><h3>本地儲存</h3><p>所有資料本地儲存。</p><h3>權限</h3><p><strong>定位</strong> — 僅GPS記錄。<br><strong>照片庫</strong> — 顯示照片和儲存影片。</p><h3>第三方</h3><p>Apple地圖用於顯示和POI查詢。</p><h3>聯絡</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. 保留所有權利。 | <a href="#privacy">隱私政策</a> | <a href="#docs">文件</a>' },
+      fr: { navWhy:'Pourquoi', navFeatures:'Fonctionnalités', navUseCases:'Cas d\'usage', navHow:'Comment ça marche', navDocs:'Docs', navDownload:'Télécharger',
+        heroBadge:'Disponible sur iOS', heroTitle:'Transformez vos trajets<br>en films', heroDesc:'PathReel enregistre vos parcours GPS et les transforme en vidéos cinématiques.',
+        lblWhy:'Pourquoi PathReel', whyTitle:'Pas juste un autre tracker GPS', whyDesc:'Les autres apps enregistrent des données. PathReel crée des souvenirs.',
+        why1Title:'Les trajets deviennent des films', why1Desc:'Un tap transforme n\'importe quel trajet en vidéo pro.', why2Title:'Chaque arrêt raconte une histoire', why2Desc:'Détection automatique des arrêts avec noms des lieux.', why3Title:'Partagez instantanément', why3Desc:'Exportez en vidéo et partagez sur n\'importe quelle plateforme.',
+        lblFeat:'Fonctionnalités', featTitle:'Tout ce qu\'il vous faut', featDesc:'Des fonctionnalités puissantes dans une interface intuitive.',
+        f1t:'Replay cinématique', f1d:'Survol satellite 3D avec hauteur adaptative et contrôle de vitesse.', f2t:'Photos automatiques', f2d:'Les photos apparaissent sur la carte à leur position GPS exacte.', f3t:'Détection d\'arrêts', f3d:'Détecte les arrêts avec seuil personnalisable, identifie les lieux et affiche la durée.', f4t:'Export vidéo HD', f4d:'Exportez en vidéo HEVC haute qualité avec photos et arrêts.', f5t:'Chronologie & notes', f5d:'Chaque trajet a une chronologie. Appuyez longuement pour ajouter des notes.', f6t:'Analyses & carte thermique', f6d:'Suivez vos statistiques et voyez où vous êtes allé.',
+        f7t:'Modèles de Partage Social', f7d:'Légendes générées automatiquement avec ville, météo, température et lieux visités. Copiez et partagez sur TikTok, Instagram, YouTube, Xiaohongshu, WeChat et plus.', f8t:'Groupes de Trajets Personnalisés', f8d:'Organisez plusieurs trajets dans un groupe de voyage. Transitions fluides entre les trajets. Durée personnalisable par groupe. Idéal pour revivre des voyages de plusieurs jours.', f9t:'Découverte de sites', f9d:'Recherchez des attractions à proximité : UNESCO, Wikivoyage, NPS et Geoapify. Descriptions multilingues et synthèse vocale. Découvrez des trésors cachés.', f10t:'Tampons de visite', f10d:'Passeport de voyage vérifié par GPS. Enregistrement automatique en fin de trajet, ou manuel sur place. Suivez vos visites UNESCO, sites vedettes et lieux personnalisés sur une carte colorée.', lblUC:'Cas d\'usage', ucTitle:'Pour tous ceux qui bougent', uc1t:'Road trippers', uc1d:'Enregistrez vos road trips épiques.', uc2t:'Athlètes', uc2d:'Rejouez vos courses et randonnées.', uc3t:'Collectionneurs du monde', uc3d:'Découvrez les sites UNESCO et les trésors cachés. Enregistrez-vous par GPS et construisez votre passeport de voyage.', uc4t:'Voyageurs d\'affaires', uc4d:'Gardez un registre de chaque déplacement.',
+        lblHow:'Comment ça marche', howTitle:'Quatre étapes simples', s1t:'Enregistrer', s1d:'Appuyez ou laissez l\'enregistrement automatique. PathReel suit votre parcours en arrière-plan.', s2t:'Découvrir', s2d:'Cherchez des attractions à proximité. Enregistrez-vous par GPS pour collecter des tampons.', s3t:'Rejouer', s3d:'Regardez votre trajet prendre vie sur une carte 3D cinématique.', s4t:'Partager', s4d:'Exportez en vidéo et partagez sur les réseaux sociaux.',
+        btnExplore:'Explorer les fonctionnalités', btnDLStore:'Télécharger sur l\'App Store',
+        lblDL:'Obtenir PathReel', dlTitle:'Commencez à enregistrer', dlDesc:'Disponible sur iOS. Android bientôt.',
+        navContact:'Contact', lblContact:'Contact', contactTitle:'Contactez-nous', contactDesc:'Questions, retours ou partenariats — écrivez-nous.',
+        lblDocs:'Documentation', docsTitle:'Premiers pas',
+        lblPriv:'Juridique', privTitle:'Politique de confidentialité',
+        privBody:'<p><strong>Mise à jour :</strong> 6 avril 2026</p><h3>Aperçu</h3><p>Toutes les données restent sur votre appareil. Aucune donnée personnelle n\'est collectée.</p><h3>Collecte</h3><p>PathReel ne collecte <strong>pas</strong> d\'informations personnelles, de données de localisation, de photos ou d\'analyses.</p><h3>Stockage local</h3><p>Tout est stocké localement.</p><h3>Permissions</h3><p><strong>Localisation</strong> — Enregistrement GPS uniquement.<br><strong>Photos</strong> — Affichage et sauvegarde.</p><h3>Tiers</h3><p>Apple Maps pour l\'affichage et la recherche POI.</p><h3>Contact</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Tous droits réservés. | <a href="#privacy">Confidentialité</a> | <a href="#docs">Documentation</a>' , fgRecord:'🎬 Enregistrer et Rejouer', fgExport:'📤 Exporter et Partager', fgOrganize:'⚡ Organiser et Analyser', fgDiscover:'🌍 Découvrir et Check-in', f11t:'Enregistrement auto', f11d:'PathReel démarre en partant et arrête au retour.', f13t:'Sauvegarde iCloud auto', f13d:'Sauvegarde automatique sur iCloud Drive. Restauration auto sur un nouvel iPhone.', f14t:'Journal de voyage IA', f14d:'Résumé de trajet en un tap. IA analyse route, photos, vitesse, altitude et météo.', why4Title:'Collectionnez le monde', why4Desc:'Sites UNESCO et trésors cachés. GPS check-in pour votre passeport.', s2t:'Découvrir', s2d:'Cherchez des attractions. Enregistrez-vous par GPS.', s4t:'Partager', s4d:'Exportez en vidéo et partagez.',},
+      es: { navWhy:'Por qué', navFeatures:'Funciones', navUseCases:'Casos de uso', navHow:'Cómo funciona', navDocs:'Docs', navDownload:'Descargar',
+        heroBadge:'Disponible en iOS', heroTitle:'Convierte tu viaje<br>en una película', heroDesc:'PathReel graba tus rutas GPS y las transforma en videos cinematográficos.',
+        lblWhy:'Por qué PathReel', whyTitle:'No es otro rastreador GPS', whyDesc:'Otras apps graban datos. PathReel crea recuerdos.',
+        why1Title:'Las rutas se convierten en películas', why1Desc:'Un toque convierte cualquier viaje en un video profesional.', why2Title:'Cada parada cuenta una historia', why2Desc:'Detecta paradas y encuentra nombres de lugares.', why3Title:'Comparte al instante', why3Desc:'Exporta a video y comparte en cualquier plataforma.', why4Title:'Colecciona el mundo', why4Desc:'Descubre sitios UNESCO, joyas locales y atracciones ocultas. Regístrate con GPS y construye tu pasaporte de viaje personal.',
+        lblFeat:'Funciones', featTitle:'Todo lo que necesitas', featDesc:'Funciones potentes en una interfaz intuitiva.',
+        f1t:'Replay cinematográfico', f1d:'Sobrevuelo satelital 3D con control de velocidad.', f2t:'Fotos automáticas', f2d:'Las fotos aparecen en el mapa en su ubicación GPS.', f3t:'Detección de paradas', f3d:'Detecta paradas con umbral personalizable, identifica lugares y muestra duración.', f4t:'Exportación de vídeo HD', f4d:'Exporta video HEVC de alta calidad con fotos y paradas.', f5t:'Línea de tiempo y notas', f5d:'Cada viaje tiene una línea de tiempo. Mantén presionado para añadir notas.', f6t:'Estadísticas y mapa de calor', f6d:'Rastrea tus estadísticas y ve dónde has estado.',
+        f7t:'Plantillas para Redes Sociales', f7d:'Genera automáticamente textos con ciudad, clima, temperatura y lugares visitados. Copia y comparte en TikTok, Instagram, YouTube, Xiaohongshu, WeChat y más.', f8t:'Grupos de Viajes Personalizados', f8d:'Organiza varios viajes en un grupo. Transiciones suaves entre viajes durante la reproducción. Duración personalizable por grupo. Perfecto para revivir viajes de varios días.', f9t:'Descubrimiento de atracciones', f9d:'Busca atracciones cercanas de UNESCO, Wikivoyage, NPS y Geoapify. Descripciones con IA y lectura en voz alta en tu idioma. Descubre joyas ocultas.', f10t:'Sellos de visita', f10d:'Pasaporte de viaje verificado por GPS. Check-in automático al finalizar el viaje, o manual en el lugar. Rastrea lugares UNESCO, destacados y personalizados en un mapa con colores.', lblUC:'Casos de uso', ucTitle:'Para todos los que se mueven', uc1t:'Viajeros por carretera', uc1d:'Graba épicos viajes por carretera.', uc2t:'Atletas', uc2d:'Repite tus carreras y caminatas.', uc3t:'Coleccionistas del mundo', uc3d:'Descubre sitios UNESCO y joyas ocultas. Regístrate con GPS y construye tu pasaporte de viaje.', uc4t:'Viajeros de negocios', uc4d:'Registra cada viaje con tiempos y distancias.',
+        lblHow:'Cómo funciona', howTitle:'Cuatro pasos simples', s1t:'Grabar', s1d:'Toca iniciar o deja que la grabación automática se encargue. PathReel rastrea tu ruta.', s2t:'Descubrir', s2d:'Busca atracciones cercanas. Llega y regístrate con GPS para coleccionar sellos.', s3t:'Reproducir', s3d:'Mira tu viaje cobrar vida en un mapa 3D cinematográfico.', s4t:'Compartir', s4d:'Exporta como video y comparte en redes sociales.',
+        btnExplore:'Explorar funciones', btnDLStore:'Descargar en App Store',
+        lblDL:'Obtener PathReel', dlTitle:'Empieza a grabar tu historia', dlDesc:'Disponible en iOS. Android próximamente.',
+        navContact:'Contacto', lblContact:'Contacto', contactTitle:'Contáctanos', contactDesc:'Preguntas, comentarios o colaboraciones — nos encantaría saber de ti.',
+        lblDocs:'Documentación', docsTitle:'Primeros pasos',
+        lblPriv:'Legal', privTitle:'Política de privacidad',
+        privBody:'<p><strong>Actualización:</strong> 6 de abril de 2026</p><h3>Resumen</h3><p>Todos los datos se quedan en tu dispositivo. No recopilamos datos personales.</p><h3>Recopilación</h3><p>PathReel <strong>no</strong> recopila información personal, datos de ubicación, fotos ni análisis.</p><h3>Almacenamiento</h3><p>Todo se almacena localmente.</p><h3>Permisos</h3><p><strong>Ubicación</strong> — Solo grabación GPS.<br><strong>Fotos</strong> — Visualización y guardado.</p><h3>Terceros</h3><p>Apple Maps para visualización y búsqueda POI.</p><h3>Contacto</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Todos los derechos reservados. | <a href="#privacy">Privacidad</a> | <a href="#docs">Documentación</a>' , fgRecord:'🎬 Grabar y Reproducir', fgExport:'📤 Exportar y Compartir', fgOrganize:'⚡ Organizar y Analizar', fgDiscover:'🌍 Descubrir y Check-in', f11t:'Grabación automática', f11d:'Nunca olvides grabar. PathReel graba al salir y para al regresar.', f13t:'Copia iCloud auto', f13d:'Respaldo automático en iCloud Drive. Restauración auto en un nuevo iPhone.', f14t:'Diario de viaje IA', f14d:'Resumen del viaje con un toque. IA analiza ruta, fotos, velocidad, altitud y clima.', s2t:'Descubrir', s2d:'Busca atracciones cercanas. Regístrate con GPS para coleccionar sellos.', s4t:'Compartir', s4d:'Exporta como video y comparte.',},
+      ja: { navWhy:'なぜ', navFeatures:'機能', navUseCases:'活用例', navHow:'使い方', navDocs:'ドキュメント', navDownload:'ダウンロード',
+        heroBadge:'iOS版公開中', heroTitle:'あなたの旅を<br>映画に変える', heroDesc:'PathReelはGPSルートを記録し、シネマティックな再生動画に変換します。',
+        lblWhy:'なぜPathReel', whyTitle:'ただのGPSトラッカーではない', whyDesc:'他のアプリはデータを記録するだけ。PathReelは思い出を創ります。',
+        why1Title:'ルートが映画になる', why1Desc:'ワンタップでプロ級動画に。', why2Title:'すべての滞在に物語がある', why2Desc:'滞在場所を自動検出し、施設名を特定。', why3Title:'すぐにシェア', why3Desc:'動画にエクスポートしてSNSに直接共有。', why4Title:'世界を集めよう', why4Desc:'ユネスコ遺産、地元の名所、隠れた観光地を発見。GPS認証チェックインで旅のパスポートを作ろう。',
+        lblFeat:'機能', featTitle:'必要なすべて', featDesc:'美しいインターフェースに強力な機能。',
+        f1t:'シネマティックルートリプレイ', f1d:'3D衛星ビューで適応型カメラ高度とスピードコントロール。', f2t:'自動写真マッチング', f2d:'旅行中の写真がGPS位置に自動表示。', f3t:'スマート滞在検出', f3d:'カスタマイズ可能な時間閾値で滞在を自動検出し、施設名と時間を表示。', f4t:'高画質動画エクスポート', f4d:'高品質HEVC動画で写真と滞在を含めてエクスポート。', f5t:'タイムライン＆メモ', f5d:'各旅行にタイムライン。長押しでメモ追加。', f6t:'分析＆ヒートマップ', f6d:'統計データを追跡し、行った場所をヒートマップで確認。',
+        f7t:'SNSシェアテンプレート', f7d:'都市、天気、気温、訪問先を含むキャプションを自動生成。TikTok、Instagram、YouTube、小紅書、WeChatなどにワンタップで共有。', f8t:'カスタム旅行グループ', f8d:'複数の旅行をグループにまとめて一括再生・書き出し。旅行間のスムーズなズーム遷移。グループごとに再生時間を設定可能。', f9t:'観光スポット検索', f9d:'UNESCO世界遺産、Wikivoyage、NPS、Geoapifyから周辺の観光地を検索。多言語解説と音声読み上げ。隠れた名所を発見。', f10t:'チェックインスタンプ', f10d:'GPS認証のトラベルパスポート。行程終了後に自動チェックイン、現地で手動スタンプも可能。色分けマップでユネスコ、おすすめ、カスタムスポットを追跡。', lblUC:'活用例', ucTitle:'動くすべての人のために', uc1t:'ロードトリッパー', uc1d:'壮大なドライブを記録。', uc2t:'アスリート', uc2d:'ランニングやハイキングをリプレイ。', uc3t:'世界コレクター', uc3d:'ユネスコ遺産や隠れた名所を発見。GPS認証チェックインで旅のパスポートを作ろう。', uc4t:'ビジネス旅行者', uc4d:'すべての出張を記録。',
+        lblHow:'使い方', howTitle:'4つのシンプルなステップ', s1t:'記録', s1d:'タップまたは自動記録で出発。バックグラウンドでGPS追跡。', s2t:'発見', s2d:'周辺の観光地を検索。GPS認証チェックインでスタンプを集めよう。', s3t:'リプレイ', s3d:'3Dマップで旅が蘇る。', s4t:'シェア', s4d:'動画をエクスポートしてSNSに共有。',
+        btnExplore:'機能を見る', btnDLStore:'App Storeでダウンロード',
+        lblDL:'PathReelを入手', dlTitle:'あなたの物語を記録しよう', dlDesc:'iOS版公開中。Android版近日公開。',
+        navContact:'お問い合わせ', lblContact:'お問い合わせ', contactTitle:'お問い合わせ', contactDesc:'ご質問、フィードバック — お気軽にご連絡ください。',
+        lblDocs:'ドキュメント', docsTitle:'はじめに',
+        lblPriv:'法務', privTitle:'プライバシーポリシー',
+        privBody:'<p><strong>最終更新：</strong>2026年4月6日</p><h3>概要</h3><p>すべてのデータはデバイスに保存されます。個人データを収集・送信しません。</p><h3>データ収集</h3><p>PathReelは個人情報、位置データ、写真、分析データを<strong>収集しません</strong>。</p><h3>ローカルストレージ</h3><p>すべてのデータをローカルに保存：GPSポイント、旅行メタデータ、メモ、設定。</p><h3>権限</h3><p><strong>位置情報（常に）</strong> — GPS記録のみ。デバイスから出ません。<br><strong>写真ライブラリ</strong> — 旅行写真の表示と動画保存。</p><h3>サードパーティ</h3><p>Apple Mapsで地図表示とPOI検索。iTunes APIで更新確認。個人データは送信しません。</p><h3>データ共有</h3><p>iOS共有シートで共有先を選択。PathReel自体はアップロードしません。</p><h3>お子様のプライバシー</h3><p>13歳未満のお子様向けではありません。</p><h3>お問い合わせ</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">プライバシー</a> | <a href="#docs">ドキュメント</a>' , fgRecord:'🎬 記録とリプレイ', fgExport:'📤 エクスポートと共有', fgOrganize:'⚡ 整理と分析', fgDiscover:'🌍 発見とチェックイン', f11t:'自動記録', f11d:'自宅設定で外出時自動開始、帰宅時自動停止。', f13t:'iCloud自動バックアップ', f13d:'iCloud Driveに自動バックアップ。新しいiPhoneで自動復元。', f14t:'AI旅行ログ', f14d:'ワンタップで旅の要約を生成。ルート、写真、速度、標高、天気をAIが分析。', s2t:'発見', s2d:'周辺の観光地を検索。GPSチェックインでスタンプ収集。', s4t:'シェア', s4d:'動画をSNSに共有。',},
+      ko: { navWhy:'왜', navFeatures:'기능', navUseCases:'활용 사례', navHow:'사용법', navDocs:'문서', navDownload:'다운로드',
+        heroBadge:'iOS 출시', heroTitle:'여행을<br>영화로 만드세요', heroDesc:'PathReel은 GPS 경로를 기록하고 시네마틱 리플레이 영상으로 변환합니다.',
+        lblWhy:'왜 PathReel', whyTitle:'단순한 GPS 트래커가 아닙니다', whyDesc:'PathReel은 추억을 만듭니다.',
+        why1Title:'경로가 영화가 됩니다', why1Desc:'한 번의 탭으로 프로급 영상을.', why2Title:'모든 정류장에 이야기가', why2Desc:'정류장을 자동 감지하고 장소명을 찾습니다.', why3Title:'즉시 공유', why3Desc:'영상으로 내보내고 SNS에 공유.', why4Title:'세계를 수집하세요', why4Desc:'유네스코 유산, 지역 명소, 숨겨진 관광지를 발견. GPS 인증 체크인으로 나만의 여행 여권을 만드세요.',
+        lblFeat:'기능', featTitle:'필요한 모든 것', featDesc:'아름다운 인터페이스의 강력한 기능.',
+        f1t:'시네마틱 경로 리플레이', f1d:'3D 위성 뷰와 속도 제어.', f2t:'자동 사진 매칭', f2d:'사진이 GPS 위치에 자동 표시.', f3t:'스마트 정차 감지', f3d:'사용자 정의 시간 기준으로 정차를 감지하고 장소명과 시간 표시.', f4t:'HD 영상 내보내기', f4d:'고품질 HEVC 영상으로 내보내기.', f5t:'타임라인 & 메모', f5d:'각 여행에 타임라인. 길게 눌러 메모 추가.', f6t:'분석 & 히트맵', f6d:'통계 추적과 히트맵으로 방문 장소 확인.',
+        f7t:'소셜 미디어 공유 템플릿', f7d:'도시, 날씨, 온도, 방문지 정보가 포함된 캡션 자동 생성. TikTok, Instagram, YouTube, 샤오홍슈, WeChat 등에 원탭 공유.', f8t:'맞춤 여행 그룹', f8d:'여러 여행을 그룹으로 묶어 통합 재생 및 내보내기. 여행 간 부드러운 줌 전환. 그룹별 재생 시간 설정 가능. 다일 여행 회상에 완벽.', f9t:'관광지 탐색', f9d:'UNESCO, Wikivoyage, NPS, Geoapify에서 주변 관광지를 검색. 다국어 설명과 음성 읽기. 숨겨진 명소를 발견하세요.', f10t:'체크인 스탬프', f10d:'GPS 인증 여행 여권. 여행 종료 시 자동 체크인, 현장에서 수동 스탬프도 가능. 색상 지도에서 유네스코, 추천, 맞춤 장소를 추적.', lblUC:'활용 사례', ucTitle:'움직이는 모든 사람을 위해', uc1t:'로드 트리퍼', uc1d:'장거리 드라이브를 기록.', uc2t:'운동선수', uc2d:'달리기와 하이킹을 리플레이.', uc3t:'세계 수집가', uc3d:'유네스코 유산과 숨겨진 명소를 발견. GPS 인증 체크인으로 여행 여권을 만드세요.', uc4t:'비즈니스 여행자', uc4d:'모든 출장을 기록.',
+        lblHow:'사용법', howTitle:'간단한 3단계', s1t:'기록', s1d:'탭하고 출발. 백그라운드에서 GPS 추적.', s2t:'리플레이', s2d:'3D 지도에서 여행이 살아납니다.', s3t:'공유', s3d:'영상으로 내보내고 SNS에 공유.',
+        btnExplore:'기능 살펴보기', btnDLStore:'App Store에서 다운로드',
+        lblDL:'PathReel 다운로드', dlTitle:'당신의 이야기를 기록하세요', dlDesc:'iOS 출시. Android 곧 출시.',
+        navContact:'문의', lblContact:'문의', contactTitle:'문의하기', contactDesc:'질문, 피드백 또는 파트너십 — 연락주세요.',
+        lblDocs:'문서', docsTitle:'시작하기',
+        lblPriv:'법률', privTitle:'개인정보 처리방침',
+        privBody:'<p><strong>업데이트:</strong> 2026년 4월 6일</p><h3>개요</h3><p>모든 데이터는 기기에 저장됩니다. 개인 데이터를 수집하지 않습니다.</p><h3>수집</h3><p>PathReel은 개인정보, 위치 데이터, 사진, 분석 데이터를 <strong>수집하지 않습니다</strong>.</p><h3>로컬 저장</h3><p>모든 데이터를 로컬에 저장.</p><h3>권한</h3><p><strong>위치</strong> — GPS 기록 전용.<br><strong>사진</strong> — 표시 및 저장.</p><h3>제3자</h3><p>Apple Maps로 지도 표시 및 POI 검색.</p><h3>문의</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. All rights reserved. | <a href="#privacy">개인정보</a> | <a href="#docs">문서</a>' , fgRecord:'🎬 기록 및 재생', fgExport:'📤 내보내기 및 공유', fgOrganize:'⚡ 정리 및 분석', fgDiscover:'🌍 발견 및 체크인', f11t:'자동 기록', f11d:'집 설정으로 외출 시 자동 기록, 귀가 시 자동 중지.', f13t:'iCloud 자동 백업', f13d:'iCloud Drive에 자동 백업. 새 iPhone에서 자동 복원.', f14t:'AI 여행 로그', f14d:'한 번에 여행 요약 생성. AI가 경로, 사진, 속도, 고도, 날씨를 분석.', s2t:'발견', s2d:'주변 관광지 검색. GPS 체크인으로 스탬프 수집.', s4t:'공유', s4d:'영상으로 내보내고 공유.',},
+      de: { navWhy:'Warum', navFeatures:'Funktionen', navUseCases:'Anwendungen', navHow:'So funktioniert\'s', navDocs:'Doku', navDownload:'Laden',
+        heroBadge:'Jetzt auf iOS', heroTitle:'Verwandle deine Reise<br>in einen Film', heroDesc:'PathReel zeichnet GPS-Routen auf und verwandelt sie in kinoreife Replay-Videos.',
+        lblWhy:'Warum PathReel', whyTitle:'Nicht nur ein GPS-Tracker', whyDesc:'PathReel schafft Erinnerungen.',
+        why1Title:'Routen werden zu Filmen', why1Desc:'Ein Tipp verwandelt jede Fahrt in ein professionelles Video.', why2Title:'Jeder Halt erzählt eine Geschichte', why2Desc:'Automatische Erkennung von Haltepunkten.', why3Title:'Sofort teilen', why3Desc:'Als Video exportieren und teilen.', why4Title:'Die Welt sammeln', why4Desc:'Entdecken Sie UNESCO-Stätten, lokale Schätze und versteckte Attraktionen. GPS-verifiziertes Check-in für Ihren persönlichen Reisepass.',
+        lblFeat:'Funktionen', featTitle:'Alles was du brauchst', featDesc:'Leistungsstarke Funktionen in intuitiver Oberfläche.',
+        f1t:'Kinoreifes Route-Replay', f1d:'3D-Satelliten-Überflug mit adaptiver Kamerahöhe.', f2t:'Auto-Foto-Zuordnung', f2d:'Fotos erscheinen an ihrer GPS-Position auf der Karte.', f3t:'Smarte Halt-Erkennung', f3d:'Erkennt Halte mit anpassbarer Zeitschwelle, identifiziert Orte und zeigt Dauer.', f4t:'HD-Video-Export', f4d:'Export als hochwertige HEVC-Video mit Fotos und Halten.', f5t:'Zeitstrahl & Notizen', f5d:'Jede Fahrt hat einen Zeitstrahl. Lang drücken für Notizen.', f6t:'Analysen & Heatmap', f6d:'Statistiken verfolgen und besuchte Orte auf der Heatmap sehen.',
+        f7t:'Social-Media-Vorlagen', f7d:'Automatisch generierte Beschreibungen mit Stadt, Wetter, Temperatur und besuchten Orten. Kopieren und teilen auf TikTok, Instagram, YouTube, Xiaohongshu, WeChat und mehr.', f8t:'Benutzerdefinierte Fahrtgruppen', f8d:'Organisieren Sie mehrere Fahrten in einer Gruppe. Nahtlose Zoom-Übergänge zwischen Fahrten. Individuelle Dauer pro Gruppe. Perfekt für mehrtägige Reiserückblicke.', f9t:'Sehenswürdigkeiten entdecken', f9d:'Suchen Sie nach UNESCO, Wikivoyage, NPS und Geoapify Attraktionen in der Nähe. Mehrsprachige Beschreibungen und Vorlesen. Entdecken Sie verborgene Schätze.', f10t:'Check-in-Stempel', f10d:'GPS-verifizierter Reisepass. Automatisches Check-in am Ende der Fahrt oder manuell vor Ort. Verfolgen Sie UNESCO, empfohlene und eigene Orte auf einer farbcodierten Karte.', lblUC:'Anwendungen', ucTitle:'Für alle, die sich bewegen', uc1t:'Road Tripper', uc1d:'Epische Fahrten aufzeichnen.', uc2t:'Sportler', uc2d:'Läufe und Wanderungen abspielen.', uc3t:'Weltsammler', uc3d:'Entdecken Sie UNESCO-Stätten und verborgene Schätze. GPS-Check-in für Ihren Reisepass.', uc4t:'Geschäftsreisende', uc4d:'Jede Reise dokumentieren.',
+        lblHow:'So funktioniert\'s', howTitle:'Drei einfache Schritte', s1t:'Aufnehmen', s1d:'Tippen und los. GPS-Tracking im Hintergrund.', s2t:'Abspielen', s2d:'Reise auf 3D-Karte erleben.', s3t:'Teilen', s3d:'Als Video exportieren und in sozialen Medien teilen.',
+        btnExplore:'Funktionen entdecken', btnDLStore:'Im App Store laden',
+        lblDL:'PathReel holen', dlTitle:'Beginne deine Geschichte', dlDesc:'Verfügbar auf iOS. Android kommt bald.',
+        navContact:'Kontakt', lblContact:'Kontakt', contactTitle:'Kontaktiere uns', contactDesc:'Fragen, Feedback oder Partnerschaften — schreib uns.',
+        lblDocs:'Dokumentation', docsTitle:'Erste Schritte',
+        lblPriv:'Rechtliches', privTitle:'Datenschutz',
+        privBody:'<p><strong>Aktualisiert:</strong> 6. April 2026</p><h3>Übersicht</h3><p>Alle Daten bleiben auf deinem Gerät. Keine persönlichen Daten werden gesammelt.</p><h3>Datenerfassung</h3><p>PathReel erfasst <strong>keine</strong> persönlichen Daten, Standortdaten, Fotos oder Analysen.</p><h3>Lokale Speicherung</h3><p>Alles wird lokal gespeichert.</p><h3>Berechtigungen</h3><p><strong>Standort</strong> — Nur GPS-Aufzeichnung.<br><strong>Fotos</strong> — Anzeige und Speicherung.</p><h3>Drittanbieter</h3><p>Apple Maps für Kartenanzeige und POI-Suche.</p><h3>Kontakt</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Alle Rechte vorbehalten. | <a href="#privacy">Datenschutz</a> | <a href="#docs">Dokumentation</a>' , fgRecord:'🎬 Aufnehmen & Abspielen', fgExport:'📤 Exportieren & Teilen', fgOrganize:'⚡ Organisieren & Analysieren', fgDiscover:'🌍 Entdecken & Check-in', f11t:'Automatische Aufnahme', f11d:'Standort festlegen — startet beim Verlassen, stoppt bei Rückkehr.', f13t:'iCloud Auto-Backup', f13d:'Automatisches Backup in iCloud Drive. Automatische Wiederherstellung auf neuem iPhone.', f14t:'KI-Reisetagebuch', f14d:'Reisezusammenfassung mit einem Tipp. KI analysiert Route, Fotos, Geschwindigkeit, Höhe und Wetter.', s2t:'Entdecken', s2d:'Sehenswürdigkeiten suchen. GPS-Check-in für Stempel.', s4t:'Teilen', s4d:'Als Video exportieren und teilen.',},
+      pt: { navWhy:'Por quê', navFeatures:'Recursos', navUseCases:'Casos de uso', navHow:'Como funciona', navDocs:'Docs', navDownload:'Baixar',
+        heroBadge:'Disponível no iOS', heroTitle:'Transforme sua jornada<br>em um filme', heroDesc:'PathReel grava rotas GPS e transforma em vídeos cinematográficos.',
+        lblWhy:'Por que PathReel', whyTitle:'Não é apenas outro rastreador GPS', whyDesc:'Outros apps gravam dados. PathReel cria memórias.',
+        why1Title:'Rotas viram filmes', why1Desc:'Um toque transforma qualquer viagem em vídeo profissional.', why2Title:'Cada parada conta uma história', why2Desc:'Detecta paradas automaticamente e identifica locais.', why3Title:'Compartilhe instantaneamente', why3Desc:'Exporte vídeo e compartilhe em qualquer plataforma.', why4Title:'Colecione o mundo', why4Desc:'Descubra patrimônios da UNESCO, tesouros locais e atrações escondidas. Check-in automático ao final da viagem ou manual no local.',
+        lblFeat:'Recursos', featTitle:'Tudo que você precisa', featDesc:'Recursos poderosos em uma interface intuitiva.',
+        f1t:'Replay cinematográfico', f1d:'Sobrevoo 3D com câmera adaptativa e controle de velocidade.', f2t:'Fotos automáticas', f2d:'Fotos aparecem no mapa na posição GPS exata.', f3t:'Detecção de paradas', f3d:'Detecta paradas com limite personalizável, identifica locais e mostra duração.', f4t:'Exportação de vídeo HD', f4d:'Exporte vídeo HEVC de alta qualidade com fotos e paradas.', f5t:'Linha do tempo e notas', f5d:'Cada viagem tem linha do tempo. Pressione longo para notas.', f6t:'Análises e mapa de calor', f6d:'Acompanhe estatísticas e veja onde esteve no mapa de calor.', f7t:'Modelos de Compartilhamento Social', f7d:'Legendas geradas automaticamente com cidade, clima, temperatura e locais visitados. Copie e compartilhe no TikTok, Instagram, YouTube, Xiaohongshu, WeChat e mais.', f8t:'Grupos de Viagens Personalizados', f8d:'Organize várias viagens em um grupo. Transições suaves entre viagens na reprodução. Duração personalizável por grupo. Perfeito para reviver viagens de vários dias.',
+        lblUC:'Casos de uso', ucTitle:'Para todos que se movem', uc1t:'Viajantes', uc1d:'Grave viagens épicas de carro.', uc2t:'Atletas', uc2d:'Reveja corridas e caminhadas.', uc3t:'Colecionadores do mundo', uc3d:'Descubra patrimônios UNESCO e tesouros escondidos. Check-in GPS para seu passaporte de viagem.', uc4t:'Viajantes de negócios', uc4d:'Registre cada viagem com tempos e distâncias.',
+        lblHow:'Como funciona', howTitle:'Três passos simples', s1t:'Gravar', s1d:'Toque e vá. GPS rastreia em segundo plano.', s2t:'Reproduzir', s2d:'Veja sua viagem ganhar vida no mapa 3D.', s3t:'Compartilhar', s3d:'Exporte como vídeo e compartilhe nas redes.',
+        btnExplore:'Explorar recursos', btnDLStore:'Baixar na App Store', lblDL:'Obter PathReel', dlTitle:'Comece a gravar', dlDesc:'iOS disponível. Android em breve.',
+        navContact:'Contato', lblContact:'Contato', contactTitle:'Entre em contato', contactDesc:'Dúvidas, feedback ou parcerias — adoraríamos ouvir de você.',
+        lblDocs:'Documentação', docsTitle:'Primeiros passos',
+        lblPriv:'Legal', privTitle:'Política de privacidade',
+        privBody:'<p><strong>Atualizado:</strong> 6 de abril de 2026</p><h3>Visão geral</h3><p>Todos os dados ficam no seu dispositivo. Não coletamos dados pessoais.</p><h3>Coleta</h3><p>PathReel <strong>não</strong> coleta informações pessoais, dados de localização, fotos ou análises.</p><h3>Armazenamento</h3><p>Tudo armazenado localmente.</p><h3>Permissões</h3><p><strong>Localização</strong> — Apenas gravação GPS.<br><strong>Fotos</strong> — Exibição e salvamento.</p><h3>Terceiros</h3><p>Apple Maps para exibição e busca POI.</p><h3>Contato</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Todos os direitos reservados. | <a href="#privacy">Privacidade</a> | <a href="#docs">Documentação</a>' , fgRecord:'🎬 Gravar e Reproduzir', fgExport:'📤 Exportar e Compartilhar', fgOrganize:'⚡ Organizar e Analisar', fgDiscover:'🌍 Descobrir e Check-in', f11t:'Gravação automática', f11d:'Defina sua casa e grave automaticamente.', f13t:'Backup iCloud auto', f13d:'Backup automático no iCloud Drive. Restauração automática em novo iPhone.', f14t:'Diário de viagem IA', f14d:'Resumo da viagem com um toque. IA analisa rota, fotos, velocidade, altitude e clima.', s2t:'Descobrir', s2d:'Pesquise atrações. Check-in GPS para selos.', s4t:'Compartilhar', s4d:'Exporte vídeo e compartilhe.',},
+      ru: { navWhy:'Зачем', navFeatures:'Функции', navUseCases:'Примеры', navHow:'Как это работает', navDocs:'Документы', navDownload:'Скачать',
+        heroBadge:'Доступно на iOS', heroTitle:'Превратите путешествие<br>в фильм', heroDesc:'PathReel записывает GPS-маршруты и превращает их в кинематографические видео.',
+        lblWhy:'Почему PathReel', whyTitle:'Не просто GPS-трекер', whyDesc:'Другие приложения записывают данные. PathReel создаёт воспоминания.',
+        why1Title:'Маршруты становятся фильмами', why1Desc:'Одним нажатием любая поездка превращается в профессиональное видео.', why2Title:'Каждая остановка — история', why2Desc:'Автоматическое обнаружение остановок с названиями мест.', why3Title:'Делитесь мгновенно', why3Desc:'Экспортируйте видео и делитесь на любой платформе.', why4Title:'Собирайте мир', why4Desc:'Откройте объекты ЮНЕСКО, местные сокровища и скрытые достопримечательности. GPS-верификация для вашего личного паспорта путешественника.',
+        lblFeat:'Функции', featTitle:'Всё что нужно', featDesc:'Мощные функции в красивом интерфейсе.',
+        f1t:'Кинематографичный повтор', f1d:'3D-пролёт с адаптивной камерой и контролем скорости.', f2t:'Авто-фото', f2d:'Фото появляются на карте в точном GPS-месте.', f3t:'Обнаружение остановок', f3d:'Определяет остановки с настраиваемым порогом, находит названия мест и показывает время.', f4t:'Экспорт HD-видео', f4d:'Экспорт в HEVC-видео высокого качества.', f5t:'Хронология и заметки', f5d:'У каждой поездки есть хронология. Долгое нажатие для заметок.', f6t:'Аналитика и тепловая карта', f6d:'Отслеживайте статистику и смотрите где вы были.',
+        f7t:'Шаблоны для Соцсетей', f7d:'Автоматические подписи с городом, погодой, температурой и местами. Копируйте и делитесь в TikTok, Instagram, YouTube, WeChat и др.', f8t:'Группы Поездок', f8d:'Объединяйте несколько поездок в группу. Плавные переходы между поездками. Настраиваемая длительность. Идеально для многодневных путешествий.', f9t:'Поиск достопримечательностей', f9d:'Ищите ближайшие объекты UNESCO, Wikivoyage, NPS и Geoapify. Многоязычные описания и озвучка. Откройте скрытые жемчужины.', f10t:'Штампы посещений', f10d:'Паспорт путешественника с GPS-верификацией. Авточекин по завершении поездки или ручной на месте. Отслеживайте объекты ЮНЕСКО, избранное и свои места на цветной карте.', lblUC:'Примеры', ucTitle:'Для всех кто в движении', uc1t:'Путешественники', uc1d:'Записывайте эпичные поездки.', uc2t:'Спортсмены', uc2d:'Пересматривайте пробежки и походы.', uc3t:'Коллекционеры мира', uc3d:'Откройте объекты ЮНЕСКО и скрытые жемчужины. GPS-чекин для вашего паспорта путешественника.', uc4t:'Деловые поездки', uc4d:'Фиксируйте каждую командировку.',
+        lblHow:'Как это работает', howTitle:'Три простых шага', s1t:'Запись', s1d:'Нажмите и езжайте. GPS отслеживает в фоне.', s2t:'Воспроизведение', s2d:'Смотрите как путешествие оживает на 3D-карте.', s3t:'Поделиться', s3d:'Экспортируйте видео и делитесь в соцсетях.',
+        btnExplore:'Изучить функции', btnDLStore:'Скачать в App Store', lblDL:'Получить PathReel', dlTitle:'Начните записывать', dlDesc:'Доступно на iOS. Android скоро.',
+        navContact:'Контакт', lblContact:'Контакт', contactTitle:'Свяжитесь с нами', contactDesc:'Вопросы, отзывы или сотрудничество — напишите нам.',
+        lblDocs:'Документация', docsTitle:'Начало работы',
+        lblPriv:'Правовая информация', privTitle:'Конфиденциальность',
+        privBody:'<p><strong>Обновлено:</strong> 6 апреля 2026</p><h3>Обзор</h3><p>Все данные хранятся на вашем устройстве. Мы не собираем персональные данные.</p><h3>Сбор данных</h3><p>PathReel <strong>не</strong> собирает личную информацию, данные о местоположении, фото или аналитику.</p><h3>Хранение</h3><p>Всё хранится локально.</p><h3>Разрешения</h3><p><strong>Геолокация</strong> — Только запись GPS.<br><strong>Фото</strong> — Отображение и сохранение.</p><h3>Третьи стороны</h3><p>Apple Maps для отображения карт и поиска POI.</p><h3>Контакт</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Все права защищены. | <a href="#privacy">Конфиденциальность</a> | <a href="#docs">Документация</a>' , fgRecord:'🎬 Запись и воспроизведение', fgExport:'📤 Экспорт и обмен', fgOrganize:'⚡ Организация и анализ', fgDiscover:'🌍 Открытия и чекин', f11t:'Автозапись', f11d:'Установите дом — запись при выходе, стоп при возвращении.', f13t:'Авто-бэкап iCloud', f13d:'Автоматический бэкап в iCloud Drive. Автоматическое восстановление на новом iPhone.', f14t:'ИИ дневник поездки', f14d:'Сводка поездки одним нажатием. ИИ анализирует маршрут, фото, скорость, высоту и погоду.', s2t:'Откройте', s2d:'Ищите достопримечательности. GPS-чекин для штампов.', s4t:'Делитесь', s4d:'Экспортируйте видео.',},
+      ar: { navWhy:'لماذا', navFeatures:'الميزات', navUseCases:'حالات الاستخدام', navHow:'كيف يعمل', navDocs:'المستندات', navDownload:'تحميل',
+        heroBadge:'متوفر على iOS', heroTitle:'حوّل رحلتك<br>إلى فيلم', heroDesc:'PathReel يسجل مسارات GPS ويحولها إلى فيديوهات سينمائية.',
+        lblWhy:'لماذا PathReel', whyTitle:'ليس مجرد متتبع GPS', whyDesc:'التطبيقات الأخرى تسجل بيانات. PathReel يصنع ذكريات.',
+        why1Title:'المسارات تصبح أفلاماً', why1Desc:'نقرة واحدة تحول أي رحلة إلى فيديو احترافي.', why2Title:'كل توقف يروي قصة', why2Desc:'اكتشاف تلقائي للتوقفات مع أسماء الأماكن.', why3Title:'شارك فوراً', why3Desc:'صدّر الفيديو وشاركه على أي منصة.', why4Title:'اجمع العالم', why4Desc:'اكتشف مواقع يونسكو والكنوز المحلية والمعالم الخفية. سجل حضورك بالـ GPS وابنِ جواز سفر رحلاتك الشخصي.',
+        lblFeat:'الميزات', featTitle:'كل ما تحتاجه', featDesc:'ميزات قوية في واجهة بديهية.',
+        f1t:'إعادة تشغيل سينمائية', f1d:'تحليق ثلاثي الأبعاد مع كاميرا متكيفة.', f2t:'صور تلقائية', f2d:'الصور تظهر على الخريطة في موقع GPS الدقيق.', f3t:'اكتشاف التوقفات', f3d:'يكتشف التوقفات بحد زمني قابل للتخصيص ويحدد الأماكن ويعرض المدة.', f4t:'تصدير فيديو عالي الجودة', f4d:'تصدير فيديو HEVC عالي الجودة.', f5t:'جدول زمني وملاحظات', f5d:'كل رحلة لها جدول زمني. اضغط مطولاً لإضافة ملاحظات.', f6t:'تحليلات وخريطة حرارية', f6d:'تتبع إحصائياتك وشاهد أين كنت.',
+        f7t:'قوالب مشاركة وسائل التواصل', f7d:'نصوص تلقائية مع المدينة والطقس والحرارة والأماكن. انسخ وشارك على تيك توك وإنستغرام ويوتيوب وويشات والمزيد.', f8t:'مجموعات رحلات مخصصة', f8d:'نظم عدة رحلات في مجموعة. انتقالات سلسة بين الرحلات. مدة مخصصة لكل مجموعة. مثالي لاستعادة رحلات متعددة الأيام.', f9t:'اكتشاف المعالم', f9d:'ابحث عن معالم قريبة من يونسكو وWikivoyage وNPS وGeoapify. أوصاف متعددة اللغات وقراءة صوتية. اكتشف الجواهر الخفية.', f10t:'طوابع الزيارة', f10d:'جواز سفر مع تحقق GPS. تسجيل تلقائي عند انتهاء الرحلة أو يدوي في الموقع. تتبع مواقع يونسكو والمميزة والمخصصة على خريطة ملونة.', lblUC:'حالات الاستخدام', ucTitle:'لكل من يتحرك', uc1t:'مسافرون بالسيارة', uc1d:'سجل رحلاتك البرية الملحمية.', uc2t:'رياضيون', uc2d:'أعد تشغيل جولاتك ومشيك.', uc3t:'جامعو العالم', uc3d:'اكتشف مواقع يونسكو والجواهر الخفية. سجل حضورك بالـ GPS وابنِ جواز سفر رحلاتك.', uc4t:'مسافرو الأعمال', uc4d:'سجل كل رحلة عمل.',
+        lblHow:'كيف يعمل', howTitle:'ثلاث خطوات بسيطة', s1t:'تسجيل', s1d:'انقر وانطلق. GPS يتتبع في الخلفية.', s2t:'إعادة تشغيل', s2d:'شاهد رحلتك تنبض بالحياة على خريطة ثلاثية الأبعاد.', s3t:'مشاركة', s3d:'صدّر كفيديو وشارك على وسائل التواصل.',
+        btnExplore:'استكشف الميزات', btnDLStore:'حمّل من App Store', lblDL:'احصل على PathReel', dlTitle:'ابدأ بتسجيل قصتك', dlDesc:'متوفر على iOS. أندرويد قريباً.',
+        navContact:'اتصل', lblContact:'اتصل بنا', contactTitle:'تواصل معنا', contactDesc:'أسئلة أو ملاحظات أو شراكات — يسعدنا سماع رأيك.',
+        lblDocs:'التوثيق', docsTitle:'البدء',
+        lblPriv:'قانوني', privTitle:'سياسة الخصوصية',
+        privBody:'<p><strong>آخر تحديث:</strong> 6 أبريل 2026</p><h3>نظرة عامة</h3><p>جميع البيانات تبقى على جهازك. لا نجمع بيانات شخصية.</p><h3>جمع البيانات</h3><p>PathReel <strong>لا</strong> يجمع معلومات شخصية أو بيانات موقع أو صور أو تحليلات.</p><h3>التخزين</h3><p>كل شيء مخزن محلياً.</p><h3>الأذونات</h3><p><strong>الموقع</strong> — تسجيل GPS فقط.<br><strong>الصور</strong> — العرض والحفظ.</p><h3>أطراف ثالثة</h3><p>خرائط Apple للعرض والبحث.</p><h3>اتصل بنا</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. جميع الحقوق محفوظة. | <a href="#privacy">الخصوصية</a> | <a href="#docs">التوثيق</a>' , fgRecord:'🎬 تسجيل وإعادة', fgExport:'📤 تصدير ومشاركة', fgOrganize:'⚡ تنظيم وتحليل', fgDiscover:'🌍 اكتشاف وتسجيل', f11t:'التسجيل التلقائي', f11d:'حدد موقع منزلك وسيبدأ تلقائياً.', s2t:'اكتشف', s2d:'ابحث عن المعالم. سجل حضورك بالـ GPS.', s4t:'شارك', s4d:'صدّر الفيديو وشاركه.',},
+      hi: { navWhy:'क्यों', navFeatures:'सुविधाएं', navUseCases:'उपयोग', navHow:'कैसे काम करता है', navDocs:'डॉक्स', navDownload:'डाउनलोड',
+        heroBadge:'iOS पर उपलब्ध', heroTitle:'अपनी यात्रा को<br>फिल्म में बदलें', heroDesc:'PathReel GPS मार्गों को सिनेमैटिक रिप्ले वीडियो में बदलता है।',
+        lblWhy:'क्यों PathReel', whyTitle:'सिर्फ GPS ट्रैकर नहीं', whyDesc:'अन्य ऐप्स डेटा रिकॉर्ड करते हैं। PathReel यादें बनाता है।',
+        why1Title:'मार्ग फिल्म बन जाते हैं', why1Desc:'एक टैप से कोई भी यात्रा प्रोफेशनल वीडियो बन जाती है।', why2Title:'हर ठहराव एक कहानी', why2Desc:'ठहराव को स्वचालित रूप से पहचानता है।', why3Title:'तुरंत शेयर करें', why3Desc:'वीडियो एक्सपोर्ट करें और किसी भी प्लेटफॉर्म पर शेयर करें।', why4Title:'दुनिया इकट्ठा करें', why4Desc:'यूनेस्को स्थल, स्थानीय रत्न और छिपे आकर्षण खोजें। GPS चेक-इन से अपना यात्रा पासपोर्ट बनाएं।',
+        lblFeat:'सुविधाएं', featTitle:'आपको जो चाहिए वो सब', featDesc:'सुंदर इंटरफेस में शक्तिशाली सुविधाएं।',
+        f1t:'सिनेमैटिक रिप्ले', f1d:'3D सैटेलाइट व्यू के साथ एडेप्टिव कैमरा।', f2t:'ऑटो फोटो', f2d:'फोटो मैप पर GPS स्थान पर दिखाई देते हैं।', f3t:'स्टॉप डिटेक्शन', f3d:'अनुकूलन योग्य समय सीमा के साथ ठहराव पहचानता है और स्थान नाम दिखाता है।', f4t:'HD वीडियो एक्सपोर्ट', f4d:'उच्च गुणवत्ता HEVC वीडियो में एक्सपोर्ट।', f5t:'टाइमलाइन और नोट्स', f5d:'हर यात्रा में टाइमलाइन। लॉन्ग प्रेस से नोट जोड़ें।', f6t:'एनालिटिक्स और हीटमैप', f6d:'आंकड़े ट्रैक करें और हीटमैप पर देखें।',
+        f7t:'सोशल मीडिया शेयर टेम्पलेट', f7d:'शहर, मौसम, तापमान और स्थानों के साथ स्वचालित कैप्शन। TikTok, Instagram, YouTube, WeChat और अन्य पर एक टैप से शेयर।', f8t:'कस्टम यात्रा समूह', f8d:'कई यात्राओं को एक समूह में व्यवस्थित करें। यात्राओं के बीच सहज ज़ूम ट्रांज़िशन। प्रति समूह कस्टम अवधि। बहु-दिवसीय यात्रा के लिए उत्तम।', f9t:'आकर्षण खोज', f9d:'UNESCO, Wikivoyage, NPS और Geoapify से नजदीकी आकर्षण खोजें। बहुभाषी विवरण और वाचन। छिपे हुए रत्न खोजें।', f10t:'चेक-इन स्टाम्प', f10d:'GPS-सत्यापित यात्रा पासपोर्ट। यात्रा समाप्ति पर ऑटो चेक-इन, या मैनुअल। रंगीन मानचित्र पर यूनेस्को, चुनिंदा और कस्टम स्थानों को ट्रैक करें।', lblUC:'उपयोग', ucTitle:'हर चलने वाले के लिए', uc1t:'सड़क यात्री', uc1d:'महाकाव्य रोड ट्रिप रिकॉर्ड करें।', uc2t:'एथलीट', uc2d:'दौड़ और हाइक रिप्ले करें।', uc3t:'विश्व संग्रहकर्ता', uc3d:'यूनेस्को स्थल और छिपे रत्न खोजें। GPS चेक-इन से अपना यात्रा पासपोर्ट बनाएं।', uc4t:'बिजनेस ट्रैवलर', uc4d:'हर यात्रा रिकॉर्ड करें।',
+        lblHow:'कैसे काम करता है', howTitle:'तीन आसान कदम', s1t:'रिकॉर्ड', s1d:'टैप करें और जाएं। बैकग्राउंड में GPS ट्रैकिंग।', s2t:'रिप्ले', s2d:'3D मैप पर अपनी यात्रा जीवंत देखें।', s3t:'शेयर', s3d:'वीडियो एक्सपोर्ट करें और सोशल मीडिया पर शेयर करें।',
+        btnExplore:'सुविधाएं देखें', btnDLStore:'App Store से डाउनलोड', lblDL:'PathReel पाएं', dlTitle:'अपनी कहानी रिकॉर्ड करें', dlDesc:'iOS पर उपलब्ध। Android जल्द।',
+        navContact:'संपर्क', lblContact:'संपर्क', contactTitle:'संपर्क करें', contactDesc:'सवाल, फीडबैक या साझेदारी — हमें सुनकर खुशी होगी।',
+        lblDocs:'दस्तावेज़', docsTitle:'शुरू करें',
+        lblPriv:'कानूनी', privTitle:'गोपनीयता नीति',
+        privBody:'<p><strong>अपडेट:</strong> 6 अप्रैल 2026</p><h3>अवलोकन</h3><p>सभी डेटा आपके डिवाइस पर रहता है। हम व्यक्तिगत डेटा एकत्र नहीं करते।</p><h3>डेटा संग्रह</h3><p>PathReel व्यक्तिगत जानकारी, स्थान डेटा, फोटो या एनालिटिक्स <strong>एकत्र नहीं</strong> करता।</p><h3>स्टोरेज</h3><p>सब कुछ स्थानीय रूप से संग्रहीत।</p><h3>अनुमतियां</h3><p><strong>स्थान</strong> — केवल GPS रिकॉर्डिंग।<br><strong>फोटो</strong> — प्रदर्शन और सेव।</p><h3>तृतीय पक्ष</h3><p>Apple Maps मानचित्र प्रदर्शन और POI खोज के लिए।</p><h3>संपर्क</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. सर्वाधिकार सुरक्षित। | <a href="#privacy">गोपनीयता</a> | <a href="#docs">दस्तावेज़</a>' , fgRecord:'🎬 रिकॉर्ड और रिप्ले', fgExport:'📤 एक्सपोर्ट और शेयर', fgOrganize:'⚡ व्यवस्थित और विश्लेषण', fgDiscover:'🌍 खोज और चेक-इन', f11t:'ऑटो रिकॉर्ड', f11d:'घर सेट करें, निकलते ही शुरू, लौटते ही बंद।', s2t:'खोजें', s2d:'आकर्षण खोजें। GPS चेक-इन करें।', s4t:'शेयर', s4d:'वीडियो शेयर करें।',},
+      it: { navWhy:'Perché', navFeatures:'Funzionalità', navUseCases:'Casi d\'uso', navHow:'Come funziona', navDocs:'Docs', navDownload:'Scarica',
+        heroBadge:'Disponibile su iOS', heroTitle:'Trasforma il viaggio<br>in un film', heroDesc:'PathReel registra percorsi GPS e li trasforma in video cinematografici.',
+        lblWhy:'Perché PathReel', whyTitle:'Non solo un tracker GPS', whyDesc:'Altre app registrano dati. PathReel crea ricordi.',
+        why1Title:'I percorsi diventano film', why1Desc:'Un tocco trasforma qualsiasi viaggio in un video professionale.', why2Title:'Ogni sosta racconta una storia', why2Desc:'Rileva automaticamente le soste con nomi dei luoghi.', why3Title:'Condividi subito', why3Desc:'Esporta video e condividi su qualsiasi piattaforma.', why4Title:'Colleziona il mondo', why4Desc:'Scopri siti UNESCO, tesori locali e attrazioni nascoste. Check-in GPS per il tuo passaporto di viaggio personale.',
+        lblFeat:'Funzionalità', featTitle:'Tutto ciò che serve', featDesc:'Funzionalità potenti in un\'interfaccia intuitiva.',
+        f1t:'Replay cinematografico', f1d:'Sorvolo 3D con fotocamera adattiva e controllo velocità.', f2t:'Foto automatiche', f2d:'Le foto appaiono sulla mappa nella posizione GPS esatta.', f3t:'Rilevamento soste', f3d:'Rileva soste con soglia personalizzabile, identifica luoghi e mostra durata.', f4t:'Esportazione video HD', f4d:'Esporta video HEVC di alta qualità con foto e soste.', f5t:'Timeline e note', f5d:'Ogni viaggio ha una timeline. Premi a lungo per le note.', f6t:'Analisi e mappa di calore', f6d:'Monitora le statistiche e vedi dove sei stato.',
+        f7t:'Modelli di Condivisione Social', f7d:'Didascalie generate automaticamente con città, meteo, temperatura e luoghi visitati. Copia e condividi su TikTok, Instagram, YouTube, Xiaohongshu, WeChat e altro.', f8t:'Gruppi di Viaggi Personalizzati', f8d:'Organizza più viaggi in un gruppo. Transizioni fluide tra i viaggi durante la riproduzione. Durata personalizzabile per gruppo. Perfetto per rivivere viaggi di più giorni.', f9t:'Scopri attrazioni', f9d:'Cerca attrazioni vicine da UNESCO, Wikivoyage, NPS e Geoapify. Descrizioni multilingue e lettura vocale. Scopri gemme nascoste.', f10t:'Timbri check-in', f10d:'Passaporto di viaggio verificato GPS. Check-in automatico a fine viaggio o manuale sul posto. Traccia siti UNESCO, in evidenza e personalizzati su una mappa colorata.', lblUC:'Casi d\'uso', ucTitle:'Per tutti quelli che si muovono', uc1t:'Viaggiatori', uc1d:'Registra viaggi epici in auto.', uc2t:'Atleti', uc2d:'Rivedi corse e escursioni.', uc3t:'Collezionisti del mondo', uc3d:'Scopri siti UNESCO e gemme nascoste. Check-in GPS per il tuo passaporto di viaggio.', uc4t:'Viaggiatori d\'affari', uc4d:'Registra ogni viaggio di lavoro.',
+        lblHow:'Come funziona', howTitle:'Tre semplici passi', s1t:'Registra', s1d:'Tocca e parti. GPS traccia in background.', s2t:'Riproduci', s2d:'Guarda il viaggio prendere vita sulla mappa 3D.', s3t:'Condividi', s3d:'Esporta come video e condividi sui social.',
+        btnExplore:'Esplora funzionalità', btnDLStore:'Scarica dall\'App Store', lblDL:'Ottieni PathReel', dlTitle:'Inizia a registrare', dlDesc:'Disponibile su iOS. Android in arrivo.',
+        navContact:'Contatto', lblContact:'Contatto', contactTitle:'Contattaci', contactDesc:'Domande, feedback o collaborazioni — saremo felici di sentirti.',
+        lblDocs:'Documentazione', docsTitle:'Per iniziare',
+        lblPriv:'Legale', privTitle:'Privacy',
+        privBody:'<p><strong>Aggiornato:</strong> 6 aprile 2026</p><h3>Panoramica</h3><p>Tutti i dati restano sul tuo dispositivo. Non raccogliamo dati personali.</p><h3>Raccolta dati</h3><p>PathReel <strong>non</strong> raccoglie informazioni personali, dati di posizione, foto o analisi.</p><h3>Archiviazione</h3><p>Tutto archiviato localmente.</p><h3>Permessi</h3><p><strong>Posizione</strong> — Solo registrazione GPS.<br><strong>Foto</strong> — Visualizzazione e salvataggio.</p><h3>Terze parti</h3><p>Apple Maps per visualizzazione mappe e ricerca POI.</p><h3>Contatto</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Tutti i diritti riservati. | <a href="#privacy">Privacy</a> | <a href="#docs">Documentazione</a>' , fgRecord:'🎬 Registra e Riproduci', fgExport:'📤 Esporta e Condividi', fgOrganize:'⚡ Organizza e Analizza', fgDiscover:'🌍 Scopri e Check-in', f11t:'Registrazione auto', f11d:'Imposta casa, registra automaticamente.', s2t:'Scopri', s2d:'Cerca attrazioni. Check-in GPS per timbri.', s4t:'Condividi', s4d:'Esporta video e condividi.',},
+      tr: { navWhy:'Neden', navFeatures:'Özellikler', navUseCases:'Kullanım', navHow:'Nasıl çalışır', navDocs:'Belgeler', navDownload:'İndir',
+        heroBadge:'iOS\'ta mevcut', heroTitle:'Yolculuğunuzu<br>filme çevirin', heroDesc:'PathReel GPS rotalarını sinematik videolara dönüştürür.',
+        lblWhy:'Neden PathReel', whyTitle:'Sadece bir GPS takipçisi değil', whyDesc:'Diğer uygulamalar veri kaydeder. PathReel anılar yaratır.',
+        why1Title:'Rotalar filme dönüşür', why1Desc:'Tek dokunuşla profesyonel video.', why2Title:'Her durak bir hikaye', why2Desc:'Durakları otomatik algılar ve yer adlarını bulur.', why3Title:'Anında paylaş', why3Desc:'Video olarak dışa aktarın ve paylaşın.', why4Title:'Dünyayı toplayın', why4Desc:'UNESCO alanlarını, yerel hazineleri ve gizli turistik yerleri keşfedin. GPS doğrulamalı check-in ile kişisel seyahat pasaportunuzu oluşturun.',
+        lblFeat:'Özellikler', featTitle:'İhtiyacınız olan her şey', featDesc:'Sezgisel arayüzde güçlü özellikler.',
+        f1t:'Sinematik tekrar', f1d:'3D uydu görünümü ve hız kontrolü.', f2t:'Otomatik fotoğraf', f2d:'Fotoğraflar GPS konumunda haritada görünür.', f3t:'Durak algılama', f3d:'Özelleştirilebilir zaman eşiğiyle durakları algılar ve süreyi gösterir.', f4t:'HD video dışa aktarma', f4d:'Yüksek kaliteli HEVC video olarak dışa aktarın.', f5t:'Zaman çizelgesi ve notlar', f5d:'Her yolculuğun zaman çizelgesi var. Uzun basarak not ekleyin.', f6t:'Analizler ve ısı haritası', f6d:'İstatistikleri takip edin ve nerede olduğunuzu görün.',
+        f7t:'Sosyal Medya Paylaşım Şablonları', f7d:'Şehir, hava durumu, sıcaklık ve ziyaret edilen yerlerle otomatik açıklamalar. TikTok, Instagram, YouTube, Xiaohongshu, WeChat ve daha fazlasında tek dokunuşla paylaşın.', f8t:'Özel Gezi Grupları', f8d:'Birden fazla geziyi bir grupta düzenleyin. Geziler arasında akıcı geçişler. Grup başına özel süre. Çok günlük gezi tekrarları için ideal.', f9t:'Gezi Yeri Keşfi', f9d:'UNESCO, Wikivoyage, NPS ve Geoapify ile yakındaki turistik yerleri arayın. Çok dilli açıklamalar ve sesli okuma. Gizli hazineleri keşfedin.', f10t:'Ziyaret Damgaları', f10d:'GPS doğrulamalı seyahat pasaportu. Yolculuk sonunda otomatik veya yerinde manuel check-in. Renkli haritada UNESCO, öne çıkan ve kişisel mekanları takip edin.', lblUC:'Kullanım', ucTitle:'Hareket eden herkes için', uc1t:'Yol gezginleri', uc1d:'Epik yol yolculuklarını kaydedin.', uc2t:'Sporcular', uc2d:'Koşuları ve yürüyüşleri tekrarlayın.', uc3t:'Dünya koleksiyoncuları', uc3d:'UNESCO alanlarını ve gizli hazineleri keşfedin. GPS check-in ile seyahat pasaportunuzu oluşturun.', uc4t:'İş seyahati', uc4d:'Her seyahati kaydedin.',
+        lblHow:'Nasıl çalışır', howTitle:'Üç basit adım', s1t:'Kaydet', s1d:'Dokunun ve gidin. Arka planda GPS takibi.', s2t:'Oynat', s2d:'3D haritada yolculuğunuzun canlanmasını izleyin.', s3t:'Paylaş', s3d:'Video olarak dışa aktarın ve sosyal medyada paylaşın.',
+        btnExplore:'Özellikleri keşfet', btnDLStore:'App Store\'dan indir', lblDL:'PathReel\'i edinin', dlTitle:'Hikayenizi kaydedin', dlDesc:'iOS\'ta mevcut. Android yakında.',
+        navContact:'İletişim', lblContact:'İletişim', contactTitle:'Bize Ulaşın', contactDesc:'Sorular, geri bildirimler veya ortaklıklar — sizden duymak isteriz.',
+        lblDocs:'Belgeler', docsTitle:'Başlarken',
+        lblPriv:'Yasal', privTitle:'Gizlilik Politikası',
+        privBody:'<p><strong>Güncelleme:</strong> 6 Nisan 2026</p><h3>Genel Bakış</h3><p>Tüm veriler cihazınızda kalır. Kişisel veri toplamıyoruz.</p><h3>Veri Toplama</h3><p>PathReel kişisel bilgi, konum verisi, fotoğraf veya analitik <strong>toplamaz</strong>.</p><h3>Depolama</h3><p>Her şey yerel olarak depolanır.</p><h3>İzinler</h3><p><strong>Konum</strong> — Sadece GPS kaydı.<br><strong>Fotoğraflar</strong> — Gösterim ve kaydetme.</p><h3>Üçüncü Taraflar</h3><p>Apple Maps harita gösterimi ve POI araması için.</p><h3>İletişim</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Tüm hakları saklıdır. | <a href="#privacy">Gizlilik</a> | <a href="#docs">Belgeler</a>' , fgRecord:'🎬 Kayıt ve Tekrar', fgExport:'📤 Dışa Aktarma ve Paylaşım', fgOrganize:'⚡ Düzenle ve Analiz Et', fgDiscover:'🌍 Keşfet ve Check-in', f11t:'Otomatik kayıt', f11d:'Ev konumunu ayarlayın, çıkınca başlar, döndüğünüzde durur.', s2t:'Keşfet', s2d:'Turistik yerleri arayın. GPS check-in yapın.', s4t:'Paylaş', s4d:'Video dışa aktarın ve paylaşın.',},
+      th: { navWhy:'ทำไม', navFeatures:'ฟีเจอร์', navUseCases:'กรณีใช้งาน', navHow:'วิธีใช้', navDocs:'เอกสาร', navDownload:'ดาวน์โหลด',
+        heroBadge:'พร้อมใช้บน iOS', heroTitle:'เปลี่ยนการเดินทาง<br>เป็นภาพยนตร์', heroDesc:'PathReel บันทึกเส้นทาง GPS และแปลงเป็นวิดีโอรีเพลย์',
+        lblWhy:'ทำไม PathReel', whyTitle:'ไม่ใช่แค่ GPS Tracker', whyDesc:'แอปอื่นบันทึกข้อมูล PathReel สร้างความทรงจำ',
+        why1Title:'เส้นทางกลายเป็นหนัง', why1Desc:'แตะเดียวเปลี่ยนทุกทริปเป็นวิดีโอระดับโปร', why2Title:'ทุกจุดจอดมีเรื่องเล่า', why2Desc:'ตรวจจับจุดจอดอัตโนมัติพร้อมชื่อสถานที่', why3Title:'แชร์ทันที', why3Desc:'ส่งออกวิดีโอและแชร์บนทุกแพลตฟอร์ม', why4Title:'สะสมโลก', why4Desc:'ค้นพบแหล่งยูเนสโก สมบัติท้องถิ่น และสถานที่ซ่อนเร้น เช็คอินด้วย GPS สร้างพาสปอร์ตการเดินทางส่วนตัว',
+        lblFeat:'ฟีเจอร์', featTitle:'ทุกสิ่งที่คุณต้องการ', featDesc:'ฟีเจอร์ทรงพลังในอินเตอร์เฟซที่สวยงาม',
+        f1t:'รีเพลย์แบบภาพยนตร์', f1d:'มุมมองดาวเทียม 3D พร้อมควบคุมความเร็ว', f2t:'จับคู่ภาพอัตโนมัติ', f2d:'รูปภาพปรากฏบนแผนที่ตำแหน่ง GPS', f3t:'ตรวจจับจุดจอด', f3d:'ตรวจจับจุดจอดด้วยเกณฑ์เวลาที่ปรับได้และแสดงชื่อสถานที่', f4t:'ส่งออกวิดีโอ HD', f4d:'ส่งออกวิดีโอ HEVC คุณภาพสูง', f5t:'ไทม์ไลน์และโน้ต', f5d:'ทุกทริปมีไทม์ไลน์ กดค้างเพื่อเพิ่มโน้ต', f6t:'วิเคราะห์และฮีตแมป', f6d:'ติดตามสถิติและดูที่ที่คุณไปบนฮีตแมป',
+        f7t:'เทมเพลตแชร์โซเชียลมีเดีย', f7d:'สร้างคำบรรยายอัตโนมัติพร้อมเมือง สภาพอากาศ อุณหภูมิ และสถานที่ แตะเดียวแชร์ไป TikTok, Instagram, YouTube, Xiaohongshu, WeChat', f8t:'กลุ่มการเดินทางที่กำหนดเอง', f8d:'จัดหลายทริปเป็นกลุ่ม ซูมเปลี่ยนฉากอย่างราบรื่น กำหนดระยะเวลาต่อกลุ่ม เหมาะสำหรับทบทวนการเดินทางหลายวัน', f9t:'ค้นพบสถานที่ท่องเที่ยว', f9d:'ค้นหาสถานที่ใกล้เคียงจาก UNESCO, Wikivoyage, NPS และ Geoapify คำอธิบายหลายภาษาและอ่านออกเสียง ค้นพบอัญมณีที่ซ่อนอยู่', f10t:'แสตมป์เช็คอิน', f10d:'พาสปอร์ตการเดินทางยืนยัน GPS เช็คอินอัตโนมัติเมื่อสิ้นสุดทริป หรือเช็คอินด้วยตนเอง ติดตามสถานที่ UNESCO แนะนำ และกำหนดเองบนแผนที่สี', lblUC:'กรณีใช้งาน', ucTitle:'สำหรับทุกคนที่เคลื่อนที่', uc1t:'นักเดินทาง', uc1d:'บันทึกทริปขับรถสุดเอพิก', uc2t:'นักกีฬา', uc2d:'เล่นซ้ำการวิ่งและเดินป่า', uc3t:'นักสะสมโลก', uc3d:'ค้นพบแหล่งยูเนสโกและอัญมณีซ่อนเร้น เช็คอิน GPS สร้างพาสปอร์ตการเดินทาง', uc4t:'นักเดินทางธุรกิจ', uc4d:'บันทึกทุกการเดินทาง',
+        lblHow:'วิธีใช้', howTitle:'สามขั้นตอนง่ายๆ', s1t:'บันทึก', s1d:'แตะแล้วไป GPS ติดตามในพื้นหลัง', s2t:'เล่นซ้ำ', s2d:'ดูการเดินทางมีชีวิตบนแผนที่ 3D', s3t:'แชร์', s3d:'ส่งออกเป็นวิดีโอและแชร์บนโซเชียล',
+        btnExplore:'สำรวจฟีเจอร์', btnDLStore:'ดาวน์โหลดบน App Store', lblDL:'รับ PathReel', dlTitle:'เริ่มบันทึกเรื่องราว', dlDesc:'พร้อมใช้บน iOS Android เร็วๆ นี้',
+        navContact:'ติดต่อ', lblContact:'ติดต่อเรา', contactTitle:'ติดต่อเรา', contactDesc:'คำถาม ข้อเสนอแนะ หรือพาร์ทเนอร์ — เรายินดีรับฟัง',
+        lblDocs:'เอกสาร', docsTitle:'เริ่มต้น',
+        lblPriv:'กฎหมาย', privTitle:'นโยบายความเป็นส่วนตัว',
+        privBody:'<p><strong>อัปเดต:</strong> 6 เมษายน 2026</p><h3>ภาพรวม</h3><p>ข้อมูลทั้งหมดอยู่บนอุปกรณ์ของคุณ เราไม่เก็บข้อมูลส่วนบุคคล</p><h3>การเก็บข้อมูล</h3><p>PathReel <strong>ไม่</strong>เก็บข้อมูลส่วนตัว ข้อมูลตำแหน่ง รูปภาพ หรือการวิเคราะห์</p><h3>จัดเก็บ</h3><p>ทุกอย่างเก็บในเครื่อง</p><h3>สิทธิ์</h3><p><strong>ตำแหน่ง</strong> — บันทึก GPS เท่านั้น<br><strong>รูปภาพ</strong> — แสดงและบันทึก</p><h3>บุคคลที่สาม</h3><p>Apple Maps สำหรับแสดงแผนที่และค้นหา POI</p><h3>ติดต่อ</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. สงวนลิขสิทธิ์ | <a href="#privacy">ความเป็นส่วนตัว</a> | <a href="#docs">เอกสาร</a>' , fgRecord:'🎬 บันทึกและเล่นซ้ำ', fgExport:'📤 ส่งออกและแชร์', fgOrganize:'⚡ จัดระเบียบและวิเคราะห์', fgDiscover:'🌍 ค้นพบและเช็คอิน', f11t:'บันทึกอัตโนมัติ', f11d:'ตั้งค่าบ้าน เริ่มเมื่อออก หยุดเมื่อกลับ', s2t:'ค้นพบ', s2d:'ค้นหาสถานที่ เช็คอิน GPS สะสมแสตมป์', s4t:'แชร์', s4d:'ส่งออกวิดีโอและแชร์',},
+      vi: { navWhy:'Tại sao', navFeatures:'Tính năng', navUseCases:'Ứng dụng', navHow:'Cách hoạt động', navDocs:'Tài liệu', navDownload:'Tải xuống',
+        heroBadge:'Có sẵn trên iOS', heroTitle:'Biến hành trình<br>thành phim', heroDesc:'PathReel ghi lại tuyến đường GPS và chuyển đổi thành video điện ảnh.',
+        lblWhy:'Tại sao PathReel', whyTitle:'Không chỉ là GPS Tracker', whyDesc:'Ứng dụng khác ghi dữ liệu. PathReel tạo kỷ niệm.',
+        why1Title:'Tuyến đường thành phim', why1Desc:'Một chạm biến bất kỳ chuyến đi nào thành video chuyên nghiệp.', why2Title:'Mỗi điểm dừng kể một câu chuyện', why2Desc:'Tự động phát hiện điểm dừng và tìm tên địa điểm.', why3Title:'Chia sẻ ngay', why3Desc:'Xuất video và chia sẻ trên bất kỳ nền tảng nào.', why4Title:'Thu thập thế giới', why4Desc:'Khám phá di sản UNESCO, kho báu địa phương và điểm tham quan ẩn giấu. Check-in GPS để xây dựng hộ chiếu du lịch cá nhân.',
+        lblFeat:'Tính năng', featTitle:'Tất cả những gì bạn cần', featDesc:'Tính năng mạnh mẽ trong giao diện trực quan.',
+        f1t:'Phát lại điện ảnh', f1d:'Bay trên vệ tinh 3D với camera thích ứng.', f2t:'Ảnh tự động', f2d:'Ảnh hiện trên bản đồ tại vị trí GPS chính xác.', f3t:'Phát hiện điểm dừng', f3d:'Phát hiện điểm dừng với ngưỡng thời gian tùy chỉnh, tìm tên và hiển thị thời gian.', f4t:'Xuất video HD', f4d:'Xuất video HEVC chất lượng cao với ảnh và điểm dừng.', f5t:'Dòng thời gian & ghi chú', f5d:'Mỗi chuyến đi có dòng thời gian. Nhấn giữ để thêm ghi chú.', f6t:'Phân tích & bản đồ nhiệt', f6d:'Theo dõi thống kê và xem nơi bạn đã đến.',
+        f7t:'Mẫu Chia Sẻ Mạng Xã Hội', f7d:'Tự động tạo chú thích với thành phố, thời tiết, nhiệt độ và địa điểm. Sao chép và chia sẻ lên TikTok, Instagram, YouTube, Xiaohongshu, WeChat và nhiều nền tảng khác.', f8t:'Nhóm Chuyến Đi Tùy Chỉnh', f8d:'Sắp xếp nhiều chuyến đi vào một nhóm. Chuyển cảnh thu phóng mượt mà giữa các chuyến. Thời lượng tùy chỉnh cho mỗi nhóm. Hoàn hảo để xem lại chuyến đi nhiều ngày.', f9t:'Khám phá điểm đến', f9d:'Tìm kiếm điểm tham quan gần đây từ UNESCO, Wikivoyage, NPS và Geoapify. Mô tả đa ngôn ngữ và đọc giọng nói. Khám phá những viên ngọc ẩn.', f10t:'Tem check-in', f10d:'Hộ chiếu du lịch xác minh GPS. Check-in tự động khi kết thúc chuyến đi hoặc thủ công tại chỗ. Theo dõi địa điểm UNESCO, nổi bật và tùy chỉnh trên bản đồ màu.', lblUC:'Ứng dụng', ucTitle:'Cho tất cả người di chuyển', uc1t:'Dân phượt', uc1d:'Ghi lại chuyến road trip hoành tráng.', uc2t:'Vận động viên', uc2d:'Xem lại chạy bộ và đi bộ đường dài.', uc3t:'Nhà sưu tập thế giới', uc3d:'Khám phá di sản UNESCO và điểm đến ẩn giấu. Check-in GPS để xây dựng hộ chiếu du lịch.', uc4t:'Dân công tác', uc4d:'Ghi lại mọi chuyến công tác.',
+        lblHow:'Cách hoạt động', howTitle:'Ba bước đơn giản', s1t:'Ghi', s1d:'Chạm và đi. GPS theo dõi ở nền.', s2t:'Phát lại', s2d:'Xem hành trình sống động trên bản đồ 3D.', s3t:'Chia sẻ', s3d:'Xuất video và chia sẻ trên mạng xã hội.',
+        btnExplore:'Khám phá tính năng', btnDLStore:'Tải từ App Store', lblDL:'Tải PathReel', dlTitle:'Bắt đầu ghi lại', dlDesc:'Có sẵn trên iOS. Android sắp ra mắt.',
+        navContact:'Liên hệ', lblContact:'Liên hệ', contactTitle:'Liên hệ với chúng tôi', contactDesc:'Câu hỏi, phản hồi hoặc hợp tác — chúng tôi rất muốn nghe từ bạn.',
+        lblDocs:'Tài liệu', docsTitle:'Bắt đầu',
+        lblPriv:'Pháp lý', privTitle:'Chính sách quyền riêng tư',
+        privBody:'<p><strong>Cập nhật:</strong> 6 tháng 4, 2026</p><h3>Tổng quan</h3><p>Tất cả dữ liệu ở trên thiết bị của bạn. Chúng tôi không thu thập dữ liệu cá nhân.</p><h3>Thu thập</h3><p>PathReel <strong>không</strong> thu thập thông tin cá nhân, dữ liệu vị trí, ảnh hoặc phân tích.</p><h3>Lưu trữ</h3><p>Mọi thứ lưu trữ cục bộ.</p><h3>Quyền</h3><p><strong>Vị trí</strong> — Chỉ ghi GPS.<br><strong>Ảnh</strong> — Hiển thị và lưu.</p><h3>Bên thứ ba</h3><p>Apple Maps để hiển thị bản đồ và tìm kiếm POI.</p><h3>Liên hệ</h3><p><a href="mailto:support@pathreel.com" style="color:#00D4FF;">support@pathreel.com</a></p>',
+        footer:'&copy; 2026 PathReel. Bảo lưu mọi quyền. | <a href="#privacy">Quyền riêng tư</a> | <a href="#docs">Tài liệu</a>' , fgRecord:'🎬 Ghi và Phát lại', fgExport:'📤 Xuất và Chia sẻ', fgOrganize:'⚡ Sắp xếp và Phân tích', fgDiscover:'🌍 Khám phá và Check-in', f11t:'Ghi tự động', f11d:'Đặt vị trí nhà, tự động ghi khi rời đi và dừng khi về.', s2t:'Khám phá', s2d:'Tìm điểm tham quan. Check-in GPS lấy tem.', s4t:'Chia sẻ', s4d:'Xuất video và chia sẻ.',},
+    };
+
+    const langNames = { en:'🇺🇸 English', zh:'🇨🇳 简体中文', 'zh-TW':'🇹🇼 繁體中文', fr:'🇫🇷 Français', es:'🇪🇸 Español', ja:'🇯🇵 日本語', ko:'🇰🇷 한국어', de:'🇩🇪 Deutsch', pt:'🇧🇷 Português', ru:'🇷🇺 Русский', ar:'🇸🇦 العربية', hi:'🇮🇳 हिन्दी', it:'🇮🇹 Italiano', tr:'🇹🇷 Türkçe', th:'🇹🇭 ไทย', vi:'🇻🇳 Tiếng Việt' };
+
+    function detectLang() {
+      const saved = localStorage.getItem('pathreel-lang');
+      if (saved && langs[saved]) return saved;
+      const nav = navigator.language || '';
+      if (nav.startsWith('zh-TW') || nav.startsWith('zh-Hant') || nav.startsWith('zh-HK')) return 'zh-TW';
+      if (nav.startsWith('zh')) return 'zh';
+      const short = nav.split('-')[0];
+      if (langs[short]) return short;
+      return 'en';
+    }
+
+    function applyLang(lang) {
+      const t = { ...langs.en, ...(langs[lang] || {}) };
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          if (el.hasAttribute('data-i18n-html')) el.innerHTML = t[key];
+          else el.textContent = t[key];
+        }
+      });
+      localStorage.setItem('pathreel-lang', lang);
+      document.getElementById('langSelect').value = lang;
+    }
+
+    // Build selector
+    const sel = document.getElementById('langSelect');
+    Object.entries(langNames).forEach(([id, name]) => {
+      const opt = document.createElement('option');
+      opt.value = id; opt.textContent = name;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', (e) => applyLang(e.target.value));
+
+    // Apply on load
+    applyLang(detectLang());
+  </script>
+</body>
+</html>
