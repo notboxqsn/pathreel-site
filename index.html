@@ -953,9 +953,13 @@
     }
     @media (max-width: 1024px) {
       section { padding: 80px 28px; }
-      nav.mc-nav { padding: 14px 20px; gap: 12px; }
+      nav.mc-nav { padding: 14px 18px; gap: 10px; }
+      .nav-brand { flex-shrink: 0; }
+      .nav-right { flex-shrink: 0; gap: 8px; }
       .nav-links { display: none; }
       .nav-version { display: none; }
+      #langSelect { padding: 6px 8px; font-size: 12px; max-width: 70px; }
+      .nav-cta { padding: 9px 16px; font-size: 13px; }
       .hero { padding: 48px 24px 60px; }
       .hero-stage { height: auto; min-height: auto; display: flex; flex-direction: column; gap: 16px; align-items: stretch; }
       .globe-wrap { position: static; transform: none; margin: 0 auto; width: 100%; max-width: 480px; height: auto; aspect-ratio: 1; }
@@ -982,7 +986,21 @@
       .how-grid { grid-template-columns: 1fr; }
       .foot-grid { flex-direction: column; align-items: flex-start; }
       .foot-right { text-align: left; }
+      /* Compact nav on phones */
+      nav.mc-nav { padding: 10px 14px; gap: 8px; }
+      .nav-mark { width: 30px; height: 30px; }
+      .nav-word { font-size: 17px; }
+      #langSelect { max-width: 56px; padding: 6px 6px; }
+      .nav-cta { padding: 8px 12px; font-size: 12px; gap: 6px; }
     }
+    @media (max-width: 380px) {
+      /* Hide wordmark on the smallest screens — keep only the icon */
+      .nav-word { display: none; }
+      #langSelect { max-width: 50px; }
+      .nav-cta .cta-text-full { display: none; }
+      .nav-cta .cta-text-short { display: inline; }
+    }
+    .nav-cta .cta-text-short { display: none; }
 
     /* RTL */
     [dir="rtl"] .city-exif .row .k { text-align: right; }
@@ -1006,7 +1024,7 @@
     </div>
     <div class="nav-right">
       <select id="langSelect" aria-label="Language"></select>
-      <a href="#download" class="nav-cta" data-i18n="navDownload">↓ Download for iOS</a>
+      <a href="#download" class="nav-cta"><span class="cta-text-full" data-i18n="navDownload">↓ Download for iOS</span><span class="cta-text-short" data-i18n="navDownloadShort">↓ iOS</span></a>
     </div>
   </nav>
 
@@ -2085,7 +2103,7 @@
 
     const langs = {
       en: {
-        navFeatures:'Features', navShowcase:'Showcase', navStats:'Stats', navDocs:'Docs', navContact:'Contact', navDownload:'↓ Download for iOS',
+        navFeatures:'Features', navShowcase:'Showcase', navStats:'Stats', navDocs:'Docs', navContact:'Contact', navDownload:'↓ Download for iOS', navDownloadShort:'↓ iOS',
         heroLine1:'Other apps record data.', heroLine2:'PathReel records footprints.',
         heroSub:"A globe of every step you've taken — 142,800 footprints, 76 cities, 9 countries, 3,951 days. The map below is real. Drag to spin.",
         pill1Title:'Tap once. Walk anywhere.',
