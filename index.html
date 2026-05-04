@@ -257,6 +257,7 @@
     .pill.tr { top: 0; right: 0; }
     .pill.bl { bottom: 0; left: 0; }
     .pill.br { bottom: 0; right: 0; }
+    .pill.mr { top: 50%; right: 0; transform: translateY(-50%); }
     .pill-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .pill-icon {
       width: 32px; height: 32px; border-radius: 8px;
@@ -282,7 +283,7 @@
     .hero-cta {
       position: relative; z-index: 3;
       display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-      margin: 0 auto 56px;
+      margin: 40px auto 56px;
     }
     .btn-primary {
       padding: 16px 32px; border-radius: 14px;
@@ -1069,6 +1070,11 @@
 
           <path d="M 980 760 Q 870 660, 760 560" stroke="url(#grad-br)" stroke-width="1.5" fill="none" stroke-dasharray="3 4" opacity="0.85"/>
           <circle cx="760" cy="560" r="14" fill="none" stroke="#C857FF" stroke-width="1" opacity="0.6"/>
+
+          <path d="M 980 470 Q 870 470, 760 470" stroke="#C857FF" stroke-width="1.5" fill="none" stroke-dasharray="3 4" opacity="0.6"/>
+          <circle cx="760" cy="470" r="14" fill="none" stroke="#C857FF" stroke-width="1" opacity="0.6"/>
+          <circle cx="760" cy="470" r="6" fill="none" stroke="#C857FF" stroke-width="1" opacity="0.9"/>
+          <circle cx="980" cy="470" r="4" fill="#C857FF"/>
           <circle cx="760" cy="560" r="6" fill="none" stroke="#C857FF" stroke-width="1" opacity="0.9"/>
           <circle cx="980" cy="760" r="4" fill="#C857FF"/>
         </g>
@@ -1122,6 +1128,17 @@
         <p data-i18n="pill4Body">UNESCO, NPS, Wikivoyage, Geoapify — discover nearby targets and auto-stamp the moment your GPS crosses the threshold. No manual check-in.</p>
         <div class="pill-meta"><span class="dot"></span><span class="mono" data-i18n="pill4Meta">+2 UNESCO this week</span></div>
       </div>
+
+      <div class="pill mr">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <div class="pill-head">
+          <span class="pill-icon">❤️</span>
+          <span class="pill-tag mono">05 · APPLE HEALTH</span>
+        </div>
+        <h3 data-i18n="pill5Title">Relive years of workouts.</h3>
+        <p data-i18n="pill5Body">Your Apple Watch has been quietly recording every run, hike, and ride for years. PathReel imports them all in one tap — turning forgotten GPS logs into cinematic replays you can watch, share, and remember.</p>
+        <div class="pill-meta"><span class="dot"></span><span class="mono" data-i18n="pill5Meta">214 routes · 3 years · one tap</span></div>
+      </div>
     </div>
 
     <div class="hero-cta">
@@ -1130,6 +1147,7 @@
         <span data-i18n="btnGetApp">↓ Get on the App Store</span>
       </a>
       <a href="#showcase" class="btn-secondary"><span class="rec-dot"></span><span data-i18n="btnStartRec">Start Recording</span></a>
+      <a href="#demos" class="btn-secondary" style="gap:6px;">▶ <span data-i18n="btnWatchDemo">Watch Demo</span></a>
     </div>
 
     <div class="hero-stats" id="stats">
@@ -1458,6 +1476,43 @@
             <div><div class="v gold" style="font-size:36px;">5</div><span class="sub">cities discovered</span></div>
             <div><div class="v magenta" style="font-size:36px;">847</div><span class="sub">km of memories</span></div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DEMOS ========== -->
+  <section id="demos">
+    <div class="container">
+      <div class="fade-in" style="text-align:center;margin-bottom:40px;">
+        <span class="eyebrow mono" style="color:var(--cyan);">▶ WATCH IN ACTION</span>
+        <h2 class="section-title">See PathReel <span class="grad">Live</span></h2>
+        <p class="section-desc">Real trips, real replays. Every video was exported directly from PathReel.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto;" class="fade-in">
+        <div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" allowfullscreen></iframe>
+          </div>
+          <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">🚗 Road Trip Replay</p>
+        </div>
+        <div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" allowfullscreen></iframe>
+          </div>
+          <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">✈️ Flight Replay</p>
+        </div>
+        <div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" allowfullscreen></iframe>
+          </div>
+          <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">🚢 Cruise Ship Replay</p>
+        </div>
+        <div>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
+            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4" allowfullscreen></iframe>
+          </div>
+          <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">🚶 Walking Tour</p>
         </div>
       </div>
     </div>
@@ -1900,6 +1955,7 @@
 
   <!-- ========== SCRIPTS ========== -->
   <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="pathreel-globe.js" defer></script>
   <script>
     // ============== Country list (Insights data) ==============
     const COUNTRIES = [
@@ -2018,134 +2074,14 @@
       { lat: -36.85, lng: 174.76, cluster: 3 }, { lat: -13.16, lng: -72.55, cluster: 5 },
     ];
 
+    // Photoreal globe (pathreel-globe.js)
     function initGlobe() {
-      if (!window.THREE) return;
-      const THREE = window.THREE;
-      const mount = document.getElementById('globeCanvas');
-      if (!mount) return;
-      const containerSize = () => Math.min(620, mount.clientWidth || 620);
-      let SIZE = containerSize();
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      camera.position.z = 4.5;
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(SIZE, SIZE);
-      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
-      mount.appendChild(renderer.domElement);
-
-      const earthGroup = new THREE.Group();
-      scene.add(earthGroup);
-
-      const earthGeo = new THREE.SphereGeometry(1.5, 96, 96);
-      const earthMat = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 18, specular: new THREE.Color(0x223344) });
-      const earth = new THREE.Mesh(earthGeo, earthMat);
-      earthGroup.add(earth);
-
-      const loader = new THREE.TextureLoader();
-      loader.setCrossOrigin('anonymous');
-      const realUrl = 'https://unpkg.com/three-globe@2.31.1/example/img/earth-blue-marble.jpg';
-      const bumpUrl = 'https://unpkg.com/three-globe@2.31.1/example/img/earth-topology.png';
-
-      loader.load(realUrl, (tex) => {
-        if (THREE.SRGBColorSpace) tex.colorSpace = THREE.SRGBColorSpace;
-        earthMat.map = tex;
-        earthMat.needsUpdate = true;
-      }, undefined, () => {
-        // procedural fallback
-        const c = document.createElement('canvas');
-        c.width = 1024; c.height = 512;
-        const cx = c.getContext('2d');
-        const og = cx.createLinearGradient(0, 0, 0, 512);
-        og.addColorStop(0, '#0a2540'); og.addColorStop(0.5, '#0d3a66'); og.addColorStop(1, '#0a2540');
-        cx.fillStyle = og; cx.fillRect(0, 0, 1024, 512);
-        const tex = new THREE.CanvasTexture(c);
-        earthMat.map = tex;
-        earthMat.needsUpdate = true;
+      if (!window.PathReelGlobe) return;
+      PathReelGlobe.mount({
+        el: document.getElementById('globeCanvas'),
+        size: 620,
+        pins: typeof PINS !== 'undefined' ? PINS : [],
       });
-      loader.load(bumpUrl, (bump) => { earthMat.bumpMap = bump; earthMat.bumpScale = 0.012; earthMat.needsUpdate = true; }, undefined, () => {});
-
-      const atmGeo = new THREE.SphereGeometry(1.58, 48, 48);
-      const atmMat = new THREE.ShaderMaterial({
-        vertexShader: 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
-        fragmentShader: 'varying vec3 vN; void main(){ float i = pow(0.7 - dot(vN, vec3(0,0,1.0)), 2.0); gl_FragColor = vec4(0.32, 0.73, 1.0, 1.0) * i; }',
-        blending: THREE.AdditiveBlending, side: THREE.BackSide, transparent: true,
-      });
-      earthGroup.add(new THREE.Mesh(atmGeo, atmMat));
-
-      scene.add(new THREE.AmbientLight(0x223344, 0.8));
-      const sun = new THREE.DirectionalLight(0xffffff, 1.1);
-      sun.position.set(5, 3, 5);
-      scene.add(sun);
-
-      const latLngToVec3 = (lat, lng, r = 1.515) => {
-        const phi = (90 - lat) * Math.PI / 180;
-        const theta = (lng + 180) * Math.PI / 180;
-        return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-      };
-
-      // Heatmap blobs (magenta)
-      const blobCanvas = document.createElement('canvas');
-      blobCanvas.width = 128; blobCanvas.height = 128;
-      const bcx = blobCanvas.getContext('2d');
-      const bg = bcx.createRadialGradient(64, 64, 0, 64, 64, 64);
-      bg.addColorStop(0, 'rgba(200,87,255,1)');
-      bg.addColorStop(0.35, 'rgba(200,87,255,0.55)');
-      bg.addColorStop(1, 'rgba(200,87,255,0)');
-      bcx.fillStyle = bg; bcx.fillRect(0, 0, 128, 128);
-      const blobTex = new THREE.CanvasTexture(blobCanvas);
-
-      PINS.forEach(p => {
-        const v = latLngToVec3(p.lat, p.lng);
-        const cluster = p.cluster || 4;
-        const scale = 0.18 + Math.min(1.2, cluster / 14) * 0.45;
-        const sprMat = new THREE.SpriteMaterial({ map: blobTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.85 });
-        const spr = new THREE.Sprite(sprMat);
-        spr.position.copy(v);
-        spr.scale.set(scale, scale, scale);
-        earthGroup.add(spr);
-        if (cluster >= 8) {
-          const dotGeo = new THREE.SphereGeometry(0.012, 10, 10);
-          const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-          const dot = new THREE.Mesh(dotGeo, dotMat);
-          dot.position.copy(v);
-          earthGroup.add(dot);
-        }
-      });
-
-      // Drag controls
-      let isDown = false, lx = 0, ly = 0, rotY = 0, rotX = 0.2;
-      const dom = renderer.domElement;
-      dom.addEventListener('pointerdown', (e) => { isDown = true; lx = e.clientX; ly = e.clientY; });
-      window.addEventListener('pointerup', () => { isDown = false; });
-      window.addEventListener('pointermove', (e) => {
-        if (!isDown) return;
-        rotY += (e.clientX - lx) * 0.005;
-        rotX += (e.clientY - ly) * 0.005;
-        rotX = Math.max(-1.2, Math.min(1.2, rotX));
-        lx = e.clientX; ly = e.clientY;
-      });
-
-      let raf;
-      const tick = () => {
-        if (!isDown) rotY += 0.0015;
-        earthGroup.rotation.y = rotY;
-        earthGroup.rotation.x = rotX;
-        renderer.render(scene, camera);
-        raf = requestAnimationFrame(tick);
-      };
-      tick();
-
-      // Resize
-      const ro = new ResizeObserver(() => {
-        const ns = containerSize();
-        if (ns !== SIZE) {
-          SIZE = ns;
-          renderer.setSize(SIZE, SIZE);
-          camera.updateProjectionMatrix();
-        }
-      });
-      ro.observe(mount);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initGlobe);
