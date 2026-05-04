@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PathReel — Records Footprints, Not Data</title>
-  <meta name="description" content="A globe of every step you've taken. PathReel records your GPS routes and turns them into 3D cinematic flyovers — UNESCO check-ins, photo map, country tracker, all on-device.">
+  <meta name="description" content="PathReel records GPS routes and turns them into cinematic replays. 9 transport modes (flight, cruise, car, walk), Apple Health import, phase editor, photo map, UNESCO check-ins — all on-device.">
   <link rel="canonical" href="https://pathreel.com">
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1382,6 +1382,45 @@
     </div>
   </section>
 
+
+  <!-- ========== NEW IN v2.3 ========== -->
+  <section>
+    <div class="container">
+      <div class="fade-in" style="margin-bottom:40px;">
+        <span class="eyebrow mono" style="color:var(--cyan);">★ NEW IN v2.3</span>
+        <h2 class="section-title">Every Mode. <span class="grad">One Film.</span></h2>
+        <p class="section-desc">9 transport modes, Apple Health import, phase editor, and a real-time camera studio. Your trips just got cinematic.</p>
+      </div>
+
+      <div class="features-grid fade-in">
+        <article class="feat-card">
+          <span class="new-badge mono">NEW</span>
+          <span class="feat-card-tag mono">✈️ 🚢 🚗 🚶</span>
+          <h3>9 Transport Modes</h3>
+          <p>Walk, run, bike, car, motorcycle, boat, train, flight, hybrid. Each with its own camera — flight soars at cruise altitude, boat adjusts by port distance, car follows from behind.</p>
+        </article>
+        <article class="feat-card">
+          <span class="new-badge mono">NEW</span>
+          <span class="feat-card-tag mono">🎬 PHASE</span>
+          <h3>Phase Editor</h3>
+          <p>Split trips into segments, assign modes, adjust replay time per phase. Give 30% to post-flight drive, 50% to the cruise. Full-screen editor with GPS map.</p>
+        </article>
+        <article class="feat-card">
+          <span class="new-badge mono">NEW</span>
+          <span class="feat-card-tag mono">❤️ HEALTH</span>
+          <h3>Apple Health Import</h3>
+          <p>Auto-import workout routes from Apple Watch or Strava. Walking, running, cycling — all become replayable trips. Silent background sync on every launch.</p>
+        </article>
+        <article class="feat-card">
+          <span class="new-badge mono">NEW</span>
+          <span class="feat-card-tag mono">📹 STUDIO</span>
+          <h3>Camera Control Studio</h3>
+          <p>Real-time eye distance and pitch sliders. Save presets per mode. Switch god view and follow view. WYSIWYG — drag to the perfect angle, save it for next time.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== FEATURES ========== -->
   <section id="features">
     <div class="container">
@@ -2451,165 +2490,9 @@
       footTitle:'¿Listo?', footDesc:'Captura tu próximo viaje. Hazlo inolvidable.',
     };
 
-    langs.fr = {
-      navFeatures:'Fonctionnalités', navShowcase:'Démo', navStats:'Données', navDocs:'Docs', navContact:'Contact', navDownload:'↓ Télécharger pour iOS',
-      heroLine1:'Les autres apps enregistrent des données.', heroLine2:'PathReel enregistre des empreintes.',
-      heroSub:'Un globe de chaque pas que vous avez fait — 142 800 empreintes, 76 villes, 9 pays, 3 951 jours. La carte ci-dessous est réelle. Faites-la tourner.',
-      pill1Title:'Un tap. Marchez n’importe où.', pill1Body:'GPS en arrière-plan avec une précision de 3 m. Verrouillez le téléphone, changez d’app — l’enregistrement continue. Ou définissez une géofence pour enregistrer automatiquement chaque sortie.', pill1Meta:'Manuel + auto · échantillonnage 3 m',
-      pill2Title:'Rejouez chaque trajet en cinéma.', pill2Body:'Survol 3D avec caméra fluide, photos placées automatiquement aux points GPS, fiches d’arrêt avec lieu et durée. Exportez en vidéo HD ou partagez en Reels en un tap.', pill2Meta:'Tokyo → Shibuya · 14,2 km · film de 30 s',
-      pill3Title:'Vos voyages, quantifiés.', pill3Body:'Cartes thermiques des lieux que vous fréquentez vraiment. Rythmes mensuels. Répartition des transports — voiture, marche, vélo, train. Total des pays, villes, empreintes, jours enregistrés.', pill3Meta:'9 pays · 76 villes · 142,8K empreintes',
-      pill4Title:'Un passeport qui se valide par GPS.', pill4Body:'UNESCO, NPS, Wikivoyage, Geoapify — découvrez les cibles à proximité et obtenez le tampon automatique dès que le GPS franchit le seuil. Aucun check-in manuel.', pill4Meta:'+2 UNESCO cette semaine',
-      btnGetApp:'↓ Obtenir sur l’App Store', btnStartRec:'Démarrer l’enregistrement', btnDownloadFooter:'↓ Télécharger pour iOS',
-      statCountries:'Pays', statCities:'Villes', statFootprints:'Empreintes',
-      appStatesTitle:'Au repos, puis vivante.',
-      appStatesDesc:'L’écran d’accueil a deux visages. <strong style="color:#C857FF;">Au repos</strong> affiche vos totaux — pays, villes, empreintes — sur une carte thermique des lieux visités. <strong style="color:#FF4747;">Enregistrement</strong> est le même écran, mais le GPS est en direct et les empreintes augmentent en temps réel.',
-      app1t:'Un tap pour commencer, verrouillez le téléphone', app1d:'La localisation en arrière-plan continue à enregistrer même si vous changez d’app ou rangez le téléphone.',
-      app2t:'Échantillonnage 3 m, 0,5 % batterie / h', app2d:'Filtrage agressif sur l’appareil — quasi aucune perte de batterie sur de longues journées.',
-      app3t:'Enregistrement style navigation', app3d:'Vue direction en haut avec point vert en direct. Départ auto en quittant la maison, arrêt auto au retour.',
-      photoTitle:'Carte des Photos<br>et des Empreintes',
-      photoDesc:'Chaque photo et chaque trace GPS sur un vrai globe 3D. Dézoomez pour les clusters, zoomez pour les vignettes, glissez pour parcourir la galerie — sans quitter la carte.',
-      photo1t:'Clustering dynamique', photo1d:'Les épingles fusionnent au dézoom, se déploient en vignettes au zoom.',
-      photo2t:'Aperçu photo + vidéo', photo2d:'Touchez n’importe quelle vignette pour un aperçu pleine résolution, l’EXIF et l’heure de capture.',
-      photo3t:'Galerie défilable', photo3d:'Parcourez horizontalement toutes les photos d’une ville ou d’un trajet.',
-      trackerTitle:'Tracker <span class="grad">Pays et Villes</span>',
-      trackerDesc:'Chaque pays et ville que vous avez visités, détectés automatiquement depuis votre historique GPS. Les empreintes photo et les empreintes de trajet sont suivies séparément — aucune saisie manuelle.',
-      featTitle:'Record. Trips. Insights. Attractions.',
-      featDesc:'La navigation du bas a quatre onglets. C’est tout le produit. Chaque écran, chaque interaction, vit sous l’un d’eux.',
-      feat1t:'Record', feat1d:'GPS en arrière-plan, précision 3 m. Verrouillez, changez d’app — l’enregistrement continue. Manuel ou auto-démarrage par géofence.',
-      feat2t:'Trips', feat2d:'Chaque trajet enregistré, auto-segmenté. Rejouez en survol 3D, exportez en vidéo HD ou partagez en Reels en un tap.',
-      feat3t:’Insights’, feat3d:’Cartes thermiques, rythmes mensuels, répartitions de transport. Empreintes route + photo avec stats colorées. Pays, villes, jours — tout sur l’appareil.’,
-      feat4t:’Attractions’, feat4d:’UNESCO, NPS, Wikivoyage, Geoapify — découvrez à proximité avec lecture vocale. Tampon auto à l’arrivée par GPS.’,
-      insightsTitle:'À quoi ressemblent <span class="grad-purple">3 951 jours</span><br>d’enregistrement.',
-      insightsDesc:'L’onglet Insights compte discrètement chaque empreinte, chaque photo et chaque minute en mouvement. Cartes thermiques, rythmes mensuels, mix de transport, top des villes — tout calculé en direct sur l’appareil.',
-      ucTitle:'Pour tous ceux<br>qui <span class="grad">bougent</span>.',
-      uc1tag:'ROAD TRIPPERS', uc1t:'Traversée du pays, cinéma.', uc1d:'Enregistrez des routes épiques. Générez un highlight reel avec arrêts panoramiques et photos en bord de route. Filmé par votre téléphone, mis en musique par la route.', uc1meta:'◉ TRAJET MOYEN · 8,2 H · 612 KM',
-      uc2tag:'MARCHEURS & CYCLISTES', uc2t:'Replays avec télémétrie.', uc2d:'Marches, randos, sorties vélo, courses — courbes de vitesse, profil d’élévation, le moment où les jambes lâchent. Un carnet de coach, en cinématique.', uc2meta:'◉ VITESSE MAX · 47,3 KM/H',
-      uc3tag:'COLLECTIONNEURS DU MONDE', uc3t:'Un passeport vérifié par GPS.', uc3d:'Découvrez les sites UNESCO, joyaux cachés, trésors NPS. Tampon automatique dès que le GPS franchit le seuil. Construisez votre passeport de voyage.', uc3meta:'◉ 142 TAMPONS · 22 PAYS',
-      uc4tag:'VOYAGEURS D’AFFAIRES', uc4t:'Voyages, proprement consignés.', uc4d:'Chaque trajet avec horodatage, distance, arrêts. Exportez pour les notes de frais — ou pour le simple plaisir de se souvenir d’un aéroport.', uc4meta:'◉ 36 ITINÉRAIRES · 412 JOURS',
-      howTitle:'Quatre étapes simples.',
-      step1t:'Tap pour commencer, ou laissez l’auto-record s’en occuper.', step1d:'Le GPS suit en arrière-plan tous les 3 m. Verrouillez, changez d’app — l’enregistrement continue. Distance, durée, points en direct.',
-      step2t:'Cherchez les attractions à proximité.', step2d:'UNESCO, Wikivoyage, NPS, Geoapify — dédupliqués et fusionnés. Sauvegardez vos cibles, recevez le tampon à l’arrivée par vérification GPS.',
-      step3t:'Regardez votre voyage prendre vie.', step3d:'Survol 3D cinématique avec caméra fluide, vos photos aux points GPS exacts, fiches d’arrêt avec lieu et durée. Vitesse 0,5×–3×.',
-      step4t:'Exportez. Légendez. Publiez.', step4d:'Sortie vidéo HD. Légende auto-générée avec ville, météo, saison, lieux. Recadrée pour toutes les plateformes — TikTok, Reels, Stories, WeChat.',
-      privTitle:'Vos voyages<br>restent sur votre <span class="green">appareil</span>.',
-      privDesc:'Pas de compte. Pas de cloud. Pas d’analytique. PathReel ne collecte, ne stocke ni ne transmet vos données personnelles — jamais. Les sauvegardes iCloud Drive vous appartiennent.',
-      docsTitle:'Premiers pas.',
-      doc1t:'Localisation « Toujours autoriser » + Photos complètes.', doc1d:'Nécessaire pour l’enregistrement GPS en arrière-plan et l’association photo-trajet. PathReel ne fonctionne pas en mode « Lors de l’utilisation » — l’enregistrement se met en pause si l’app passe en arrière-plan.',
-      doc2t:'Démarrer, verrouiller, marcher, arrêter.', doc2d:'Choisissez le mode de transport (voiture, vélo, à pied, etc.) → tap Démarrer. Verrouillez le téléphone, changez d’apps librement. La distance se met à jour tous les 3 m. Tap Arrêter à la fin — auto check-in dans les 200 m de cibles enregistrées.',
-      doc3t:'Géofence autour de la maison.', doc3d:'Définissez la position de votre domicile et un rayon (10–500 m). PathReel démarre automatiquement à votre départ, s’arrête automatiquement au retour pendant ≥ 3 min. Notifications iPhone + Apple Watch.',
-      doc4t:'Survol 3D avec commandes.', doc4d:'Une caméra cinématique suit l’itinéraire. Les photos zooment. Les arrêts affichent nom du lieu et durée. Vitesse (1×/2×/3×), hauteur de caméra (0,5×–3×) et style de carte (satellite/standard) ajustables.',
-      doc5t:'Vidéo HD + légende automatique.', doc5d:'Replay → tap Exporter. Génère une vidéo HD avec toutes les photos, arrêts, notes et une légende automatique (ville, météo, saison, lieux). 9:16 pour la verticale, 16:9 pour YouTube.',
-      doc6t:'iCloud + fichiers .pathreel.', doc6d:'Sauvegarde automatique sur iCloud Drive après chaque trajet. Nouveau iPhone ? La restauration est automatique. Ou exportez toute la bibliothèque en un seul fichier .pathreel via le menu de partage.',
-      fullDocsBtn:'DOCS COMPLETS', fullDocsBtnClose:'FERMER LES DOCS',
-      contactTitle:'Prenez <span class="grad">contact</span>.',
-      contactDesc:'Questions, retours, partenariats — fait par des voyageurs, pour des voyageurs. Nous lisons chaque email, dans n’importe laquelle des 16 langues.',
-      footTitle:'Prêt ?', footDesc:'Capturez votre prochain voyage. Rendez-le inoubliable.',
-    };
 
-    langs.de = {
-      navFeatures:'Funktionen', navShowcase:'Demo', navStats:'Daten', navDocs:'Docs', navContact:'Kontakt', navDownload:'↓ Für iOS laden',
-      heroLine1:'Andere Apps zeichnen Daten auf.', heroLine2:'PathReel zeichnet Fußabdrücke auf.',
-      heroSub:'Ein Globus aus jedem Schritt, den du gegangen bist — 142.800 Fußabdrücke, 76 Städte, 9 Länder, 3.951 Tage. Die Karte unten ist echt. Zum Drehen ziehen.',
-      pill1Title:'Ein Tap. Geh, wohin du willst.', pill1Body:'Hintergrund-GPS mit 3-m-Genauigkeit. Telefon sperren, Apps wechseln — die Aufnahme läuft weiter. Oder richte einen Geofence ein und nimm jedes Mal automatisch auf, wenn du das Haus verlässt.', pill1Meta:'Manuell + Auto · 3-m-Sampling',
-      pill2Title:'Jede Tour als Film abspielen.', pill2Body:'3D-Überflug mit weicher Kamera, Fotos automatisch an den GPS-Punkten, Stop-Karten mit Ort & Dauer. Als HD-Video exportieren oder per Tap zu Reels teilen.', pill2Meta:'Tokio → Shibuya · 14,2 km · 30-s-Film',
-      pill3Title:'Deine Reisen, in Zahlen.', pill3Body:'Heatmaps der Orte, an denen du wirklich warst. Monatliche Rhythmen. Verkehrsverteilung — Auto, Gehen, Rad, Bahn. Gesamtzahl Länder, Städte, Fußabdrücke, aufgezeichnete Tage.', pill3Meta:'9 Länder · 76 Städte · 142,8K Fußabdrücke',
-      pill4Title:'Ein Pass, der sich per GPS bestätigt.', pill4Body:'UNESCO, NPS, Wikivoyage, Geoapify — entdecke Ziele in der Nähe und erhalte den Stempel automatisch, sobald dein GPS die Schwelle überschreitet. Kein manuelles Check-in.', pill4Meta:'+2 UNESCO diese Woche',
-      btnGetApp:'↓ Im App Store laden', btnStartRec:'Aufnahme starten', btnDownloadFooter:'↓ Für iOS laden',
-      statCountries:'Länder', statCities:'Städte', statFootprints:'Fußabdrücke',
-      appStatesTitle:'Ruhend, dann lebendig.',
-      appStatesDesc:'Der Startbildschirm hat zwei Gesichter. <strong style="color:#C857FF;">Ruhend</strong> zeigt deine Lebensbilanz — Länder, Städte, Fußabdrücke — über einer Heatmap der Orte, an denen du warst. <strong style="color:#FF4747;">Aufnahme</strong> ist derselbe Bildschirm, aber das GPS läuft live und die Fußabdrücke steigen in Echtzeit.',
-      app1t:'Ein Tap zum Start, Telefon sperren', app1d:'Hintergrundortung läuft weiter, während du Apps wechselst oder das Telefon einsteckst.',
-      app2t:'3-m-Sampling, 0,5 % Akku / Stunde', app2d:'Aggressive Filterung auf dem Gerät — kaum Akkuverbrauch an langen Tagen.',
-      app3t:'Navi-Aufnahme', app3d:'Fahrtrichtung oben, grüner Punkt live. Auto-Start beim Verlassen, Auto-Stopp bei Rückkehr.',
-      photoTitle:'Foto- und<br>Fußabdruck-Karte',
-      photoDesc:'Jedes Foto und jede GPS-Spur auf einem echten 3D-Globus. Rauszoomen für Cluster, reinzoomen für Thumbnails, wischen für die Galerie — alles ohne die Karte zu verlassen.',
-      photo1t:'Dynamisches Clustering', photo1d:'Pins verschmelzen beim Rauszoomen, fächern sich beim Reinzoomen zu Thumbnails auf.',
-      photo2t:'Foto- und Video-Vorschau', photo2d:'Tippe auf ein beliebiges Thumbnail für Vollauflösung, EXIF und Aufnahmezeit.',
-      photo3t:'Wisch-Galerie', photo3d:'Horizontal durch alle Fotos einer Stadt oder Reise blättern.',
-      trackerTitle:'Länder- &amp; Städte-<span class="grad">Tracker</span>',
-      trackerDesc:'Jedes Land und jede Stadt, die du besucht hast, automatisch erkannt aus deinem GPS-Verlauf. Foto-Fußabdrücke und Routen-Fußabdrücke werden separat geführt — kein manuelles Loggen.',
-      featTitle:'Record. Trips. Insights. Attractions.',
-      featDesc:'Die untere Navigation hat vier Tabs. Das ist das gesamte Produkt. Jeder Bildschirm, jede Interaktion lebt unter einem davon.',
-      feat1t:'Record', feat1d:'Hintergrund-GPS mit 3-m-Genauigkeit. Sperren, App wechseln — die Aufnahme läuft weiter. Manuell oder per Geofence automatisch starten.',
-      feat2t:'Trips', feat2d:'Jede aufgezeichnete Route, automatisch segmentiert. Als 3D-Überflug abspielen, als HD-Video exportieren oder per Tap zu Reels teilen.',
-      feat3t:'Insights', feat3d:'Heatmaps, monatliche Rhythmen, Verkehrsverteilungen. Route- + Foto-Fußabdrücke farblich sortiert. Länder, Städte, Tage — alles auf dem Gerät.',
-      feat4t:'Attractions', feat4d:'UNESCO, NPS, Wikivoyage, Geoapify — in der Nähe entdecken mit Vorlesen. Automatisch stempeln bei Ankunft per GPS.',
-      insightsTitle:'So sehen <span class="grad-purple">3.951 Tage</span><br>Aufzeichnung aus.',
-      insightsDesc:'Der Insights-Tab zählt leise jeden Fußabdruck, jedes Foto und jede Minute in Bewegung. Heatmaps, monatliche Rhythmen, Verkehrsmix, Top-Städte — alles live auf dem Gerät berechnet.',
-      ucTitle:'Gemacht für alle,<br>die sich <span class="grad">bewegen</span>.',
-      uc1tag:'ROAD TRIPPERS', uc1t:'Quer durchs Land, kinoreif.', uc1d:'Nimm epische Fahrten auf. Erstelle ein Highlight-Reel mit Aussichts-Stopps und Straßenfotos. Vom Telefon gefilmt, von der Straße vertont.', uc1meta:'◉ Ø TOUR · 8,2 H · 612 KM',
-      uc2tag:'WANDERER & RADFAHRER', uc2t:'Replays mit Telemetrie.', uc2d:'Spaziergänge, Wanderungen, Touren, Rennen — Geschwindigkeitskurven, Höhenprofil, der Moment, in dem die Beine aufgaben. Das Notizbuch eines Coaches — kinoreif.', uc2meta:'◉ MAX · 47,3 KM/H',
-      uc3tag:'WELTSAMMLER', uc3t:'Ein Pass, GPS-verifiziert.', uc3d:'Entdecke UNESCO-Stätten, versteckte Schätze, NPS-Highlights. Stempel automatisch, sobald das GPS die Schwelle überschreitet. Bau deinen Reisepass.', uc3meta:'◉ 142 STEMPEL · 22 LÄNDER',
-      uc4tag:'GESCHÄFTSREISENDE', uc4t:'Reisen, sauber protokolliert.', uc4d:'Jede Tour mit Zeitstempeln, Distanzen, Stopps. Für Spesenabrechnungen exportieren — oder einfach, um sich an einen Flughafen zu erinnern.', uc4meta:'◉ 36 ROUTEN · 412 TAGE',
-      howTitle:'Vier einfache Schritte.',
-      step1t:'Tap zum Start, oder Auto-Aufnahme übernehmen lassen.', step1d:'GPS verfolgt im Hintergrund, alle 3 m. Sperren, App wechseln — die Aufnahme läuft weiter. Distanz, Dauer, Punktanzahl in Echtzeit.',
-      step2t:'Suche Attraktionen in der Nähe.', step2d:'UNESCO, Wikivoyage, NPS, Geoapify — dedupliziert und zusammengeführt. Ziele speichern, bei Ankunft per GPS-Verifizierung gestempelt werden.',
-      step3t:'Schau zu, wie deine Reise zum Leben erwacht.', step3d:'Kinoreifer 3D-Überflug mit weicher Kamera, deine Fotos genau an den GPS-Punkten, Stop-Karten mit Ort und Dauer. Tempo 0,5×–3×.',
-      step4t:'Exportieren. Beschriften. Posten.', step4d:'HD-Video raus. Auto-Bildunterschrift mit Stadt, Wetter, Saison, Orten. Für jede Plattform zugeschnitten — TikTok, Reels, Stories, WeChat.',
-      privTitle:'Deine Reise<br>bleibt auf deinem <span class="green">Gerät</span>.',
-      privDesc:'Kein Konto. Keine Cloud. Keine Analytik. PathReel sammelt, speichert oder überträgt deine persönlichen Daten nicht — niemals. iCloud-Drive-Backups gehören dir allein.',
-      docsTitle:'Erste Schritte.',
-      doc1t:'Standort „Immer erlauben" + Fotos „Vollzugriff".', doc1d:'Erforderlich für Hintergrund-GPS-Aufnahme und Foto-Routen-Zuordnung. PathReel funktioniert nicht im „Beim Verwenden"-Modus — die Aufnahme pausiert, sobald die App in den Hintergrund geht.',
-      doc2t:'Starten, sperren, gehen, stoppen.', doc2d:'Wähle den Verkehrsmodus (Auto, Rad, Fuß usw.) → Start tippen. Sperre das Telefon, wechsle Apps frei. Distanz aktualisiert alle 3 m. Stop tippen am Ende — Auto-Check-in scannt 200 m um gespeicherte Ziele.',
-      doc3t:'Geofence rund ums Zuhause.', doc3d:'Lege deine Heimadresse und einen Radius (10–500 m) fest. PathReel startet automatisch beim Verlassen, stoppt automatisch beim Rückkehr für ≥ 3 Min. Benachrichtigungen auf iPhone + Apple Watch.',
-      doc4t:'3D-Überflug mit Steuerung.', doc4d:'Eine kinoreife Kamera folgt der Route. Fotos zoomen rein. Stopps zeigen Ortsname und Dauer. Tempo (1×/2×/3×), Kamerahöhe (0,5×–3×) und Kartenstil (Satellit/Standard) verstellbar.',
-      doc5t:'HD-Video + Auto-Beschriftung.', doc5d:'Replay → Export tippen. Erzeugt ein HD-Video mit allen Fotos, Stopps, Notizen und einer automatischen Bildunterschrift (Stadt, Wetter, Saison, Orte). 9:16 vertikal, 16:9 für YouTube.',
-      doc6t:'iCloud + .pathreel-Dateien.', doc6d:'Auto-Backup auf iCloud Drive nach jeder Tour. Neues iPhone? Wiederherstellung erfolgt automatisch. Oder exportiere die gesamte Bibliothek als eine .pathreel-Datei über das Teilen-Menü.',
-      fullDocsBtn:'VOLLSTÄNDIGE DOCS', fullDocsBtnClose:'DOCS SCHLIESSEN',
-      contactTitle:'Nimm <span class="grad">Kontakt</span> auf.',
-      contactDesc:'Fragen, Feedback, Partnerschaften — gemacht von Reisenden, für Reisende. Wir lesen jede E-Mail, in jeder der 16 Sprachen.',
-      footTitle:'Bereit?', footDesc:'Halt deine nächste Reise fest. Mach sie unvergesslich.',
-    };
-    langs.pt = { navFeatures:'Recursos', navShowcase:'Demo', navStats:'Dados', navDocs:'Docs', navContact:'Contato', navDownload:'↓ Baixar para iOS',
-      heroLine1:'Outros apps gravam dados.', heroLine2:'PathReel grava pegadas.',
-      heroSub:'Um globo de cada passo que você deu — 142.800 pegadas, 76 cidades, 9 países, 3.951 dias. O mapa abaixo é real. Arraste para girar.',
-      btnGetApp:'↓ Baixar na App Store', btnStartRec:'Iniciar', btnDownloadFooter:'↓ Baixar para iOS',
-      statCountries:'Países', statCities:'Cidades', statFootprints:'Pegadas',
-    };
-    langs.ru = { navFeatures:'Функции', navShowcase:'Демо', navStats:'Данные', navDocs:'Документы', navContact:'Контакт', navDownload:'↓ Скачать для iOS',
-      heroLine1:'Другие приложения записывают данные.', heroLine2:'PathReel записывает следы.',
-      heroSub:'Глобус каждого вашего шага — 142 800 следов, 76 городов, 9 стран, 3 951 день. Карта ниже настоящая. Вращайте.',
-      btnGetApp:'↓ Скачать в App Store', btnStartRec:'Запись', btnDownloadFooter:'↓ Скачать для iOS',
-      statCountries:'Страны', statCities:'Города', statFootprints:'Следы',
-    };
-    langs.ar = { navFeatures:'الميزات', navShowcase:'عرض', navStats:'بيانات', navDocs:'المستندات', navContact:'اتصل', navDownload:'↓ تحميل لـ iOS',
-      heroLine1:'التطبيقات الأخرى تسجل البيانات.', heroLine2:'PathReel يسجل الخطوات.',
-      heroSub:'كرة أرضية لكل خطوة خطوتها — 142,800 أثر، 76 مدينة، 9 دول، 3,951 يومًا. الخريطة أدناه حقيقية. اسحب للدوران.',
-      btnGetApp:'↓ تحميل من App Store', btnStartRec:'بدء التسجيل', btnDownloadFooter:'↓ تحميل لـ iOS',
-      statCountries:'الدول', statCities:'المدن', statFootprints:'الخطوات',
-    };
-    langs.hi = { navFeatures:'सुविधाएं', navShowcase:'डेमो', navStats:'डेटा', navDocs:'डॉक्स', navContact:'संपर्क', navDownload:'↓ iOS के लिए डाउनलोड',
-      heroLine1:'दूसरे ऐप्स डेटा रिकॉर्ड करते हैं।', heroLine2:'PathReel पदचिह्न रिकॉर्ड करता है।',
-      heroSub:'आपके हर कदम का एक ग्लोब — 142,800 पदचिह्न, 76 शहर, 9 देश, 3,951 दिन। नीचे का नक्शा असली है। घुमाने के लिए खींचें।',
-      btnGetApp:'↓ App Store से डाउनलोड', btnStartRec:'रिकॉर्ड शुरू', btnDownloadFooter:'↓ iOS के लिए डाउनलोड',
-      statCountries:'देश', statCities:'शहर', statFootprints:'पदचिह्न',
-    };
-    langs.it = { navFeatures:'Funzionalità', navShowcase:'Demo', navStats:'Dati', navDocs:'Docs', navContact:'Contatto', navDownload:'↓ Scarica per iOS',
-      heroLine1:'Altre app registrano dati.', heroLine2:'PathReel registra impronte.',
-      heroSub:'Un globo di ogni passo che hai fatto — 142.800 impronte, 76 città, 9 paesi, 3.951 giorni. La mappa sotto è reale. Trascina per ruotare.',
-      btnGetApp:'↓ Scarica dall\'App Store', btnStartRec:'Avvia', btnDownloadFooter:'↓ Scarica per iOS',
-      statCountries:'Paesi', statCities:'Città', statFootprints:'Impronte',
-    };
-    langs.tr = { navFeatures:'Özellikler', navShowcase:'Demo', navStats:'Veri', navDocs:'Belgeler', navContact:'İletişim', navDownload:'↓ iOS için indir',
-      heroLine1:'Diğer uygulamalar veri kaydeder.', heroLine2:'PathReel ayak izi kaydeder.',
-      heroSub:'Attığın her adımın küresi — 142.800 ayak izi, 76 şehir, 9 ülke, 3.951 gün. Aşağıdaki harita gerçek. Döndürmek için sürükle.',
-      btnGetApp:'↓ App Store\'dan indir', btnStartRec:'Kayda başla', btnDownloadFooter:'↓ iOS için indir',
-      statCountries:'Ülke', statCities:'Şehir', statFootprints:'Ayak izi',
-    };
-    langs.th = { navFeatures:'ฟีเจอร์', navShowcase:'เดโม', navStats:'ข้อมูล', navDocs:'เอกสาร', navContact:'ติดต่อ', navDownload:'↓ ดาวน์โหลด iOS',
-      heroLine1:'แอปอื่นบันทึกข้อมูล', heroLine2:'PathReel บันทึกรอยเท้า',
-      heroSub:'ลูกโลกของทุกก้าวที่คุณเดิน — รอยเท้า 142,800 รอย 76 เมือง 9 ประเทศ 3,951 วัน แผนที่ด้านล่างของจริง ลากเพื่อหมุน',
-      btnGetApp:'↓ ดาวน์โหลดบน App Store', btnStartRec:'เริ่มบันทึก', btnDownloadFooter:'↓ ดาวน์โหลด iOS',
-      statCountries:'ประเทศ', statCities:'เมือง', statFootprints:'รอยเท้า',
-    };
-    langs.vi = { navFeatures:'Tính năng', navShowcase:'Demo', navStats:'Dữ liệu', navDocs:'Tài liệu', navContact:'Liên hệ', navDownload:'↓ Tải cho iOS',
-      heroLine1:'Ứng dụng khác ghi lại dữ liệu.', heroLine2:'PathReel ghi lại dấu chân.',
-      heroSub:'Quả cầu của từng bước chân bạn đi — 142.800 dấu chân, 76 thành phố, 9 quốc gia, 3.951 ngày. Bản đồ bên dưới là thật. Kéo để xoay.',
-      btnGetApp:'↓ Tải từ App Store', btnStartRec:'Bắt đầu', btnDownloadFooter:'↓ Tải cho iOS',
-      statCountries:'Quốc gia', statCities:'Thành phố', statFootprints:'Dấu chân',
-    };
 
-    const langNames = { en:'🇺🇸 English', zh:'🇨🇳 简体中文', 'zh-TW':'🇹🇼 繁體中文', fr:'🇫🇷 Français', es:'🇪🇸 Español', ja:'🇯🇵 日本語', ko:'🇰🇷 한국어', de:'🇩🇪 Deutsch', pt:'🇧🇷 Português', ru:'🇷🇺 Русский', ar:'🇸🇦 العربية', hi:'🇮🇳 हिन्दी', it:'🇮🇹 Italiano', tr:'🇹🇷 Türkçe', th:'🇹🇭 ไทย', vi:'🇻🇳 Tiếng Việt' };
+    const langNames = { en:'🇺🇸 English', zh:'🇨🇳 简体中文', 'zh-TW':'🇹🇼 繁體中文', ja:'🇯🇵 日本語', ko:'🇰🇷 한국어', es:'🇪🇸 Español' };
 
     function detectLang() {
       const saved = localStorage.getItem('pathreel-lang');
