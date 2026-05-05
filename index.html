@@ -585,6 +585,15 @@
     .features-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
     }
+    /* Demo videos — 16:9 desktop, 9:16 mobile (Shorts native) */
+    .shorts-frame {
+      position: relative; padding-bottom: 56.25%; height: 0;
+      overflow: hidden; border-radius: 12px; background: #1B2D45;
+    }
+    .shorts-frame iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+    @media (max-width: 700px) { .shorts-frame { padding-bottom: 177.78%; } }
     .feat-card {
       padding: 28px; border-radius: 18px; position: relative; overflow: hidden;
       background: linear-gradient(160deg, rgba(200,87,255,0.06), rgba(255,255,255,0.01));
@@ -1496,26 +1505,26 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto;" class="fade-in">
         <div>
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/z3_S6h-gOxs" allowfullscreen></iframe>
+          <div class="shorts-frame">
+            <iframe src="https://www.youtube.com/embed/z3_S6h-gOxs?playsinline=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">🚴 Bike Ride</p>
         </div>
         <div>
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/HlBKiiXPLsk" allowfullscreen></iframe>
+          <div class="shorts-frame">
+            <iframe src="https://www.youtube.com/embed/HlBKiiXPLsk?playsinline=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">✈️ Flight</p>
         </div>
         <div>
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/TzMmYH6E-0s" allowfullscreen></iframe>
+          <div class="shorts-frame">
+            <iframe src="https://www.youtube.com/embed/TzMmYH6E-0s?playsinline=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">🛥️ Boat</p>
         </div>
         <div>
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#1B2D45;">
-            <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/CZrifV9fB-k" allowfullscreen></iframe>
+          <div class="shorts-frame">
+            <iframe src="https://www.youtube.com/embed/CZrifV9fB-k?playsinline=1&modestbranding=1&rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <p style="color:var(--silver);font-size:13px;margin-top:8px;text-align:center;">🚶 Walking</p>
         </div>
