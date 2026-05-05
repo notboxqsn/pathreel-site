@@ -1405,35 +1405,35 @@
   <section>
     <div class="container">
       <div class="fade-in" style="margin-bottom:40px;">
-        <span class="eyebrow mono" style="color:var(--cyan);">★ NEW IN v2.3</span>
-        <h2 class="section-title">Every Mode. <span class="grad">One Film.</span></h2>
-        <p class="section-desc">9 transport modes, Apple Health import, phase editor, and a real-time camera studio. Your trips just got cinematic.</p>
+        <span class="eyebrow mono" style="color:var(--cyan);" data-i18n="v23Eye">★ NEW IN v2.3</span>
+        <h2 class="section-title" data-i18n="v23Title">Every Mode. <span class="grad">One Film.</span></h2>
+        <p class="section-desc" data-i18n="v23Desc">9 transport modes, Apple Health import, phase editor, and a real-time camera studio. Your trips just got cinematic.</p>
       </div>
 
       <div class="features-grid fade-in">
         <article class="feat-card">
           <span class="new-badge mono">NEW</span>
           <span class="feat-card-tag mono">✈️ 🚢 🚗 🚶</span>
-          <h3>9 Transport Modes</h3>
-          <p>Walk, run, bike, car, motorcycle, boat, train, flight, hybrid. Each with its own camera — flight soars at cruise altitude, boat adjusts by port distance, car follows from behind.</p>
+          <h3 data-i18n="v23a_t">9 Transport Modes</h3>
+          <p data-i18n="v23a_d">Walk, run, bike, car, motorcycle, boat, train, flight, hybrid. Each with its own camera — flight soars at cruise altitude, boat adjusts by port distance, car follows from behind.</p>
         </article>
         <article class="feat-card">
           <span class="new-badge mono">NEW</span>
           <span class="feat-card-tag mono">🎬 PHASE</span>
-          <h3>Phase Editor</h3>
-          <p>Split trips into segments, assign modes, adjust replay time per phase. Give 30% to post-flight drive, 50% to the cruise. Full-screen editor with GPS map.</p>
+          <h3 data-i18n="v23b_t">Phase Editor</h3>
+          <p data-i18n="v23b_d">Split trips into segments, assign modes, adjust replay time per phase. Give 30% to post-flight drive, 50% to the cruise. Full-screen editor with GPS map.</p>
         </article>
         <article class="feat-card">
           <span class="new-badge mono">NEW</span>
           <span class="feat-card-tag mono">❤️ HEALTH</span>
-          <h3>Apple Health Import</h3>
-          <p>Auto-import workout routes from Apple Watch or Strava. Walking, running, cycling — all become replayable trips. Silent background sync on every launch.</p>
+          <h3 data-i18n="v23c_t">Apple Health Import</h3>
+          <p data-i18n="v23c_d">Auto-import workout routes from Apple Watch or Strava. Walking, running, cycling — all become replayable trips. Silent background sync on every launch.</p>
         </article>
         <article class="feat-card">
           <span class="new-badge mono">NEW</span>
           <span class="feat-card-tag mono">📹 STUDIO</span>
-          <h3>Camera Control Studio</h3>
-          <p>Real-time eye distance and pitch sliders. Save presets per mode. Switch god view and follow view. WYSIWYG — drag to the perfect angle, save it for next time.</p>
+          <h3 data-i18n="v23d_t">Camera Control Studio</h3>
+          <p data-i18n="v23d_d">Real-time eye distance and pitch sliders. Save presets per mode. Switch god view and follow view. WYSIWYG — drag to the perfect angle, save it for next time.</p>
         </article>
       </div>
     </div>
@@ -1443,9 +1443,9 @@
   <section>
     <div class="container">
       <div class="fade-in" style="max-width:800px;margin:0 auto;text-align:center;">
-        <span class="eyebrow mono" style="color:var(--green);">❤️ APPLE HEALTH · YEARS OF MEMORIES</span>
-        <h2 class="section-title" style="margin-bottom:24px;">Your Apple Watch already<br>recorded <span class="grad">everything.</span></h2>
-        <p class="section-desc" style="margin-bottom:40px;">Every morning run, every weekend hike, every cycling commute — your Apple Watch or Strava has been quietly logging GPS routes for years. PathReel imports them all in one tap and turns each one into a replayable cinematic trip.</p>
+        <span class="eyebrow mono" style="color:var(--green);" data-i18n="healthEye">❤️ APPLE HEALTH · YEARS OF MEMORIES</span>
+        <h2 class="section-title" style="margin-bottom:24px;" data-i18n="healthHero">Your Apple Watch already<br>recorded <span class="grad">everything.</span></h2>
+        <p class="section-desc" style="margin-bottom:40px;" data-i18n="healthHeroDesc">Every morning run, every weekend hike, every cycling commute — your Apple Watch or Strava has been quietly logging GPS routes for years. PathReel imports them all in one tap and turns each one into a replayable cinematic trip.</p>
       </div>
 
       <div class="features-grid fade-in" style="max-width:1180px;margin:0 auto;">
@@ -1490,9 +1490,9 @@
   <section id="demos">
     <div class="container">
       <div class="fade-in" style="text-align:center;margin-bottom:40px;">
-        <span class="eyebrow mono" style="color:var(--cyan);">▶ WATCH IN ACTION</span>
-        <h2 class="section-title">See PathReel <span class="grad">Live</span></h2>
-        <p class="section-desc">Real trips, real replays. Every video was exported directly from PathReel.</p>
+        <span class="eyebrow mono" style="color:var(--cyan);" data-i18n="demosEye">▶ WATCH IN ACTION</span>
+        <h2 class="section-title" data-i18n="demosTitle">See PathReel <span class="grad">Live</span></h2>
+        <p class="section-desc" data-i18n="demosDesc">Real trips, real replays. Every video was exported directly from PathReel.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto;" class="fade-in">
         <div>
@@ -2120,7 +2120,8 @@
 
     // ============== i18n ==============
     const HTML_KEYS = new Set([
-      'heroLine1','heroLine2','photoTitle','trackerTitle','featTitle','insightsTitle','ucTitle','privTitle','contactTitle','footTitle','appStatesDesc','docsBody'
+      'heroLine1','heroLine2','photoTitle','trackerTitle','featTitle','insightsTitle','ucTitle','privTitle','contactTitle','footTitle','appStatesDesc','docsBody',
+      'v23Title','healthHero','demosTitle'
     ]);
 
     const langs = {
@@ -2185,6 +2186,16 @@
         health2t:'Instant Replays', health2d:"That half-marathon in Barcelona? That sunrise hike in Banff? They're all trips now. Play them back in 3D, export as video, share the memory.",
         health3t:'Always In Sync', health3d:'New workouts auto-import every time you open the app. No buttons, no reminders. Your fitness life flows into your travel map.',
         health4t:'Relive Your Routine', health4d:"Keep using Strava, Apple Watch, Nike Run Club — whatever powers your fitness life. PathReel doesn't replace your tracker. It becomes the place where every workout turns into a cinematic memory you can replay.",
+        v23Eye:'★ NEW IN v2.3', v23Title:'Every Mode. <span class="grad">One Film.</span>',
+        v23Desc:'9 transport modes, Apple Health import, phase editor, and a real-time camera studio. Your trips just got cinematic.',
+        v23a_t:'9 Transport Modes', v23a_d:'Walk, run, bike, car, motorcycle, boat, train, flight, hybrid. Each with its own camera — flight soars at cruise altitude, boat adjusts by port distance, car follows from behind.',
+        v23b_t:'Phase Editor', v23b_d:'Split trips into segments, assign modes, adjust replay time per phase. Give 30% to post-flight drive, 50% to the cruise. Full-screen editor with GPS map.',
+        v23c_t:'Apple Health Import', v23c_d:'Auto-import workout routes from Apple Watch or Strava. Walking, running, cycling — all become replayable trips. Silent background sync on every launch.',
+        v23d_t:'Camera Control Studio', v23d_d:'Real-time eye distance and pitch sliders. Save presets per mode. Switch god view and follow view. WYSIWYG — drag to the perfect angle, save it for next time.',
+        healthEye:'❤️ APPLE HEALTH · YEARS OF MEMORIES', healthHero:'Your Apple Watch already<br>recorded <span class="grad">everything.</span>',
+        healthHeroDesc:'Every morning run, every weekend hike, every cycling commute — your Apple Watch or Strava has been quietly logging GPS routes for years. PathReel imports them all in one tap and turns each one into a replayable cinematic trip.',
+        demosEye:'▶ WATCH IN ACTION', demosTitle:'See PathReel <span class="grad">Live</span>',
+        demosDesc:'Real trips, real replays. Every video was exported directly from PathReel.',
         fullDocsBtn:'FULL DOCS', fullDocsBtnClose:'CLOSE DOCS',
         contactTitle:'Get in <span class="grad">touch</span>.',
         contactDesc:'Questions, feedback, partnerships — built by travelers, for travelers. We read every email, in any of 16 languages.',
@@ -2251,6 +2262,16 @@
         health2t:'立即重温', health2d:'巴塞罗那那次半马？班夫那次日出徒步？现在都是行程。3D 回放，导出视频，分享记忆。',
         health3t:'始终同步', health3d:'每次打开 app 自动导入新锻炼。无需按钮、无需提醒。你的运动生活，自然汇入你的旅行地图。',
         health4t:'让习惯沉淀为记忆', health4d:'继续用 Strava、Apple Watch、Nike Run Club — 任何你顺手的健身工具。PathReel 不替代它们。它是让每一次锻炼变成可回放的电影记忆的地方。',
+        v23Eye:'★ v2.3 新功能', v23Title:'任何方式。<span class="grad">一部电影。</span>',
+        v23Desc:'9 种交通模式、Apple Health 导入、阶段编辑器、实时相机工作室。你的行程，电影感拉满。',
+        v23a_t:'9 种交通模式', v23a_d:'步行、跑步、自行车、汽车、摩托、轮船、火车、飞行、混合。每种自带专属镜头 — 飞行巡航高度，轮船按港口距离调整，汽车在后方跟拍。',
+        v23b_t:'阶段编辑器', v23b_d:'把行程切分成多段、为每段指定模式、调整每段回放时长。给落地后的车程 30%，给游轮 50%。全屏编辑器配 GPS 地图。',
+        v23c_t:'Apple Health 导入', v23c_d:'自动导入 Apple Watch 或 Strava 的锻炼路线。步行、跑步、骑行 — 全部变成可回放的行程。每次打开 app 静默后台同步。',
+        v23d_t:'相机控制工作室', v23d_d:'实时调整视距与俯仰。每种模式可保存预设。上帝视角与跟随视角随意切换。所见即所得 — 拖到完美角度，下次直接调用。',
+        healthEye:'❤️ APPLE HEALTH · 多年记忆', healthHero:'你的 Apple Watch<br>早已<span class="grad">记录一切。</span>',
+        healthHeroDesc:'每个清晨的跑步，每个周末的徒步，每次骑行通勤 — 你的 Apple Watch 或 Strava 静静记录了多年的 GPS 路线。PathReel 一键全部导入，把每一段变成可回放的电影行程。',
+        demosEye:'▶ 实战演示', demosTitle:'看 PathReel <span class="grad">真实运行</span>',
+        demosDesc:'真实行程、真实回放。每个视频都是从 PathReel 直接导出。',
         fullDocsBtn:'完整文档', fullDocsBtnClose:'收起文档',
         docsBody:'<h3>权限</h3><p>PathReel 需要两项权限：</p><ul><li><strong>定位（始终允许）</strong> — 后台 GPS 录制所必需。锁屏、切换 app 时也能高精度记录。设置 &gt; PathReel &gt; 定位 &gt; 始终。</li><li><strong>照片图库（完全访问）</strong> — 用于将照片匹配到路线和保存导出视频。</li></ul><h3>录制行程</h3><p>在"记录"页面选择交通方式（车、摩托、自行车、步行、跑步、船、火车），点击<strong>"开始记录"</strong>。PathReel 使用高精度 GPS（每 3 米一次）。</p><ul><li>锁屏、切换 app、揣口袋 — 后台持续运行。</li><li>地图跟随行进方向 — 前进方向始终朝上。</li><li>距离、时长、轨迹点实时更新。</li><li>交通图标自动切换 — 驾驶低于 8 km/h 显示步行图标。</li><li>沿途拍照 — 回放时自动出现在路线上。</li><li>点击<strong>"停止记录"</strong>确认。PathReel 自动扫描 200 米范围内的打卡目标。</li></ul><h3>行程详情</h3><p><strong>"行程"</strong>页面列出所有录制。点击查看：</p><ul><li>卫星或标准地图上的完整路线。</li><li>时间线：起点、照片、停留、终点。</li><li>点击照片查看大图。</li><li>长按时间线条目添加备注。</li><li>长按行程卡片可编辑名称、说明，或删除（需生物认证）。</li></ul><h3>路线回放</h3><p>行程详情页点击<strong>"回放路线"</strong>，3D 电影级飞行回放：</p><ul><li>镜头实时跟随路线，俯仰与朝向匹配前进方向。</li><li>路线经过照片位置时自动放大，显示图片、地址、POI 名称。</li><li>停留卡片显示场所、地址、时长。</li><li>右上角罗盘；左上角时钟、距离、速度。</li><li><strong>速度控制</strong> — 1×/2×/3×。所有点都渲染，仅帧间隔变化。</li><li><strong>镜头高度</strong> — 0.5×–3×。高看全景，低看细节。</li><li><strong>地图样式</strong> — 卫星/标准切换。</li><li>结尾 5 秒缩放至完整路线全景。</li></ul><h3>导出视频</h3><p>回放时点击<strong>导出</strong>。PathReel 重新运行路线并捕获每一帧为高质量 HD 视频。</p><ul><li><strong>复制文案并分享</strong> — 自动文案（城市、天气、温度、地点、季节、时段）复制到剪贴板，系统分享面板打开视频。</li><li><strong>仅分享视频</strong> — 直接打开分享面板，无文案。</li></ul><p>文案基于实际行程数据 — 起止城市（反向地理编码）、Open-Meteo 天气、关键停留等。每次随机选择不同模板。</p><h3>行程组</h3><p>将多个行程归入一组 — 适合多日旅行或主题合集。</p><ul><li>"行程"页面 → <strong>"行程组"</strong> → <strong>"+ 新建组"</strong>。输入名称（必需）+ 可选备注。</li><li>点击组，使用<strong>"添加行程"</strong>多选。</li><li>一个行程可属于多个组。删除组不会删除行程。</li><li>长按组内行程移除。长按组卡片编辑/删除。</li><li><strong>组播放时长</strong> — 每组独立设置（默认 60 秒）。点击修改（1–300 秒）。</li><li>点击<strong>"回放路线"</strong>顺序播放所有行程，行程间平滑缩放过渡。</li></ul><h3>洞察</h3><p><strong>"洞察"</strong>页面显示旅行统计：</p><ul><li>总距离、行驶时间、平均速度。</li><li>记录：最长行程、最高速度。</li><li>所有去过地点的热力图 — 点击探索。</li><li>按 7 天、30 天、全部时间筛选。</li></ul><h3>景点发现</h3><p><strong>"景点"</strong>页面搜索附近兴趣点：</p><ul><li><strong>数据源</strong> — UNESCO、Wikivoyage、美国国家公园、Geoapify。结果自动去重合并。</li><li><strong>搜索中心</strong> — GPS 定位、长按地图、或搜索地址。</li><li><strong>搜索半径</strong> — 1–50 公里滑块。</li><li><strong>查看详情</strong> — 通过 Wikidata 语言链接查找你的语言版 Wikipedia；否则自动生成多语言介绍。图片来自 Wikidata 或 Wikipedia 地理搜索。</li><li><strong>语音朗读</strong> — "听"按钮自动选择最佳语音（Siri &gt; Enhanced &gt; Default），自动检测文本语言。</li><li><strong>添加打卡</strong> — ⭐ 保存为打卡目标。</li><li><strong>自定义地点</strong> — 输入名称地址添加，或在打卡地图长按。可选类别（咖啡、餐厅、朋友、历史、纪念、其他）和备注。</li></ul><h3>景点打卡</h3><p>切换到<strong>"我的打卡"</strong>管理旅行护照：</p><ul><li><strong>统计卡片</strong> — UNESCO、精选、本地、我的地点。点击筛选。</li><li><strong>地图</strong> — 已访问目标用等级颜色标注 ✅；未访问灰色。点击标记可见 200 米自动 + 500 米手动圈。</li><li><strong>手动打卡</strong> — 500 米外灰色禁用，范围内绿色可点。点击触发 GPS 二次验证。</li><li><strong>自动打卡</strong> — 行程结束扫描所有 GPS 点，200 米内自动标记为已访问。</li><li><strong>详情</strong> — 已访问记录显示迷你地图（景点 + 打卡位置）、距离、方式（自动 / 手动）、时间戳、等级、说明、备注、附近照片（1 公里内、±1 小时）。</li><li><strong>删除</strong> — 长按未访问目标 2 秒删除。已访问记录已锁定。</li></ul><h3>设置</h3><h4>外观</h4><ul><li><strong>日间 / 夜间</strong> — 所有界面、弹窗、地图、导出视频跟随主题。</li><li><strong>语言</strong> — 16 种语言。首次启动自动检测设备语言。界面、景点描述、TTS 语音、分享文案均适配。</li></ul><h4>回放</h4><ul><li><strong>照片显示</strong> — 0.5–10 秒，默认 1.5 秒。</li><li><strong>停留显示</strong> — 0.5–10 秒，默认 2 秒。</li><li><strong>最短停留</strong> — 1–60 分钟，默认 10 分钟。过滤红绿灯、短暂停留。</li><li><strong>行程时长</strong> — 5–300 秒，默认 30 秒。PathReel 均匀分布所有点。</li></ul><h4>自动录制（iOS）</h4><ul><li><strong>总开关</strong> — iOS 区域监控围绕家的位置；后台或 app 关闭时也能工作。</li><li><strong>家的位置</strong> — 输入地址，地图显示围栏圆圈确认。</li><li><strong>围栏半径</strong> — 10–500 米，默认 50 米。</li><li><strong>默认交通方式</strong> — 自动录制时使用。</li><li><strong>最小停留</strong> — 1–10 分钟，默认 3 分钟。</li><li><strong>通知</strong> — 手机和 Apple Watch 本地通知，使用所选语言。</li><li><strong>无效行程清理</strong> — 自动录制行程距离小于围栏半径，视为无效自动删除并通知。</li></ul><h4>备份</h4><ul><li><strong>iCloud 自动备份</strong> — 每次行程自动备份；新 iPhone 自动恢复。</li><li><strong>导出全部</strong> — 所有行程、轨迹、组、备注、设置导出为单个 <code>.pathreel</code> 文件。</li><li><strong>导入</strong> — 重复行程自动跳过。</li></ul><h3>提示</h3><ul><li>定位保持"始终允许"以获得最佳精度。"使用期间"会在后台暂停。</li><li>沿途拍照 — 回放时自动出现在正确位置。</li><li>卫星地图模式回放最具电影感。</li><li>9:16 适合竖屏平台，16:9 适合 YouTube。</li><li>访问新城市前先保存景点为目标 — 行进时 PathReel 自动盖章。</li><li>每日通勤启用自动录制 — 无需手动启停。</li><li>所有数据都在你的设备上。无账号、无云端、无追踪。</li></ul><h3>支持的语言</h3><p>English、简体中文、繁體中文、Español、Français、العربية、Português、Русский、日本語、한국어、Deutsch、हिन्दी、Italiano、Türkçe、ไทย、Tiếng Việt</p><h3>联系</h3><p>问题？<a href="mailto:support@pathreel.com">support@pathreel.com</a></p>',
         contactTitle:'保持<span class="grad">联系</span>。',
@@ -2314,6 +2335,16 @@
       health2t:'立即重溫', health2d:'巴塞隆納那次半馬？班夫那次日出健行？現在都是行程。3D 回放，匯出影片，分享回憶。',
       health3t:'始終同步', health3d:'每次打開 app 自動匯入新運動。無需按鈕、無需提醒。你的運動生活，自然匯入你的旅行地圖。',
       health4t:'讓習慣沉澱為回憶', health4d:'繼續用 Strava、Apple Watch、Nike Run Club — 任何你順手的健身工具。PathReel 不取代它們。它是讓每一次運動變成可回放的電影回憶的地方。',
+      v23Eye:'★ v2.3 新功能', v23Title:'任何方式。<span class="grad">一部電影。</span>',
+      v23Desc:'9 種交通模式、Apple Health 匯入、階段編輯器、即時相機工作室。你的行程，電影感拉滿。',
+      v23a_t:'9 種交通模式', v23a_d:'步行、跑步、單車、汽車、摩托、輪船、火車、飛行、混合。每種自帶專屬鏡頭 — 飛行巡航高度，輪船按港口距離調整，汽車在後方跟拍。',
+      v23b_t:'階段編輯器', v23b_d:'把行程切分成多段、為每段指定模式、調整每段回放時長。給落地後的車程 30%，給遊輪 50%。全螢幕編輯器配 GPS 地圖。',
+      v23c_t:'Apple Health 匯入', v23c_d:'自動匯入 Apple Watch 或 Strava 的運動路線。步行、跑步、騎行 — 全部變成可回放的行程。每次打開 app 靜默背景同步。',
+      v23d_t:'相機控制工作室', v23d_d:'即時調整視距與俯仰。每種模式可儲存預設。上帝視角與跟隨視角隨意切換。所見即所得 — 拖到完美角度，下次直接調用。',
+      healthEye:'❤️ APPLE HEALTH · 多年回憶', healthHero:'你的 Apple Watch<br>早已<span class="grad">記錄一切。</span>',
+      healthHeroDesc:'每個清晨的跑步，每個週末的健行，每次騎行通勤 — 你的 Apple Watch 或 Strava 靜靜記錄了多年的 GPS 路線。PathReel 一鍵全部匯入，把每一段變成可回放的電影行程。',
+      demosEye:'▶ 實戰演示', demosTitle:'看 PathReel <span class="grad">真實運行</span>',
+      demosDesc:'真實行程、真實回放。每個影片都是從 PathReel 直接匯出。',
       fullDocsBtn:'完整文件', fullDocsBtnClose:'收合文件',
       contactTitle:'保持<span class="grad">聯絡</span>。',
       contactDesc:'問題、回饋、合作 — 由旅行者打造，為旅行者所用。我們閱讀每一封郵件，支援 16 種語言。',
@@ -2373,6 +2404,16 @@
       health2t:'すぐに再生', health2d:'バルセロナのハーフマラソン？バンフの日の出ハイク？今や全てトリップ。3D で再生し、動画として書き出し、思い出を共有。',
       health3t:'常に同期', health3d:'アプリを開くたびに新しいワークアウトを自動取り込み。ボタンも通知も不要。あなたのフィットネスが旅行マップへ自然に流れ込む。',
       health4t:'習慣を、思い出に', health4d:'Strava、Apple Watch、Nike Run Club — お気に入りのフィットネスツールを使い続けて OK。PathReel はトラッカーを置き換えません。それは、毎回のワークアウトを再生できる映画的な思い出に変える場所です。',
+      v23Eye:'★ v2.3 新機能', v23Title:'あらゆる移動。<span class="grad">ひとつの映画。</span>',
+      v23Desc:'9 種類の交通モード、Apple Health 取り込み、フェーズエディタ、リアルタイムカメラスタジオ。あなたのトリップが映画になる。',
+      v23a_t:'9 種類の交通モード', v23a_d:'ウォーク、ラン、バイク、車、モーターバイク、船、電車、フライト、ハイブリッド。それぞれ専用カメラ — フライトは巡航高度、船は港との距離で調整、車は後ろから追跡。',
+      v23b_t:'フェーズエディタ', v23b_d:'トリップをセグメントに分割、モードを割り当て、各フェーズの再生時間を調整。着陸後のドライブに 30%、クルーズに 50%。GPS マップ付きフルスクリーン編集。',
+      v23c_t:'Apple Health 取り込み', v23c_d:'Apple Watch や Strava のワークアウトルートを自動取り込み。ウォーキング、ランニング、サイクリング — すべて再生可能なトリップに。アプリ起動ごとに静かに同期。',
+      v23d_t:'カメラコントロールスタジオ', v23d_d:'アイディスタンスとピッチをリアルタイム調整。モードごとにプリセット保存。神視点とフォロー視点を切替。WYSIWYG — 完璧な角度にドラッグして保存。',
+      healthEye:'❤️ APPLE HEALTH · 何年もの思い出', healthHero:'あなたの Apple Watch は<br>すでに<span class="grad">すべてを記録している。</span>',
+      healthHeroDesc:'毎朝のラン、週末のハイク、自転車通勤 — あなたの Apple Watch や Strava は何年も静かに GPS ルートを記録してきた。PathReel はそれを 1 タップでまとめて取り込み、それぞれを再生可能な映画的トリップへ。',
+      demosEye:'▶ アクション中', demosTitle:'PathReel を <span class="grad">ライブ</span>で',
+      demosDesc:'本物のトリップ、本物のリプレイ。すべての動画は PathReel から直接書き出されたもの。',
       fullDocsBtn:'完全ドキュメント', fullDocsBtnClose:'ドキュメントを閉じる',
       contactTitle:'お<span class="grad">問い合わせ</span>。',
       contactDesc:'質問、フィードバック、パートナーシップ — 旅人による、旅人のための。16 言語のいずれでも、すべてのメールに目を通します。',
@@ -2432,6 +2473,16 @@
       health2t:'즉시 리플레이', health2d:'바르셀로나 하프 마라톤? 밴프 일출 하이킹? 이제 다 트립. 3D로 재생하고, 영상으로 내보내고, 추억을 공유하세요.',
       health3t:'항상 동기화', health3d:'앱을 열 때마다 새 운동이 자동으로 들어옵니다. 버튼도 알림도 필요 없음. 운동 일상이 여행 지도에 자연스럽게 흘러듭니다.',
       health4t:'습관을 추억으로', health4d:'Strava, Apple Watch, Nike Run Club — 익숙한 피트니스 도구를 계속 사용하세요. PathReel은 트래커를 대체하지 않습니다. 모든 운동이 다시 재생할 수 있는 영화 같은 추억으로 변하는 곳입니다.',
+      v23Eye:'★ v2.3 새 기능', v23Title:'모든 이동. <span class="grad">한 편의 영화.</span>',
+      v23Desc:'9 가지 교통 모드, Apple Health 가져오기, 페이즈 에디터, 실시간 카메라 스튜디오. 당신의 여행이 영화가 됩니다.',
+      v23a_t:'9 가지 교통 모드', v23a_d:'걷기, 달리기, 자전거, 자동차, 오토바이, 보트, 기차, 비행, 하이브리드. 각자 전용 카메라 — 비행은 순항 고도, 보트는 항구 거리로 조정, 자동차는 뒤에서 따라잡기.',
+      v23b_t:'페이즈 에디터', v23b_d:'여행을 구간으로 분할, 각 구간에 모드 할당, 페이즈별 재생 시간 조정. 착륙 후 드라이브에 30%, 크루즈에 50%. GPS 지도 있는 전체화면 에디터.',
+      v23c_t:'Apple Health 가져오기', v23c_d:'Apple Watch 또는 Strava의 운동 경로 자동 가져오기. 걷기, 달리기, 사이클링 — 모두 재생 가능한 여행으로 변환. 앱 실행 시마다 무음 백그라운드 동기화.',
+      v23d_t:'카메라 컨트롤 스튜디오', v23d_d:'실시간 시선 거리와 피치 슬라이더. 모드별 프리셋 저장. 신 시점과 팔로우 시점 전환. WYSIWYG — 완벽한 각도로 드래그, 다음에 바로 사용.',
+      healthEye:'❤️ APPLE HEALTH · 수년간의 추억', healthHero:'당신의 Apple Watch는<br>이미 <span class="grad">모든 것을 기록했다.</span>',
+      healthHeroDesc:'매일 아침의 달리기, 매주 주말의 등산, 매일의 자전거 통근 — 당신의 Apple Watch 또는 Strava는 수년 동안 조용히 GPS 경로를 기록해 왔습니다. PathReel은 한 번의 탭으로 그것을 모두 가져와, 각각을 재생 가능한 영화 같은 여행으로 만듭니다.',
+      demosEye:'▶ 실전 데모', demosTitle:'PathReel을 <span class="grad">라이브</span>로',
+      demosDesc:'진짜 여행, 진짜 리플레이. 모든 영상은 PathReel에서 바로 내보냈습니다.',
       fullDocsBtn:'전체 문서', fullDocsBtnClose:'문서 닫기',
       contactTitle:'<span class="grad">연락</span>주세요.',
       contactDesc:'질문, 피드백, 파트너십 — 여행자가 만든, 여행자를 위한. 16개 언어 중 어느 언어로든 모든 이메일을 읽습니다.',
@@ -2491,6 +2542,16 @@
       health2t:'Repeticiones instantáneas', health2d:'¿Esa media maratón en Barcelona? ¿Esa caminata al amanecer en Banff? Ahora son viajes. Reprodúcelos en 3D, exporta como video, comparte el recuerdo.',
       health3t:'Siempre sincronizado', health3d:'Los entrenamientos nuevos se importan cada vez que abres la app. Sin botones, sin recordatorios. Tu vida deportiva fluye a tu mapa de viajes.',
       health4t:'Revive tu rutina', health4d:'Sigue usando Strava, Apple Watch, Nike Run Club — lo que sea que impulse tu vida deportiva. PathReel no reemplaza tu rastreador. Se convierte en el lugar donde cada entrenamiento se transforma en un recuerdo cinematográfico que puedes reproducir.',
+      v23Eye:'★ NUEVO EN v2.3', v23Title:'Cada modo. <span class="grad">Una sola película.</span>',
+      v23Desc:'9 modos de transporte, importación de Apple Health, editor de fases y estudio de cámara en tiempo real. Tus viajes acaban de volverse cinematográficos.',
+      v23a_t:'9 modos de transporte', v23a_d:'Caminar, correr, bici, coche, moto, barco, tren, vuelo, híbrido. Cada uno con su propia cámara — el vuelo navega en altitud de crucero, el barco se ajusta según la distancia al puerto, el coche sigue desde atrás.',
+      v23b_t:'Editor de fases', v23b_d:'Divide los viajes en segmentos, asigna modos, ajusta el tiempo de reproducción por fase. Da el 30% al trayecto en coche posterior al vuelo, el 50% al crucero. Editor a pantalla completa con mapa GPS.',
+      v23c_t:'Importación de Apple Health', v23c_d:'Importa automáticamente rutas de entrenamiento de Apple Watch o Strava. Caminar, correr, ciclismo — todo se convierte en viajes reproducibles. Sincronización silenciosa en segundo plano cada vez que abres la app.',
+      v23d_t:'Estudio de control de cámara', v23d_d:'Sliders de distancia y ángulo en tiempo real. Guarda presets por modo. Cambia entre vista divina y vista de seguimiento. WYSIWYG — arrastra al ángulo perfecto, guárdalo para la próxima.',
+      healthEye:'❤️ APPLE HEALTH · AÑOS DE RECUERDOS', healthHero:'Tu Apple Watch ya<br>lo <span class="grad">grabó todo.</span>',
+      healthHeroDesc:'Cada carrera matutina, cada caminata de fin de semana, cada trayecto en bici al trabajo — tu Apple Watch o Strava ha estado registrando rutas GPS en silencio durante años. PathReel los importa todos en un solo toque y convierte cada uno en un viaje cinematográfico reproducible.',
+      demosEye:'▶ EN ACCIÓN', demosTitle:'Mira PathReel <span class="grad">en vivo</span>',
+      demosDesc:'Viajes reales, repeticiones reales. Cada video se exportó directamente desde PathReel.',
       fullDocsBtn:'DOCS COMPLETOS', fullDocsBtnClose:'CERRAR DOCS',
       contactTitle:'Ponte en <span class="grad">contacto</span>.',
       contactDesc:'Preguntas, comentarios, alianzas — hecho por viajeros, para viajeros. Leemos cada email, en cualquiera de los 16 idiomas.',
