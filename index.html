@@ -470,6 +470,16 @@
     letter-spacing: 0.5px;
     color: var(--cyan);
   }
+  .privacy-link {
+    display: inline-block;
+    margin-top: 32px;
+    font-size: 14px;
+    color: var(--cyan);
+    border-bottom: 1px solid rgba(0,212,255,0.4);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .privacy-link:hover { opacity: 0.8; }
 
   /* ─── FINAL CTA ──────────────────────────────────── */
   .final-cta { text-align: center; padding: 140px 40px 100px; }
@@ -874,6 +884,7 @@
         <span class="privacy-pill" data-i18n="pv.p3">✓ No ads, ever</span>
         <span class="privacy-pill" data-i18n="pv.p4">✓ No data sold</span>
       </div>
+      <a href="/privacy.html" class="privacy-link" data-i18n="pv.full">Read the full Privacy Policy →</a>
     </div>
   </div>
 </section>
@@ -890,7 +901,7 @@
 
 <footer>
   <div class="links">
-    <a href="#privacy" data-i18n="footer.privacy">Privacy</a>
+    <a href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
     <a href="mailto:support@pathreel.com">support@pathreel.com</a>
     <a href="#" data-i18n="footer.press">Press Kit</a>
     <span data-i18n="footer.langs">14 languages</span>
@@ -972,6 +983,7 @@ const STR = {
     'pv.title':'Your data <span class="grad-cyan">stays yours</span>.',
     'pv.body':'No ads. No tracking. No selling your memories. Everything PathReel touches lives on your device. iCloud sync is end-to-end encrypted — only you hold the key.',
     'pv.p1':'✓ Local-first','pv.p2':'✓ End-to-end encrypted','pv.p3':'✓ No ads, ever','pv.p4':'✓ No data sold',
+    'pv.full':'Read the full Privacy Policy →',
     'fcta.title':'See <span class="grad-cyan">how far</span> life has taken you.',
     'fcta.cta1':'Download for iPhone','fcta.cta2':'Start Your First Journey',
     'footer.privacy':'Privacy','footer.press':'Press Kit','footer.langs':'5 languages','footer.copy':'© 2026 PathReel · A private digital memory atlas',
@@ -1013,6 +1025,7 @@ const STR = {
     'pv.title':'你的数据<span class="grad-cyan">永远属于你</span>。',
     'pv.body':'没有广告。没有追踪。绝不出售你的记忆。一切 PathReel 接触的数据都留在你的设备上。iCloud 同步端到端加密 —— 只有你拥有钥匙。',
     'pv.p1':'✓ 本地优先','pv.p2':'✓ 端到端加密','pv.p3':'✓ 永无广告','pv.p4':'✓ 绝不出售数据',
+    'pv.full':'查看完整隐私政策 →',
     'fcta.title':'看看人生把你<span class="grad-cyan">带到了多远</span>。',
     'fcta.cta1':'下载 iPhone 版','fcta.cta2':'开始你的第一段旅程',
     'footer.privacy':'隐私政策','footer.press':'媒体资源','footer.langs':'5 种语言','footer.copy':'© 2026 PathReel · 私人数字记忆地图',
@@ -1054,6 +1067,7 @@ const STR = {
     'pv.title':'你的資料<span class="grad-cyan">永遠屬於你</span>。',
     'pv.body':'沒有廣告。沒有追蹤。絕不出售你的記憶。一切 PathReel 接觸的資料都留在你的裝置上。iCloud 同步端對端加密 —— 只有你擁有鑰匙。',
     'pv.p1':'✓ 本地優先','pv.p2':'✓ 端對端加密','pv.p3':'✓ 永無廣告','pv.p4':'✓ 絕不出售資料',
+    'pv.full':'查看完整隱私政策 →',
     'fcta.title':'看看人生把你<span class="grad-cyan">帶到了多遠</span>。',
     'fcta.cta1':'下載 iPhone 版','fcta.cta2':'開始你的第一段旅程',
     'footer.privacy':'隱私政策','footer.press':'媒體資源','footer.langs':'5 種語言','footer.copy':'© 2026 PathReel · 私人數位記憶地圖',
@@ -1095,6 +1109,7 @@ const STR = {
     'pv.title':'あなたのデータは<span class="grad-cyan">あなたのまま</span>。',
     'pv.body':'広告なし。追跡なし。記憶を売ることもない。PathReel が触れるすべてはあなたの端末にあります。iCloud 同期は端末間暗号化 — 鍵はあなただけが持つ。',
     'pv.p1':'✓ ローカル優先','pv.p2':'✓ 端末間暗号化','pv.p3':'✓ 広告なし','pv.p4':'✓ データ販売なし',
+    'pv.full':'プライバシーポリシー全文を読む →',
     'fcta.title':'人生が<span class="grad-cyan">どこまで連れて行ったか</span>を見てみよう。',
     'fcta.cta1':'iPhone 版をダウンロード','fcta.cta2':'最初の旅を始める',
     'footer.privacy':'プライバシー','footer.press':'プレスキット','footer.langs':'5 言語','footer.copy':'© 2026 PathReel · プライベートな記憶のアトラス',
@@ -1136,6 +1151,7 @@ const STR = {
     'pv.title':'당신의 데이터는 <span class="grad-cyan">당신의 것</span>으로 남습니다.',
     'pv.body':'광고 없음. 추적 없음. 추억을 팔지 않음. PathReel이 만지는 모든 것은 당신의 기기에 있습니다. iCloud 동기화는 종단 간 암호화 — 키는 당신만 가집니다.',
     'pv.p1':'✓ 로컬 우선','pv.p2':'✓ 종단 간 암호화','pv.p3':'✓ 광고 절대 없음','pv.p4':'✓ 데이터 판매 없음',
+    'pv.full':'전체 개인정보 처리방침 보기 →',
     'fcta.title':'인생이 당신을 <span class="grad-cyan">얼마나 멀리</span> 데려갔는지 보세요.',
     'fcta.cta1':'iPhone 다운로드','fcta.cta2':'첫 여정을 시작',
     'footer.privacy':'개인정보','footer.press':'프레스 키트','footer.langs':'5개 언어','footer.copy':'© 2026 PathReel · 사적인 디지털 기억 지도',

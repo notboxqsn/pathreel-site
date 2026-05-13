@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — PathReel</title>
+  <meta name="description" content="PathReel is built so your data stays on your device. This page describes exactly what the app collects, where it lives, and how to delete it.">
+  <link rel="canonical" href="https://pathreel.com/privacy.html">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #06080F;
+      --ink: #E8ECF5;
+      --ink-2: rgba(255,255,255,0.78);
+      --ink-3: rgba(255,255,255,0.5);
+      --rule: rgba(255,255,255,0.08);
+      --cyan: #7DDFFF;
+      --purple: #C857FF;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 1200px 800px at 20% 10%, rgba(125,223,255,0.08), transparent 60%),
+        radial-gradient(ellipse 1000px 700px at 80% 90%, rgba(200,87,255,0.06), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,8,15,0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+    }
+    nav .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; }
+    nav .logo img { width: 28px; height: 28px; border-radius: 7px; }
+    nav .back {
+      padding: 8px 16px; font-size: 13px; color: var(--ink-3);
+      border-radius: 999px;
+      border: 1px solid var(--rule);
+      transition: all 0.2s;
+    }
+    nav .back:hover { color: var(--cyan); border-color: rgba(125,223,255,0.3); }
+
+    main {
+      position: relative; z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 24px 100px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 900;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .meta {
+      color: var(--ink-3);
+      font-size: 14px;
+      margin-bottom: 48px;
+    }
+    .intro {
+      padding: 22px 24px;
+      background: linear-gradient(180deg, rgba(125,223,255,0.06), rgba(125,223,255,0.01));
+      border: 1px solid rgba(125,223,255,0.18);
+      border-radius: 16px;
+      margin-bottom: 56px;
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    section { margin-top: 48px; }
+    section h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
+    }
+    section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      color: var(--cyan);
+    }
+    section p {
+      color: var(--ink-2);
+      font-size: 15.5px;
+      margin-bottom: 14px;
+    }
+    section ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 14px;
+    }
+    section ul li {
+      color: var(--ink-2);
+      font-size: 15.5px;
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      opacity: 0.5;
+    }
+    section a {
+      color: var(--cyan);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(125,223,255,0.4);
+    }
+    section code {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13.5px;
+      font-family: ui-monospace, 'SF Mono', monospace;
+    }
+    .contact-cta {
+      margin-top: 64px;
+      padding: 32px 28px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(125,223,255,0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(125,223,255,0.18);
+      border-radius: 22px;
+    }
+    .contact-cta h3 {
+      font-size: 18px; font-weight: 800; margin-bottom: 8px; color: var(--ink);
+    }
+    .contact-cta p { color: var(--ink-2); font-size: 14px; margin-bottom: 18px; }
+    .contact-btn {
+      display: inline-block;
+      padding: 13px 28px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff !important; font-weight: 700; font-size: 14px;
+      border-radius: 999px;
+    }
+
+    footer {
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--ink-3);
+      font-size: 13px;
+      border-top: 1px solid var(--rule);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--ink-3); margin: 0 10px; }
+    footer a:hover { color: var(--cyan); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <img src="icon.png" alt="PathReel">
+    <span>PathReel</span>
+  </a>
+  <a href="/" class="back">← Home</a>
+</nav>
+
+<main>
+  <h1>Privacy <span class="accent">Policy</span></h1>
+  <p class="meta">Effective May 12, 2026 · Last updated May 12, 2026</p>
+
+  <div class="intro">
+    PathReel is built on a simple idea: your memories belong to you. The app records your trips, imports your photos, and reads your workouts entirely on your device. There is no PathReel server. There are no accounts. There is no analytics SDK watching you. This page describes exactly what the app does and does not do with your data.
+  </div>
+
+  <section>
+    <h2>1. What PathReel Collects</h2>
+    <p>PathReel only ever accesses data you explicitly grant permission for, and only for the purpose of building your personal journey atlas. We collect the following <strong>on your device</strong>:</p>
+
+    <h3>Location</h3>
+    <ul>
+      <li>GPS coordinates, speed, altitude, and timestamps — while you are actively recording a trip, or when an enabled geofence detects you have left home.</li>
+      <li>Background location (the iOS "Always" permission) is required only to keep recording when the screen is off. You may use the app with "While Using" permission, but trips will pause when the app is backgrounded.</li>
+    </ul>
+
+    <h3>Photos</h3>
+    <ul>
+      <li>Photo metadata (timestamp, GPS coordinates, dimensions) — read from your iOS Photos library to match photos to your routes.</li>
+      <li>Photo thumbnails are loaded into the app for display. <strong>Photos are never uploaded anywhere.</strong></li>
+    </ul>
+
+    <h3>Apple Health (HealthKit)</h3>
+    <ul>
+      <li>With your permission, PathReel reads workout routes (running, cycling, walking, hiking, etc.) from HealthKit to import as PathReel trips.</li>
+      <li>PathReel only <strong>reads</strong> from HealthKit. It never writes to your health data.</li>
+    </ul>
+
+    <h3>App Preferences</h3>
+    <ul>
+      <li>Settings you configure (units, language, recording defaults, group names) are saved in a local SQLite database within the app sandbox.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. What PathReel Does Not Collect</h2>
+    <ul>
+      <li>No account, email, phone number, or password — PathReel has no login.</li>
+      <li>No analytics. No usage tracking. No crash reporting SDK.</li>
+      <li>No advertising IDs (IDFA / IDFV are not read).</li>
+      <li>No cross-app or cross-site tracking. The app's <code>NSPrivacyTracking</code> flag is set to <code>false</code>.</li>
+      <li>No contacts, calendar, microphone, or camera access.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. Where Your Data Lives</h2>
+
+    <h3>On Your Device</h3>
+    <p>All trip data, photos thumbnails, settings, and workout imports are stored in a SQLite database inside the PathReel app sandbox on your iPhone. This data is governed by iOS Data Protection and is encrypted at rest while your device is locked.</p>
+
+    <h3>iCloud (Optional)</h3>
+    <p>If you enable iCloud sync in Settings, your trip database is backed up to your personal iCloud Drive container. This is end-to-end encrypted by Apple. PathReel cannot read this data and Apple cannot decrypt it. Disabling iCloud sync stops new backups and removing the app from iCloud is described in section 6 below.</p>
+
+    <h3>PathReel Servers</h3>
+    <p>There are none. PathReel does not operate any server that receives, stores, or processes your data. The app makes no network requests other than:</p>
+    <ul>
+      <li>Fetching map tiles from Apple Maps when you view a trip.</li>
+      <li>Fetching attraction information from Wikipedia, UNESCO, and similar public sources when you tap to see details about a place. These requests contain only the coordinates of the place you tapped, not any identifying information about you.</li>
+      <li>Optional update checks against the App Store.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. Third Parties</h2>
+    <p>PathReel uses no third-party data-collection SDKs. There is no Firebase, AdMob, Crashlytics, Amplitude, Segment, Mixpanel, Sentry, Facebook SDK, or similar in this app.</p>
+    <p>The app does interact with the following <strong>Apple-provided system frameworks</strong> on your device, governed by Apple's own privacy policy:</p>
+    <ul>
+      <li><strong>HealthKit</strong> — to read workout routes you grant access to.</li>
+      <li><strong>Photos / PhotoKit</strong> — to read photo metadata for trip matching.</li>
+      <li><strong>Core Location</strong> — to record GPS while a trip is active.</li>
+      <li><strong>MapKit</strong> — to render maps inside the app.</li>
+      <li><strong>iCloud Drive</strong> — for optional end-to-end encrypted sync.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. How Your Data Is Used</h2>
+    <ul>
+      <li>To display your trips on a map and globe.</li>
+      <li>To generate cinematic 3D video replays of your routes.</li>
+      <li>To compute statistics (countries visited, distance traveled, etc.) for your eyes only.</li>
+      <li>To match photos to trips by timestamp and location.</li>
+    </ul>
+    <p>Your data is <strong>never</strong> used for advertising, profiling, sold to any party, or shared with anyone — because it never leaves your device in the first place.</p>
+  </section>
+
+  <section>
+    <h2>6. Data Retention and Deletion</h2>
+
+    <h3>Delete a Single Trip</h3>
+    <p>Open the Trips tab → long-press any trip → Delete. This permanently removes the trip and its associated track points from your device.</p>
+
+    <h3>Delete All PathReel Data</h3>
+    <p>Uninstall PathReel from your iPhone (long-press the app icon → Remove App → Delete App). iOS wipes the entire app sandbox, including the SQLite database and all cached data.</p>
+
+    <h3>Delete iCloud Backups</h3>
+    <p>iOS Settings → tap your Apple ID at the top → iCloud → Manage Account Storage → PathReel → Delete Data. This permanently removes the iCloud backup. Apple's privacy policy governs the deletion timeline.</p>
+
+    <h3>Export Your Data</h3>
+    <p>Settings tab → Export Data exports a JSON file containing every trip, point, and group you've recorded. You can store this wherever you wish — Files app, iCloud Drive, email, etc. This is portable and re-importable.</p>
+
+    <h3>Revoke Permissions</h3>
+    <p>iOS Settings → PathReel → here you can revoke Location, Photos, and Health permissions independently at any time. Revoking a permission immediately stops PathReel from accessing that data type. Existing already-imported data remains in the app sandbox until you delete it as described above.</p>
+  </section>
+
+  <section>
+    <h2>7. Children's Privacy</h2>
+    <p>PathReel is not directed at children under 13 and we do not knowingly collect data from minors. As described above, the app does not collect personally identifiable information from anyone. If you are a parent or guardian and have concerns, please contact us using the address below.</p>
+  </section>
+
+  <section>
+    <h2>8. Changes to This Policy</h2>
+    <p>If our data practices change, we will update this page and update the "Last updated" date at the top. Material changes will be noted in the app's release notes on the App Store. We will not retroactively change how previously-collected data is used.</p>
+  </section>
+
+  <section>
+    <h2>9. Contact</h2>
+    <p>PathReel is built and maintained by a small independent developer. Email <a href="mailto:support@pathreel.com">support@pathreel.com</a> with any privacy question, deletion request, or concern. We aim to respond within a few business days.</p>
+  </section>
+
+  <div class="contact-cta">
+    <h3>Still have a question?</h3>
+    <p>We read every email and reply personally.</p>
+    <a href="mailto:support@pathreel.com" class="contact-btn">Email support@pathreel.com</a>
+  </div>
+</main>
+
+<footer>
+  <div>
+    <a href="/">Home</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="mailto:support@pathreel.com">support@pathreel.com</a>
+  </div>
+  <div style="margin-top: 12px;">© 2026 PathReel · A private digital memory atlas</div>
+</footer>
+
+</body>
+</html>
