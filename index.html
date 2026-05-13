@@ -780,10 +780,10 @@
       <h2 class="section-title" data-i18n="fp.title" data-i18n-html>Every step you've <span class="grad-cyan">ever taken</span>.</h2>
       <p class="section-sub" data-i18n="fp.sub">See every country visited, every city explored, and every mile you've run, walked, biked, or driven — laid onto a beautiful living globe.</p>
       <div class="stats-grid">
-        <div class="stat"><div class="stat-v">22</div><div class="stat-k" data-i18n="fp.s1">Countries</div></div>
-        <div class="stat"><div class="stat-v">76</div><div class="stat-k" data-i18n="fp.s2">Cities</div></div>
-        <div class="stat"><div class="stat-v">142.8K</div><div class="stat-k" data-i18n="fp.s3">Footprints</div></div>
-        <div class="stat"><div class="stat-v">3,951</div><div class="stat-k" data-i18n="fp.s4">Days tracked</div></div>
+        <div class="stat"><div class="stat-v" data-i18n="fp.every">Every</div><div class="stat-k" data-i18n="fp.s1">Country</div></div>
+        <div class="stat"><div class="stat-v" data-i18n="fp.every">Every</div><div class="stat-k" data-i18n="fp.s2">City</div></div>
+        <div class="stat"><div class="stat-v" data-i18n="fp.every">Every</div><div class="stat-k" data-i18n="fp.s3">Mile</div></div>
+        <div class="stat"><div class="stat-v" data-i18n="fp.every">Every</div><div class="stat-k" data-i18n="fp.s4">Day</div></div>
       </div>
     </div>
     <div class="footprints-viz">
@@ -960,7 +960,7 @@ const STR = {
     'fp.eyebrow':'Your Footprints on Earth',
     'fp.title':"Every step you've <span class=\"grad-cyan\">ever taken</span>.",
     'fp.sub':"See every country visited, every city explored, and every mile you've run, walked, biked, or driven — laid onto a beautiful living globe.",
-    'fp.s1':'Countries','fp.s2':'Cities','fp.s3':'Footprints','fp.s4':'Days tracked',
+    'fp.every':'Every','fp.s1':'Country','fp.s2':'City','fp.s3':'Mile','fp.s4':'Day',
     'tg.eyebrow':'Trip Groups',
     'tg.title':'Combine trips into one <span class="grad-cyan">epic journey</span>.',
     'tg.sub':'Group daily walks into a weekend. Group weekends into a road trip. Group years into a life — and replay the whole thing as one cinematic story.',
@@ -1001,7 +1001,7 @@ const STR = {
     'fp.eyebrow':'地球上的足迹',
     'fp.title':'你走过的<span class="grad-cyan">每一步</span>。',
     'fp.sub':'看遍每一个去过的国家、探索过的城市,以及跑过、走过、骑过、开过的每一公里 —— 全部展示在一颗会发光的地球上。',
-    'fp.s1':'国家','fp.s2':'城市','fp.s3':'足迹','fp.s4':'记录天数',
+    'fp.every':'每一','fp.s1':'国家','fp.s2':'城市','fp.s3':'英里','fp.s4':'天',
     'tg.eyebrow':'行程组',
     'tg.title':'多段行程,合成一段<span class="grad-cyan">史诗旅程</span>。',
     'tg.sub':'把每天的散步合成一个周末,把多个周末合成一次公路旅行,把多年合成一生 —— 并把整段当作一部电影回放。',
@@ -1042,7 +1042,7 @@ const STR = {
     'fp.eyebrow':'地球上的足跡',
     'fp.title':'你走過的<span class="grad-cyan">每一步</span>。',
     'fp.sub':'看遍每一個去過的國家、探索過的城市,以及跑過、走過、騎過、開過的每一公里 —— 全部展示在一顆會發光的地球上。',
-    'fp.s1':'國家','fp.s2':'城市','fp.s3':'足跡','fp.s4':'記錄天數',
+    'fp.every':'每一','fp.s1':'國家','fp.s2':'城市','fp.s3':'英里','fp.s4':'天',
     'tg.eyebrow':'行程組',
     'tg.title':'多段行程,合成一段<span class="grad-cyan">史詩旅程</span>。',
     'tg.sub':'把每天的散步合成一個週末,把多個週末合成一次公路旅行,把多年合成一生 —— 並把整段當作一部電影回放。',
@@ -1083,7 +1083,7 @@ const STR = {
     'fp.eyebrow':'地球上の足跡',
     'fp.title':'あなたが<span class="grad-cyan">歩んだすべて</span>。',
     'fp.sub':'訪れたすべての国、歩いたすべての街、走った・歩いた・乗った・運転したすべてのキロ — 美しい生きた地球の上に。',
-    'fp.s1':'国','fp.s2':'都市','fp.s3':'足跡','fp.s4':'記録日数',
+    'fp.every':'すべて','fp.s1':'国','fp.s2':'都市','fp.s3':'マイル','fp.s4':'日',
     'tg.eyebrow':'トリップグループ',
     'tg.title':'複数の旅を一つの<span class="grad-cyan">壮大な旅路</span>に。',
     'tg.sub':'日々の散歩を週末に、週末をロードトリップに、年月を人生に — そしてその全部を一本の映画として再生。',
@@ -1124,7 +1124,7 @@ const STR = {
     'fp.eyebrow':'지구 위의 발자국',
     'fp.title':'당신이 <span class="grad-cyan">걸어온 모든</span> 발걸음.',
     'fp.sub':'방문한 모든 나라, 탐험한 모든 도시, 달리거나 걷거나 자전거를 타거나 운전한 모든 마일 — 살아 있는 아름다운 지구 위에.',
-    'fp.s1':'국가','fp.s2':'도시','fp.s3':'발자국','fp.s4':'기록 일수',
+    'fp.every':'모든','fp.s1':'국가','fp.s2':'도시','fp.s3':'마일','fp.s4':'일',
     'tg.eyebrow':'여행 그룹',
     'tg.title':'여러 여행을 하나의 <span class="grad-cyan">서사적 여정</span>으로.',
     'tg.sub':'매일의 산책을 주말로, 주말을 로드 트립으로, 수년을 인생으로 — 그리고 전체를 한 편의 영화로 재생.',
