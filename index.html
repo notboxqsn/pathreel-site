@@ -321,8 +321,18 @@
     color: var(--ink-3); margin-top: 10px;
   }
   .footprints-viz {
-    aspect-ratio: 1; width: 100%;
+    width: 100%;
     position: relative;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .footprints-screenshot {
+    width: 100%; max-width: 320px;
+    height: auto;
+    border-radius: 36px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.5),
+      0 0 60px rgba(124,92,255,0.25),
+      0 0 24px rgba(0,212,255,0.18);
   }
 
   /* ─── TRIP GROUPS ────────────────────────────────── */
@@ -389,9 +399,9 @@
   }
   .video-bg {
     position: absolute; inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=80&auto=format&fit=crop');
+    background-image: url('why-routes.png');
     background-size: cover; background-position: center;
-    filter: brightness(0.7) saturate(1.05);
+    filter: brightness(0.78) saturate(1.05);
   }
   .video-overlay {
     position: absolute; inset: 0;
@@ -463,6 +473,16 @@
 
   /* ─── FINAL CTA ──────────────────────────────────── */
   .final-cta { text-align: center; padding: 140px 40px 100px; }
+  .final-cta .product-shot {
+    display: block;
+    width: 100%; max-width: 360px;
+    height: auto;
+    margin: 0 auto 56px;
+    border-radius: 28px;
+    box-shadow:
+      0 40px 100px rgba(0,0,0,0.55),
+      0 0 60px rgba(124,92,255,0.2);
+  }
   .final-cta h2 {
     font-size: clamp(40px, 6vw, 72px);
     margin-bottom: 32px; max-width: 20ch;
@@ -767,7 +787,7 @@
       </div>
     </div>
     <div class="footprints-viz">
-      <div class="globe-canvas" id="globeMount2"></div>
+      <img src="screenshot-footprints.png" alt="PathReel app showing footprints on Earth" class="footprints-screenshot" loading="lazy" />
     </div>
   </div>
 </section>
@@ -860,6 +880,7 @@
 
 <!-- 8. FINAL CTA -->
 <section class="final-cta" id="download">
+  <img src="product-shot.png" alt="PathReel app showing a mountain bike route with photo card" class="product-shot" loading="lazy" />
   <h2 data-i18n="fcta.title" data-i18n-html>See <span class="grad-cyan">how far</span> life has taken you.</h2>
   <div class="cta-row" style="justify-content: center;">
     <a href="https://apps.apple.com/app/id6761773065" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="fcta.cta1">Download for iPhone</a>
