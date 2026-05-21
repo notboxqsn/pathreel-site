@@ -190,7 +190,7 @@
 
 <main>
   <h1>Privacy <span class="accent">Policy</span></h1>
-  <p class="meta">Effective May 12, 2026 · Last updated May 12, 2026</p>
+  <p class="meta">Effective May 21, 2026 · Last updated May 21, 2026</p>
 
   <div class="intro">
     PathReel is built on a simple idea: your memories belong to you. The app records your trips, imports your photos, and reads your workouts entirely on your device. There is no PathReel server. There are no accounts. There is no analytics SDK watching you. This page describes exactly what the app does and does not do with your data.
@@ -228,9 +228,8 @@
     <h2>2. What PathReel Does Not Collect</h2>
     <ul>
       <li>No account, email, phone number, or password — PathReel has no login.</li>
-      <li>No analytics. No usage tracking. No crash reporting SDK.</li>
-      <li>No advertising IDs (IDFA / IDFV are not read).</li>
-      <li>No cross-app or cross-site tracking. The app's <code>NSPrivacyTracking</code> flag is set to <code>false</code>.</li>
+      <li>No analytics SDK and no crash reporting SDK from PathReel itself.</li>
+      <li>Your trip GPS data, photos, and workouts are never sent off your device for advertising, profiling, or any other purpose — they are not shared with Google AdMob or anyone else (see section 4 for what AdMob does and does not see).</li>
       <li>No contacts, calendar, microphone, or camera access.</li>
     </ul>
   </section>
@@ -255,14 +254,28 @@
 
   <section>
     <h2>4. Third Parties</h2>
-    <p>PathReel uses no third-party data-collection SDKs. There is no Firebase, AdMob, Crashlytics, Amplitude, Segment, Mixpanel, Sentry, Facebook SDK, or similar in this app.</p>
-    <p>The app does interact with the following <strong>Apple-provided system frameworks</strong> on your device, governed by Apple's own privacy policy:</p>
+
+    <h3>Google AdMob (Advertising)</h3>
+    <p>PathReel displays ads served by Google AdMob to keep the app free. AdMob is provided by Google LLC and operates under Google's privacy policy: <a href="https://policies.google.com/privacy" rel="noopener" target="_blank">https://policies.google.com/privacy</a>. Ad partners may also act under Google's list at <a href="https://support.google.com/admob/answer/9012903" rel="noopener" target="_blank">https://support.google.com/admob/answer/9012903</a>.</p>
+    <p>When you launch the app for the first time, iOS shows an App Tracking Transparency (ATT) prompt asking whether PathReel may track you across other apps and websites to deliver personalized ads:</p>
+    <ul>
+      <li><strong>Allow Tracking</strong> — AdMob may read your iOS Advertising Identifier (IDFA) to serve personalized ads.</li>
+      <li><strong>Ask App Not to Track</strong> — AdMob does not read your IDFA. You will still see ads, but they will not be personalized.</li>
+    </ul>
+    <p>You can change this choice anytime in iOS Settings → PathReel → Allow Tracking. Regardless of your choice, AdMob may collect non-identifying device-level signals (device model, OS version, language, coarse network type, ad-interaction events) as described in Google's privacy policy. PathReel itself does not send any of your trip data, photos, workouts, or names of places you've visited to AdMob.</p>
+
+    <h3>Other SDKs</h3>
+    <p>PathReel uses no other third-party data-collection SDKs. There is no Firebase, Crashlytics, Amplitude, Segment, Mixpanel, Sentry, or Facebook SDK in this app.</p>
+
+    <h3>Apple System Frameworks</h3>
+    <p>The app interacts with the following Apple-provided system frameworks on your device, governed by Apple's own privacy policy:</p>
     <ul>
       <li><strong>HealthKit</strong> — to read workout routes you grant access to.</li>
       <li><strong>Photos / PhotoKit</strong> — to read photo metadata for trip matching.</li>
       <li><strong>Core Location</strong> — to record GPS while a trip is active.</li>
       <li><strong>MapKit</strong> — to render maps inside the app.</li>
       <li><strong>iCloud Drive</strong> — for optional end-to-end encrypted sync.</li>
+      <li><strong>Game Center</strong> — for leaderboard participation.</li>
     </ul>
   </section>
 
@@ -274,7 +287,7 @@
       <li>To compute statistics (countries visited, distance traveled, etc.) for your eyes only.</li>
       <li>To match photos to trips by timestamp and location.</li>
     </ul>
-    <p>Your data is <strong>never</strong> used for advertising, profiling, sold to any party, or shared with anyone — because it never leaves your device in the first place.</p>
+    <p>Your trip data, photos, and workouts <strong>never</strong> leave your device for advertising, profiling, or any other purpose. Only the ad-related signals described under "Google AdMob" in section 4 are read by the AdMob SDK to display ads. PathReel does not sell or share any of your personal data with anyone.</p>
   </section>
 
   <section>
